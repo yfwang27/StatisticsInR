@@ -1,0 +1,29 @@
+---
+title: "Exercise for Session2: Hypothesis Testing and ANOVA"
+author: "MRC Clinical Sciences Centre (http://mrccsc.github.io/)"
+date: "12/July/2016"
+output: html_document
+---
+
+These exercises cover the sections of Statistics in R [Session2: Hypothesis Testing and ANOVA]("../Session2_hypothesis_testing.html").
+
+**Exercise 1**
+
+- Read in the file categoriesAndExpression.txt.
+- How many genes are ofInterest and how many in pathways.
+- What are quantiles of expression overall, in Glycolysis genes and in TGFb genes.
+- How many genes were selected and in glycolysis pathway.
+- Given a normal distibution for the data, what is the probablity of selecting a gene with at least the expression level of "Gene18"
+- Perform a t-test to evaluate the difference between Selected and NotSelected genes and Glycolysis and TGFb pathway.
+
+**Exercise 2**
+
+- Read in the file that we used for the Session 1 exercise Life_expectancy_at_birth.csv.
+- Perform an ANOVA analysis and see whether the mean of life expectancy differs across different areas in the UK.
+
+```{r,echo=F}
+Life_exp<-read.csv("../data/Life_expectancy_at_birth.csv",header=T)
+boxplot(life.expectancy~area,data=Life_exp,las=2, cex.axis=0.6)
+```
+
+

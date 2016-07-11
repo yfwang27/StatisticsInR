@@ -1,0 +1,44 @@
+---
+title: "Answer 1 for Session1: data summary"
+author: "MRC Clinical Sciences Centre (http://mrccsc.github.io/)"
+date: "12/July/2016"
+output: html_document
+---
+
+These exercises cover the sections of Statistics in R [Session2: data summary]("Session1_describe_the_data.md").
+
+**Exercise 1**
+
+- Read in the file Life_expectancy_at_birth.csv.
+```{r,message=T}
+ Life_exp<-read.csv("../data/Life_expectancy_at_birth.csv",header=T)
+```
+- How many males and females in England.
+```{r,message=T}
+ Eng.life.exp<-Life_exp[Life_exp$area=="England",]
+ summary(Eng.life.exp)
+```
+
+- What is the mean of the life.expectancy in area England? What are the mean of the life.expectancy of Males and Females, respectively, in area England?
+```{r,message=T}
+ mean(Eng.life.exp[,"life.expectancy"])
+ mean(Eng.life.exp[Eng.life.exp$gender=="Males","life.expectancy"])
+ mean(Eng.life.exp[Eng.life.exp$gender=="Females","life.expectancy"])
+```
+
+- What are quantiles of life.expectancy in area Wales, N.Ireland, and in Scotland, respectively.
+```{r,message=T}
+ summary(Life_exp[Life_exp$area == "Wales",])
+ summary(Life_exp[Life_exp$area == "N.Ireland",])
+ summary(Life_exp[Life_exp$area == "Scotland",])
+```
+
+**Exercise 2**
+
+- What is the probablity of a value being less than or equal to 2 for a normal distribution of mean 0 and standard deviation 1
+```{r,message=T}
+ pnorm(2,mean=0,sd=1)
+```
+
+
+

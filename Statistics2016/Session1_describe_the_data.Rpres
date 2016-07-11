@@ -1,0 +1,536 @@
+Session1: Data summary
+========================================================
+author: MRC Clinical Sciences Centre (http://mrccsc.github.io/)
+date: 12/July/2016
+width: 1440
+height: 1100
+autosize: true
+font-import: <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+font-family: 'Slabo 27px', serif;
+css:style.css
+
+Outline
+========================================================
+
+- Session1: data summary
+
+- Session2: hypothesis testing and ANOVA
+
+- Session3: correlation and linear regression
+
+Materials.
+========================================================
+id: materials
+
+All prerequisites, links to material and slides for this course can be found on github.
+* [StatisticsInR](http://mrccsc.github.io/StatisticsInR/)
+
+Or can be downloaded as a zip archive from here.
+* [Download zip](https://github.com/mrccsc/StatisticsInR/zipball/master)
+
+Materials. - Presentations, source code and practicals.
+========================================================
+
+Once the zip file in unarchived. All presentations as HTML slides and pages, their R code and HTML practical sheets will be available in the directories underneath.
+
+* **presentations/slides/**
+Presentations as an HTML slide show.
+* **presentations/singlepage/**
+Presentations as an HTML single page.
+* **presentations/rcode/**
+R code in presentations.
+* **exercises/**
+Practicals as HTML pages.
+* **answers/**
+Practicals with answers as HTML pages and R code solutions.
+
+Set the Working directory
+========================================================
+
+Before running any of the code in the practicals or slides we need to set the working directory to the folder we unarchived.
+
+You may navigate to the unarchived Reproducible-R folder in the Rstudio menu
+
+**Session -> Set Working Directory -> Choose Directory**
+
+or in the console.
+
+```{r,eval=F}
+setwd("/CSC/workshop/StatisticsInR/Statistics2016")
+# e.g. setwd("~/Downloads/StatisticsInR/Statistics2016")
+```
+
+Session1 - data summary
+========================================================
+
+- data type
+
+- spread of data
+
+- shape of data
+
+- distribution
+
+
+Data type
+========================================================
+
+data type
+
+- continuous
+
+eg. blood pressure, body weight, height ...
+
+- discrete
+
+eg. gender, hair colour, RNA-seq read count...
+
+
+Spread of data - Life expectancy example
+========================================================
+Life expectancies at Birth for the UK and Constituent Countries 1991-93 to 2010-12
+
+Data Source: Office for National Statistics
+
+Load data
+```{r,prompt=T}
+Life_exp<-read.csv("data/Life_expectancy_at_birth.csv",header=T)
+```
+
+Recap some basic R functions (1/6)
+========================================================
+- **str()**, **head()**, **dim()**, **colnames()** and **summary()** functions
+- more details please see "Reproducible R course" [# hyperlink to the course]
+
+
+Recap some basic R functions (2/6)
+========================================================
+
+**head()**: See the first 6 lines of an R object
+```{r,prompt=T}
+head(Life_exp)
+```
+
+Recap some basic R functions (3/6)
+========================================================
+
+**str()**: Compactly display the internal structure of an R object
+```{r,prompt=T}
+str(Life_exp)
+```
+
+Recap some basic R functions (4/6)
+========================================================
+see the how many rows and columns in "Life_exp"
+```{r,prompt=T}
+dim(Life_exp)
+```
+
+see column names of "Life_exp"
+```{r,prompt=T}
+colnames(Life_exp)
+```
+
+Recap some basic R functions (5/6)
+========================================================
+
+```{r,prompt=T}
+summary(Life_exp)
+```
+
+Recap some basic R functions (6/6)
+========================================================
+
+**ftable()**: Create ‘flat’ contingency tables
+```{r}
+ftable(Life_exp[,c("area","gender")])
+```
+
+Spread of data - use "Life_exp$life.expectancy" (1/9)
+========================================================
+
+- working with plots
+- more details please see "Reproducible R"
+
+
+Spread of data - work with plots (2/9)
+========================================================
+
+Scatter plot: plot the life.expectancy against index
+
+```{r,prompt=T}
+plot(Life_exp$life.expectancy,ylab="Life expectancy (Years)")
+```
+
+Spread of data - work with plots (3/9)
+========================================================
+sort the data from min to max
+
+```{r,prompt=T,echo=F}
+plot(sort(Life_exp$life.expectancy),ylab="Life expectancy (Years)")
+```
+***
+
+start to see something here...
+
+```{r,echo=F}
+quan_1<-quantile(c(1:nrow(Life_exp)))[2]
+quan_3<-quantile(c(1:nrow(Life_exp)))[4]
+plot(sort(Life_exp$life.expectancy),ylab="Life expectancy (Years)",xaxt="n")
+  axis(side=1, at=c(0,quan_1,median(1:nrow(Life_exp)),quan_3,nrow(Life_exp)),
+     labels=c("min","1stquantile","median","3rdquantile","max"))
+  points(x=c(1,median(1:nrow(Life_exp)),nrow(Life_exp)),
+         y=c(min(Life_exp$life.expectancy),
+             median(Life_exp$life.expectancy),max(Life_exp$life.expectancy)),
+         col="red",pch=16,cex=1.6)
+  abline(h=quantile(Life_exp$life.expectancy)[c(2,4)],
+         v=quantile(c(1:nrow(Life_exp)))[c(2,4)],col="pink",lwd=3,lty=2)
+```
+
+Spread of data - work with plots (4/9)
+========================================================
+
+**min()**, **max()**, **median()**, **range()** and **quantile()** functions
+```{r,prompt=T}
+min.life.exp<-min(Life_exp$life.expectancy)
+max.life.exp<-max(Life_exp$life.expectancy)
+median.life.exp<-median(Life_exp$life.expectancy)
+mean.life.exp<-mean(Life_exp$life.expectancy)
+c(min.life.exp, max.life.exp, median.life.exp, mean.life.exp)
+range(Life_exp$life.expectancy)
+quantile(Life_exp$life.expectancy)
+```
+
+Spread of data - work with plots (5/9)
+========================================================
+Left: 40%
+
+Boxplot
+
+```{r, echo=FALSE}
+boxplot(Life_exp$life.expectancy,ylab="Life expectancy (Years)")
+abline(h=mean(Life_exp$life.expectancy),col="forestgreen",lwd=3)
+```
+***
+```{r,prompt=T}
+c(min.life.exp, max.life.exp)
+c(median.life.exp, mean.life.exp)
+quantile(Life_exp$life.expectancy)[c(2,4)]
+```
+
+
+Spread of data - work with plots (6/9)
+========================================================
+
+```{r, echo=FALSE}
+par(mfrow=c(1,2))
+  boxplot(Life_exp$life.expectancy,ylab="Life expectancy (Years)")
+  plot(sort(Life_exp$life.expectancy),ylab="Life expectancy (Years)",xaxt="n")
+  axis(side=1, at=c(0,quan_1,median(1:nrow(Life_exp)),quan_3,nrow(Life_exp)),
+     labels=c("min","1stquantile","median","3rdquantile","max"))
+  points(x=c(1,median(1:nrow(Life_exp)),nrow(Life_exp)),
+         y=c(min(Life_exp$life.expectancy),
+             median(Life_exp$life.expectancy),max(Life_exp$life.expectancy)),
+         col="red",pch=16,cex=1.6)
+  abline(h=quantile(Life_exp$life.expectancy)[c(2,4)],
+         v=quantile(c(1:nrow(Life_exp)))[c(2,4)],col="pink",lwd=3,lty=2)
+par(mfrow=c(1,1))
+```
+
+Spread of data -  work with plots (7/9)
+========================================================
+**summary()**
+```{r,prompt=T}
+summary(Life_exp$life.expectancy)
+```
+**range()**: show the minimum and maximum
+```{r,prompt=T}
+range(Life_exp$life.expectancy)
+```
+**IQR()**: show the interquartile range, i.e. 3rd quartile - 1st quartile
+```{r,prompt=T}
+IQR(Life_exp$life.expectancy)
+```
+
+Spread of data - Variance and Standard deviation (8/9)
+========================================================
+
+$$
+  \begin{aligned}
+  \overline x  = \frac{{\displaystyle\sum_{i=1}^n}x_i}n \\
+  \\ \\
+  \text{Variance} = \sigma^2 = \frac{{\displaystyle\sum_{i=1}^n}(\left|x_i-\overline x\right|)^2}{n-1} \\
+  \\ \\
+  \text{Standard deviation} = \sigma =\sqrt{\text{Variance}} \\
+  \\ \\
+  \end{aligned}
+$$
+```{r,prompt=T}
+var.life.exp<-sum((Life_exp$life.expectancy-mean.life.exp)^2)/(nrow(Life_exp)-1)
+sd.life.exp<-sqrt(var.life.exp)
+c(var.life.exp, sd.life.exp)
+```
+
+Spread of data - var() and sd() function (9/9)
+========================================================
+```{r,prompt=T}
+var(Life_exp$life.expectancy)
+sd(Life_exp$life.expectancy)
+```
+
+
+Data shape - histogram (1/4)
+========================================================
+
+```{r,prompt=T}
+hist(Life_exp$life.expectancy,breaks=10)
+```
+
+Data shape - histogram (2/4)
+========================================================
+
+```{r,prompt=T}
+hist(Life_exp$life.expectancy,breaks=10,freq = F)
+lines(density(Life_exp$life.expectancy),col="red")
+
+```
+
+Data shape - histogram (3/4)
+========================================================
+
+```{r,echo=F}
+par(mfrow=c(2,1))
+  hist(Life_exp$life.expectancy,breaks=10,freq = F,xlim=range(Life_exp$life.expectancy))
+  lines(density(Life_exp$life.expectancy),col="red",lwd=3)
+  boxplot(Life_exp$life.expectancy,ylab="Life expectancy (Years)",horizontal=T, ylim=range(Life_exp$life.expectancy))
+  abline(v=mean(Life_exp$life.expectancy),col="forestgreen",lwd=3)
+par(mfrow=c(1,1))
+```
+
+
+Data shape - violin plot (4/4)
+========================================================
+Left: 40%
+
+```{r,echo=F}
+par(mfrow=c(2,1))
+  hist(Life_exp$life.expectancy,breaks=10,freq = F,xlim=range(Life_exp$life.expectancy))
+  lines(density(Life_exp$life.expectancy),col="red",lwd=3)
+  boxplot(Life_exp$life.expectancy,ylab="Life expectancy (Years)",horizontal=T, ylim=range(Life_exp$life.expectancy))
+  abline(v=mean(Life_exp$life.expectancy),col="forestgreen",lwd=3)
+par(mfrow=c(1,1))
+```
+***
+
+```{r, warning=FALSE, eval=T}
+#install.packages("vioplot")
+library("vioplot")
+```
+```{r,prompt=T}
+vioplot(Life_exp$life.expectancy,
+        ylim=range(Life_exp$life.expectancy),
+        horizontal = T)
+```
+
+
+Distributions (1/6)
+========================================================
+- Binomial distribution
+- Normal distribution
+
+
+Distributions (2/6)
+========================================================
+R comes with functions for extracting information from most common distibutions types. An example of standard R functions for dealing with distibution can be seen here using the normal distributions.
+
+- pnorm - cumulative distribution for x, aka c.d.f. (cumulative distribution function)
+- qnorm - inverse of pnorm (from probability gives x)
+- dnorm - distribution density, aka p.d.f. (probability density function)
+- rnorm - random number from normal distribution
+
+Distributions (3/6)
+========================================================
+Similar functions are available for other distibution types including:
+
+- pbinom (binomial)
+- pt (T distribution)
+- pnbinom (negative binomial),
+- phyper (hypergeometric)
+
+
+Binomial distribution (4/6)
+========================================================
+
+$$X \sim Binom(n,p)$$
+
+$$
+n=\text{number of experiment}
+\\
+p=\text{probability of success}
+$$
+
+$$
+E(X)=np
+\\
+Var(X)=\frac{p(1-p)}n
+\\
+$$
+
+For example:
+
+$$X \sim B(100,0.2)$$
+
+***
+
+```{r,echo=F}
+x <- seq(0, 100, by=1)
+hx <- dbinom(x,100,0.2)
+plot(x, hx, type="l", lty=2, lwd=2, col="brown4",
+     xlab="x value",ylab="Density", main="Binominal distribution")
+
+```
+
+
+Normal distribution (5/6)
+========================================================
+
+$$X \sim Normal(\mu,\sigma^2)$$
+
+```{r,echo=F}
+x <- seq(-4, 4, length=100)
+hx <- dnorm(x)
+plot(x, hx, type="l", lty=2, lwd=2, col="blue4",
+     xlab="x value",ylab="Density", main="pdf (probability density function) of normal distribution",xaxt='n')
+axis(side=1, at=c(-4,-2,0,2,4),
+     labels=c(expression(paste(-2,sigma)),expression(-sigma),expression(mu),
+              expression(sigma),expression(paste(2,sigma))))
+
+```
+
+Standard Normal distribution (6/6)
+========================================================
+
+$$X \sim Normal(\mu,\sigma^2)$$
+
+```{r,echo=F}
+x <- seq(-4, 4, length=100)
+hx <- dnorm(x)
+plot(x, hx, type="l", lty=2, lwd=2, col="blue4",
+     xlab="x value",ylab="Density", main="Normal distribution",xaxt='n')
+axis(side=1, at=c(-4,-2,0,2,4),
+     labels=c(expression(paste(-2,sigma)),expression(-sigma),expression(mu),
+              expression(sigma),expression(paste(2,sigma))))
+
+```
+***
+
+Z-score transformation
+
+$$
+Z=\frac{X-\mu}\sigma
+\\
+\\
+Z \sim Normal(0,1)
+$$
+
+```{r,echo=F}
+x <- seq(-4, 4, length=200)
+hx <- dnorm(x)
+plot(x, hx, type="l", lty=2, lwd=2, col="blue4",
+     xlab="z score",ylab="Density", main="standardised Normal distribution",xaxt='n')
+axis(side=1, at=c(-4,-2,0,2,4),
+     labels=c(-2,-1,0,1,2))
+
+```
+
+Normal distribution example (1/3)
+========================================================
+
+We can use **rnorm()** function to generate random values following a normal distribution. Here we produce 10 normally distributed numeric values with mean 8 and standard deviation of 3
+
+```{r}
+set.seed(2)
+rnorm(10,mean=8,sd=3)
+```
+
+If you want to regenerate the exact random numbers, use the **set.seed()** function before generating any random numbers.
+
+```{r,echo=F}
+set.seed(2)
+data4plot<-rnorm(10,mean=8,sd=3)
+data4plot_h<-dnorm(data4plot,mean=8,sd=3)
+x <- seq(0,16,by=.1)
+hx <- dnorm(x,mean=8,sd=3)
+plot(x, hx, type="l", lty=2, lwd=2, col="blue4",
+     xlab="x value",ylab="Density", main="Normal distribution",xaxt="n")
+points(x=data4plot,y=data4plot_h,col="red",pch=16,cex=1.6)
+axis(side=1, at=c(2,5,8,11,14),labels=c(2,5,8,11,14))
+```
+
+
+Normal distribution example (2/3)
+========================================================
+We can also use these functions to interrogate values assuming a normal distribution for the data.
+
+The probablity of a value being exactly 8 for a distribution of mean 8 and standard deviation 3.
+
+```{r}
+dnorm(8,mean=8,sd=3)
+```
+
+```{r,echo=F}
+set.seed(2)
+data4plot<-rnorm(10,mean=8,sd=3)
+maxdensity<-dnorm(8,mean=8,sd=3)
+x <- seq(0,16,by=.1)
+hx <- dnorm(x,mean=8,sd=3)
+plot(x, hx, type="l", lty=2, lwd=2, col="blue4",ylim=c(0,maxdensity),
+     xlab="x value",ylab="Density", main="Normal distribution",xaxt="n")
+axis(side=1, at=c(2,5,8,11,14),labels=c(2,5,8,11,14))
+abline(h=maxdensity,v=8,col="pink",lwd=3,lty=2)
+
+```
+
+Normal distribution example (3/3)
+========================================================
+The probablity of a value being less than 8 for a distribution of mean 8 and standard deviation 3.
+```{r}
+pnorm(8,mean=8,sd=3)
+```
+
+```{r,echo=F}
+set.seed(2)
+data4plot<-rnorm(10,mean=8,sd=3)
+maxdensity<-dnorm(8,mean=8,sd=3)
+curve(dnorm(x,8,3),xlim=c(0,16),main='Normal distribution',
+      xlab="x value",ylab="Density",
+      col="blue4",xaxt="n",type="l", lty=2, lwd=2)
+ cord.x <- c(0,seq(0,8,0.01),8)
+ cord.y <- c(0,dnorm(seq(0,8,0.01),mean=8,sd=3),0)
+polygon(cord.x,cord.y,col='salmon')
+axis(side=1, at=c(2,5,8,11,14),labels=c(2,5,8,11,14))
+
+```
+
+***
+
+The value for which i have a 50 percent being greater than given a normal distribution of mean 8 and standard deviation 3.
+
+```{r}
+qnorm(0.5,mean=8,sd=3)
+```
+
+
+Time for an exercise!
+========================================================
+
+Exercise on this part can be found [here](./exercises/Session1_exercise1.html)
+
+
+Answers to exercise.
+========================================================
+
+Answers can be found [here](./answers/Session1_answers1.html)
+
+R code for solutions can be found here  [here]
+

@@ -1,0 +1,22 @@
+---
+title: "Exercise 1 for Session1: data summary"
+author: "MRC Clinical Sciences Centre (http://mrccsc.github.io/)"
+date: "12/July/2016"
+output: html_document
+---
+
+These exercises cover the sections of Statistics in R [Session1: data summary]("Session1_describe_the_data-rpubs.html").
+
+**Exercise 1**
+
+- Read in the file Life_expectancy_at_birth.csv.
+- How many males and females in England.
+- What is the mean of the life.expectancy in England? 
+- What is the mean life expenctancies of of Males and Females, respectively, in England?
+- What are quantiles of the life.expectancy in Wales, N.Ireland, and in Scotland, respectively.
+
+
+**Exercise 2**
+
+- What is the probablity of a value being less than or equal to 2 for a normal distribution of mean 0 and standard deviation 1
+

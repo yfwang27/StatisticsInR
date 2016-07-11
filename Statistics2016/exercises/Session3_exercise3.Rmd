@@ -1,0 +1,16 @@
+---
+title: "Exercise for Session3: Correlation and Linear Regression"
+author: "MRC Clinical Sciences Centre (http://mrccsc.github.io/)"
+date: "12/July/2016"
+output: html_document
+---
+
+These exercises cover the sections of Statistics in R [Session3: Correlation and Linear Regression]("../Session3_linear_regression.html").
+
+**Exercise 1**
+
+- Read in the file lmExercise.txt.
+- What is the formula for the best fit lines for X vs Y and X vs Z
+- What are the Rsquared for X vs Y and X vs Z.
+- Predict values for X when Y is 100 and Z is 100.
+

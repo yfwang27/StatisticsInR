@@ -1,0 +1,522 @@
+Session3: Correlation and Linear Regression
+========================================================
+author: MRC Clinical Sciences Centre (http://mrccsc.github.io/)
+date: 12/July/2016
+width: 1440
+height: 1100
+autosize: true
+font-import: <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+font-family: 'Slabo 27px', serif;
+css:style.css
+
+Outline
+========================================================
+- correlation
+
+- linear regression
+
+
+Dataset - use the "iris" data (1/2)
+========================================================
+
+```{r,prompt=T}
+data(iris)
+```
+Some basic checks
+```{r,prompt=T}
+class(iris)
+str(iris)
+```
+***
+```{r,prompt=T}
+head(iris)
+```
+
+Dataset - use the "iris" data (2/2)
+========================================================
+[Use the dplyr package to make data tidy](http://bioinformatics-core-shared-training.github.io/r-intermediate/)
+```{r, warning=FALSE, eval=T,prompt=T}
+#install.packages("dplyr")
+library("dplyr")
+```
+
+```{r,prompt=T}
+# tbl_df()
+```
+
+Correlation (1/5)
+=========================================================
+
+A common task in statistical analysis is to investigate the relationship between pairs of numeric vectors.
+
+This can be done by identifying the correlation between numeric vectors using the **cor()** function in R.
+
+In this example we use **cor()** to identify the Pearson correlation between two variables.  The **method** argument may be set to make use of different correlation methods.
+
+- Perfectly posively correlated vectors will return 1
+- Perfectly negatively correlated vectors will return -1
+- Vectors showing no or little correlation will be close to 0.
+
+
+Correlation between vectors (2/5)
+=========================================================
+
+```{r,prompt=T}
+x <- rnorm(100,10,2)
+z <- rnorm(100,10,2)
+y <- x
+cor(x,y) #
+cor(x,-y)
+cor(x,z)
+```
+***
+```{r,echo=F,prompt=T}
+par(mfrow=c(3,1))
+plot(x,y) #
+plot(x,-y)
+plot(x,z)
+
+par(mfrow=c(1,1))
+```
+
+
+Correlation over a matrix (3/5)
+=========================================================
+left: 70%
+Often we wish to apply correlation analysis to all columns or rows in a matrix in a pair-wise manner. To do this in R, we can simply pass the **cor()** function a single argument of the numeric matrix of interest. The **cor()** function will then perform all pair-wise correlations between columns.
+
+- subset data.frame
+```{r,prompt=T}
+iris4cor<-iris[,1:4]
+```
+- change colnames
+```{r,prompt=T}
+colnames(iris4cor)<-gsub("(.+)(\\.)(\\w{3})(.+)","\\1\\2\\3",colnames(iris4cor))
+head(iris4cor)
+
+```
+
+Correlation over a matrix (4/5)
+=========================================================
+```{r,prompt=T}
+cor(iris4cor)
+```
+```{r,eval=T,echo=F,fig.width=4,fig.height=4,dpi=300,out.width="820px",height="820px"}
+image(cor(iris4cor),axes=F)
+mtext(colnames(iris4cor),side=2,at=seq(0,1,length.out=4),las=1,cex=0.8)
+mtext(colnames(iris4cor),side=1,at=seq(0,1,length.out=4),las=2,cex=0.8)
+
+```
+
+Correlation (5/6)
+========================================================
+```{r,prompt=T}
+pairs(iris4cor)
+```
+
+
+Regression and linear models (1/14)
+=========================================================
+
+We have seen how we can find the correlation between two sets of variables using **cor()** function.
+
+R also provides a comprehensive set of tools for regression analysis including the well used linear modeling function **lm()**
+
+To fit a linear regression we use a similar set of arguments as passed to the t-test fuction in the previous slide.
+
+Regression and linear models (2/14)
+=========================================================
+Use the *Petal.Width* to predict the *Petal.Length* from the iris data as example
+
+We will focus on *Iris.versicolor* as example
+![alt text](imgs/Iris_versicolor.jpg)
+***
+- subset data *iris*
+```{r,prompt=T}
+iris_versi<-iris[iris$Species=="versicolor", c("Petal.Length","Petal.Width")]
+dim(iris_versi)
+head(iris_versi)
+```
+
+
+Regression and linear models (3/14)
+=========================================================
+
+If we only know the Petal.Length, and would like to use this information to predict the Petal.Length
+
+```{r,prompt=T}
+head(iris_versi[,"Petal.Length"])
+PetalLen.mean<-mean(iris_versi$Petal.Length)
+PetalLen.mean
+```
+***
+```{r,prompt=T}
+plot(iris_versi$Petal.Length,ylab="Petal Length of Iris.versicolor")
+abline(h=PetalLen.mean, col="forestgreen",lwd=3)
+```
+
+
+Regression and linear models (4/14)
+=========================================================
+
+If we only know the *Petal.Length*, and would like to use this information to predict the *Petal.Length*
+
+```{r,echo=F}
+plot(iris_versi$Petal.Length,
+     ylab="Petal Length of Iris.versicolor")
+abline(h=PetalLen.mean,col="forestgreen",lwd=3)
+segments(x0=c(1:nrow(iris_versi)),y0=iris_versi$Petal.Length,
+         x1=c(1:nrow(iris_versi)),y1=mean(iris_versi$Petal.Length),col="brown")
+```
+***
+
+$$\text{In this case, the expected value is mean } = \overline y $$
+
+- residuals (Error)
+
+$$
+  \begin{aligned}
+
+  Error_i & = y_i - \overline y
+  \\ \\
+  \end{aligned}
+$$
+
+Regression and linear models (5/14)
+=========================================================
+
+Zoom in [just see first 4 data points]
+
+```{r,echo=F}
+diff_df<-iris_versi$Petal.Length-PetalLen.mean
+plot(iris_versi$Petal.Length[c(1:4)],xlim=c(0,5.5), ylim=c(2,6.5),
+     ylab="Petal Length of first 4 data points (y)", xlab="x")
+abline(h=mean(iris_versi$Petal.Length),
+       col="forestgreen",lwd=3)
+
+rect(xleft=c(1:4),ybottom=mean(iris_versi$Petal.Length),
+     xright=c(1:4)+abs(diff_df[c(1:4)]),
+     ytop=mean(iris_versi$Petal.Length)+diff_df[c(1:4)],
+     density=30,col = "blue")
+
+segments(x0=c(1:4),y0=iris_versi$Petal.Length[c(1:4)],
+         x1=c(1:4),y1=mean(iris_versi$Petal.Length),col="brown",lwd=3)
+```
+***
+
+$$\text{In this case, the expected values is mean } = \overline y $$
+
+- residuals (Error)
+
+$$
+  \begin{aligned}
+  \\
+  Error_i & = y_i - \overline y
+  \end{aligned}
+$$
+- square of the residuals
+
+$$
+  \begin{aligned}
+  Error_i^2  = (y_i - \overline y)^2
+  \end{aligned}
+$$
+
+- sum of the square of the residuals (SSE)
+
+$$
+  \begin{aligned}
+  SSE  = \sum_{i=1}^{n}(y_i-\overline y)^2
+  \end{aligned}
+$$
+
+Regression and linear models (6/14)
+=========================================================
+
+Now we use the "iris_versi" *Petal.Width* to predict *Petal.Length*
+
+We can plot *Petal.Width* as X and *Petal.Length* as Y
+
+```{r,echo=F}
+plot(iris_versi$Petal.Width,iris_versi$Petal.Length,
+     xlab="Petal Width of Iris.versicolor (x)",
+     ylab="Petal Length of Iris.versicolor (y)")
+abline(lm(iris_versi$Petal.Length~iris_versi$Petal.Width,data=iris_versi),
+       col="blueviolet",lwd=3, lty=3)
+title("Scatter plot of Iris.versicolor Petal.Width vs Petal.Length")
+
+```
+***
+$$
+  x = \text{independent or explanatory variable}
+\\
+  y = \text{dependent variable or }f(x)
+
+$$
+
+**$$f(x)  = b_0 + b_1x$$**
+
+$$b_0\text{(intercept): the value of f(x) when x =0}$$
+
+$$b_1\text{(slope): the amount of f(x) will change when x changes 1 unit}$$
+
+
+Regression and linear models (7/14)
+=========================================================
+The **lm()** function fits a linear regression to your data and provides useful information on the generated fit.
+
+In the example below we fit a linear model using  **lm()** on the *iris_versi* dataset with *Petal.Length* (Y) as the dependent variable and *Petal.Width* (X) as the explanatory variable.
+```{r,prompt=T}
+lmResult<-lm(formula = Petal.Length ~ Petal.Width, data = iris_versi)
+lmResult
+```
+
+Interpreting output of lm() (8/14)
+=========================================================
+
+As we have seen, printing the model result provides the intercept and slope of line.
+To get some more information on the model we can use the **summary()** function
+```{r,prompt=T}
+summary(lmResult)
+```
+
+Regression and linear models - coefficients (9/14)
+=========================================================
+```{r,prompt=T}
+lmResult$coefficients
+```
+From the $coefficients of object lmResult, we know the equation for the best fit is
+
+**$$Y = 1.781275 + 1.869325 *X$$**
+
+**$$f(x)  = b_0 + b_1x$$**
+
+We can add the line of best fit using **abline()**
+
+$$b_0\text{: the value of f(x) when x =0}$$
+
+$$b_1\text{: the amount of f(x) will change when x changes 1 unit}$$
+
+***
+```{r,echo=F}
+plot(iris_versi$Petal.Width,iris_versi$Petal.Length,xlim=c(0,1.8),ylim=c(0,5),
+     xlab="Petal Width of Iris.versicolor (x)",
+     ylab="Petal Length of Iris.versicolor (y)")
+abline(lm(iris_versi$Petal.Length~iris_versi$Petal.Width,data=iris_versi),
+       col="blueviolet",lwd=3, lty=3)
+abline(v=0,h=1.781275,col="brown4",lwd=2, lty=3)
+points(x=0,y=1.781275,pch=23,cor="pink")
+title("Scatter plot of Iris.versicolor Petal.Width vs Petal.Length")
+```
+
+Regression and linear models - residuals (10/14)
+=========================================================
+
+The **residuals** are the difference between the predicted and actual values.
+To retrieve the residuals we can access the slot or use the **resid()** function.
+
+```{r,prompt=T,echo=T}
+summary(resid(lmResult))
+summary(lmResult$residual)
+```
+Ideally you would want your residuals to be normally distributed around 0.
+
+
+Regression and linear models - residuals (11/14)
+=========================================================
+
+```{r,prompt=T,echo=T}
+IrisLm.res<-lmResult$residual
+head(IrisLm.res)
+
+```
+
+***
+
+Plot the residuals against the independent variable (X)
+
+```{r,echo=F}
+plot(iris_versi$Petal.Width,IrisLm.res,ylim=c(-2.5,2.5),
+     ylab="residuals",xlab="Petal Width of Iris.versicolor (x)")
+abline(h=0,col="blueviolet",lwd=3, lty=3)
+
+```
+
+
+Regression and linear models - residuals (12/14)
+=========================================================
+
+```{r,prompt=T,echo=T}
+IrisLm.res<-lmResult$residual
+head(IrisLm.res)
+
+```
+$$
+Error_i = y_i - \hat{y}
+\\
+
+Error_i^2  = (y_i - \hat{y})^2
+\\
+\text{- sum of the square of the residuals (SSE)}
+\\
+SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
+$$
+
+***
+
+Plot the residuals against the independent variable (X)
+
+```{r,echo=F}
+plot(iris_versi$Petal.Width,IrisLm.res,ylim=c(-2.5,2.5),
+     ylab="residuals",xlab="Petal Width of Iris.versicolor (x)")
+abline(h=0,col="blueviolet",lwd=3, lty=3)
+segments(x0=iris_versi$Petal.Width,y0=0,
+         x1=iris_versi$Petal.Width,y1=lmResult$residual,col="brown",lwd=3)
+```
+
+
+
+Regression and linear models - residuals (13/14)
+=========================================================
+
+Residuals from the model
+
+```{r,echo=F}
+plot(iris_versi$Petal.Width,IrisLm.res,ylim=c(-2.5,2.5),
+     ylab="residuals",xlab="Petal Width of Iris.versicolor (x)")
+abline(h=0,col="blueviolet",lwd=3, lty=3)
+
+#rect(xleft=iris_versi$Petal.Width,ybottom=0,
+#     xright=iris_versi$Petal.Width+abs(lmResult$residual),
+#     ytop=0+lmResult$residual,
+#     density=30,col = "darkgreen")
+
+
+segments(x0=iris_versi$Petal.Width,y0=0,
+         x1=iris_versi$Petal.Width,y1=lmResult$residual,col="brown",lwd=3)
+```
+
+- Sum of the square of the residuals (SSE)
+$$
+SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
+$$
+
+***
+
+Residuals from the mean
+
+```{r,echo=F}
+diff_df<-iris_versi$Petal.Length-PetalLen.mean
+plot(iris_versi$Petal.Length, ylim=c(2,6.5),
+     ylab="Petal Length of first 4 data points (y)", xlab="x")
+abline(h=mean(iris_versi$Petal.Length),
+       col="forestgreen",lwd=3)
+
+#rect(xleft=c(1:4),ybottom=mean(iris_versi$Petal.Length),
+#     xright=c(1:4)+abs(diff_df[c(1:4)]),
+#     ytop=mean(iris_versi$Petal.Length)+diff_df[c(1:4)],
+#     density=30,col = "blue")
+
+segments(x0=c(1:50),y0=iris_versi$Petal.Length,
+         x1=c(1:50),y1=mean(iris_versi$Petal.Length),col="brown",lwd=3)
+```
+
+- Total Sum of Squares (TSS)
+
+$$
+  \begin{aligned}
+  TSS  = \sum_{i=1}^{n}(y_i-\overline y)^2
+  \end{aligned}
+$$
+
+
+
+
+
+Regression and linear models - R-squared (14/14)
+=========================================================
+Left: 70%
+```{r,prompt=T,echo=F}
+summary(lmResult)
+```
+***
+- The **R-squared** value represents the proportion of variability in the response variable that is explained by the explanatory variable.
+
+- A high **R-squared** here indicates that the line fits closely to the data.
+
+Regression and linear models - F-statistics.
+=========================================================
+Left: 70%
+```{r,prompt=T,echo=F}
+summary(lmResult)
+```
+***
+The results from linear models also provides a measure of significance for a variable not being relevant.
+
+Statistics (Extra) - A fit line
+=========================================================
+
+![alt text](imgs/fittedline.png)
+
+Statistics (Extra) - Calculating R-squared
+=========================================================
+
+![alt text](imgs/rsquared.png)
+
+Statistics (Extra) - Calculating R-squared
+=========================================================
+
+The fraction of variability in the independent variable (Y; or the *Petal.Length* in this example) that can be explained by the explanatory variable (X; or the *Petal.Width* in this example).
+
+$$
+TSS=\text{Total Sum of Squares}=\sum_{i=1}^n(y_i-\overline y)
+\\
+SSE=\text{Sum of the Square of the residuals}=\sum_{i=1}^n(y_i-\hat{y})
+$$
+
+```{r,prompt=T}
+SSE <- sum(resid(lmResult)^2)
+TSS <- sum((iris_versi$Petal.Length - mean(iris_versi$Petal.Length))^2)
+1- SSE/TSS
+summary(lmResult)$r.squared
+```
+
+Statistics (Extra) - Calculating F-stat
+=========================================================
+
+![alt text](imgs/fstatistic.png)
+
+Statistics (Extra) - Calculating F-stat
+=========================================================
+
+$$
+F=\frac{MSM}{MSE}=\frac{\text{mean of the explained variance}}{\text{mean of the unexplained variance}}=\frac{({\displaystyle\frac{SSM}1})}{({\displaystyle\frac{SSE}{n-2}})}
+$$
+
+```{r,prompt=T}
+#MSE <- mean(lmResult$residuals^2)
+n=nrow(iris_versi)
+MSE <-sum(lmResult$residuals^2)/(n-2)
+RSS <- sum((predict(lmResult) - mean(iris_versi$Petal.Length))^2)
+MSM <-RSS/1
+
+MSM/MSE
+
+summary(lmResult)$fstatistic
+
+```
+
+Time for an exercise!
+========================================================
+
+Exercise on this session can be found [here](exercises/Session3_exercise3.html)
+
+
+
+Answers to exercise.
+========================================================
+
+Answers can be found [here](answers/Session3_answers3.html)
+
+R code for solutions can be found here  [here]
+
