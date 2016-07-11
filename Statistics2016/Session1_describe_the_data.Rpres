@@ -33,12 +33,6 @@ Materials. - Presentations, source code and practicals.
 
 Once the zip file in unarchived. All presentations as HTML slides and pages, their R code and HTML practical sheets will be available in the directories underneath.
 
-* **presentations/slides/**
-Presentations as an HTML slide show.
-* **presentations/singlepage/**
-Presentations as an HTML single page.
-* **presentations/rcode/**
-R code in presentations.
 * **exercises/**
 Practicals as HTML pages.
 * **answers/**
@@ -100,7 +94,10 @@ Life_exp<-read.csv("data/Life_expectancy_at_birth.csv",header=T)
 Recap some basic R functions (1/6)
 ========================================================
 - **str()**, **head()**, **dim()**, **colnames()** and **summary()** functions
-- more details please see "Reproducible R course" [# hyperlink to the course]
+- more details please see [Reproducible R course](http://mrccsc.github.io/Reproducible-R/)
+
+-- [Data types in R](http://mrccsc.github.io/Reproducible-R/r_course/presentations/slides/introToR_Session1.html#/datatypes)
+
 
 
 Recap some basic R functions (2/6)
@@ -150,7 +147,9 @@ Spread of data - use "Life_exp$life.expectancy" (1/9)
 ========================================================
 
 - working with plots
-- more details please see "Reproducible R"
+- more details please see [Reproducible R course](http://mrccsc.github.io/Reproducible-R/)
+
+--[Plotting in R](http://mrccsc.github.io/Reproducible-R/r_course/presentations/slides/introToR_Session1.html#/plotting)
 
 
 Spread of data - work with plots (2/9)

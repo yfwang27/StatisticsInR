@@ -447,6 +447,7 @@ binom.confint(vote.leave, total.vote, conf.level = 0.95, methods = "asymptotic")
 
 Hypothesis testing for propotions - one sided
 ========================================================
+Left: 60%
 
 $$H_0:\text{ Vote for remain equal to 50%; p=0.5}
 \\
@@ -762,6 +763,23 @@ The same result to that shown could be achieved by specifying a formula for the 
 
 ```r
 data4formula<-PlantGrowth[PlantGrowth$group!="trt2",]
+summary(data4formula)
+```
+
+```
+     weight       group   
+ Min.   :3.590   ctrl:10  
+ 1st Qu.:4.388   trt1:10  
+ Median :4.750   trt2: 0  
+ Mean   :4.846            
+ 3rd Qu.:5.218            
+ Max.   :6.110            
+```
+
+***
+
+
+```r
 result_formula <- t.test(weight~group,data4formula,alternative ="two.sided", var.equal = T)
 result_formula
 ```
