@@ -453,6 +453,7 @@ binom.confint(vote.leave, total.vote, conf.level = 0.95, methods = "asymptotic")
 
 Hypothesis testing for propotions - one sided
 ========================================================
+Left: 60%
 
 $$H_0:\text{ Vote for remain equal to 50%; p=0.5}
 \\
@@ -613,6 +614,12 @@ T-test example - Specifying a formula (9/9)
 The same result to that shown could be achieved by specifying a formula for the comparison. Here we wish to compare ctrl versus trt1 so we could simply specify the formula and the data to be used.
 ```{r}
 data4formula<-PlantGrowth[PlantGrowth$group!="trt2",]
+summary(data4formula)
+```
+
+***
+
+```{r}
 result_formula <- t.test(weight~group,data4formula,alternative ="two.sided", var.equal = T)
 result_formula
 ```
