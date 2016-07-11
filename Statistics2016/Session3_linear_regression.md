@@ -117,7 +117,7 @@ Correlation between vectors (2/5)
 ```
 
 ```
-[1] -0.1595012
+[1] -0.06550987
 ```
 ***
 ![plot of chunk unnamed-chunk-7](Session3_linear_regression-figure/unnamed-chunk-7-1.png)
