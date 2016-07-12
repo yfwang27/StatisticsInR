@@ -1376,8 +1376,544 @@ CI.vote
 
 <p>Use the <em>binom.confint()</em> from <strong>binom</strong> package</p>
 
-<pre><code>Error in library(&quot;binom&quot;) : there is no package called &#39;binom&#39;
+<pre><code class="r">#install.packages(&quot;binom&quot;)
+library(&quot;binom&quot;)
 </code></pre>
+
+<pre><code class="r">binom.confint(vote.leave, total.vote, conf.level = 0.95, methods = &quot;asymptotic&quot;)
+</code></pre>
+
+<pre><code>      method        x        n      mean     lower     upper
+1 asymptotic 17410742 33551983 0.5189184 0.5187494 0.5190875
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Hypothesis testing for propotions - one sided</h3>
+<div class="column column1 slideContent" style="width: 58%;" >
+<p>\[ H_0:\text{ Vote for remain equal to 50%; p=0.5}
+\\
+H_a:\text{ Vote for remain is less than 50%; p<0.5 } \]</p>
+
+<p>\[ 
+p:\text{ true ratio for the vote for remain is unknow}
+\\
+\hat{p}:\text{ estimated ratio for the vote for remain}
+\\
+\\
+\frac{\hat{p}-p}{\sqrt{\displaystyle\frac{p(1-p)}n}}\approx N(0,1)
+\\
+\text{p-value: under }H_0\text{ ,}
+\\
+\text{the probability of observing such extreme value }\hat{p}-p
+\\
+P\left(\hat p-p\leq0.4810816-0.5\right)
+\\
+=P\left(Normal\left(0,1\right)\leq\frac{0.4810816-0.5}{\sqrt{\displaystyle\frac{0.5(1-0.5)}{33551983}}}\right)
+ \]</p>
+
+
+</div>
+
+<div class="column column2 slideContent" style="width: 38%;" >
+
+
+<pre><code class="r">&gt; alpha.vote=0.05;
+&gt; p.vote=0.5;
+&gt; phat.vote&lt;-vote.remain/total.vote;
+&gt; d=phat.vote-p.vote
+&gt; pnorm(d/sqrt(p.vote*(1-p.vote)/total.vote))
+</code></pre>
+
+<pre><code>[1] 0
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Hypothesis testing for propotions</h3>
+<div class="column column1 slideContent" >
+<p>\[ H_0:\text{ Vote for remain is equal to 50%}
+\\
+H_a:\text{ Vote for remain is < 50%} \]</p>
+
+<pre><code class="r">binom.test(vote.remain, total.vote, p=0.5, alternative = &quot;less&quot;)
+</code></pre>
+
+<pre><code>
+    Exact binomial test
+
+data:  vote.remain and total.vote
+number of successes = 16141000, number of trials = 33552000,
+p-value &lt; 2.2e-16
+alternative hypothesis: true probability of success is less than 0.5
+95 percent confidence interval:
+ 0.0000000 0.4812235
+sample estimates:
+probability of success 
+             0.4810816 
+</code></pre>
+
+
+</div>
+
+<div class="column column2 slideContent" >
+
+
+<p>\[ H_0:\text{ Vote for remain is equal to 50%}
+\\
+H_a:\text{ Vote for remain is not equal to 50%} \]</p>
+
+<pre><code class="r">binom.test(vote.remain, total.vote, p=0.5, alternative = &quot;two.sided&quot;)
+</code></pre>
+
+<pre><code>
+    Exact binomial test
+
+data:  vote.remain and total.vote
+number of successes = 16141000, number of trials = 33552000,
+p-value &lt; 2.2e-16
+alternative hypothesis: true probability of success is not equal to 0.5
+95 percent confidence interval:
+ 0.4809125 0.4812507
+sample estimates:
+probability of success 
+             0.4810816 
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Hypothesis testing for mean - Load data (1&#x2F;9)</h3>
+<div class="column column1 slideContent" >
+<p>We use &ldquo;PlantGrowth&rdquo; as example</p>
+
+<pre><code class="r">&gt; data(&quot;PlantGrowth&quot;)
+&gt; head(PlantGrowth)
+</code></pre>
+
+<pre><code>  weight group
+1   4.17  ctrl
+2   5.58  ctrl
+3   5.18  ctrl
+4   6.11  ctrl
+5   4.50  ctrl
+6   4.61  ctrl
+</code></pre>
+
+
+</div>
+
+<div class="column column2 slideContent" >
+
+
+<p>data visualisation</p>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-20"/></p>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Hypothesis testing for mean - Load data (2&#x2F;9)</h3>
+<div class="slideContent" >
+<p>Convert the input data into the proper format</p>
+
+<pre><code class="r">#install.packages(&quot;tidyr&quot;)
+library(&quot;tidyr&quot;)
+</code></pre>
+
+<pre><code class="r">PlantGrowthforwide&lt;-PlantGrowth
+PlantGrowthforwide$replicate&lt;-rep(c(1:10),3)
+PlantGrowth_wide&lt;-spread(PlantGrowthforwide, group, weight)
+head(PlantGrowth_wide)
+</code></pre>
+
+<pre><code>  replicate ctrl trt1 trt2
+1         1 4.17 4.81 6.31
+2         2 5.58 4.17 5.12
+3         3 5.18 4.41 5.54
+4         4 6.11 3.59 5.50
+5         5 4.50 5.87 5.37
+6         6 4.61 3.83 5.29
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>T-test example - Calculating variance (3&#x2F;9)</h3>
+<div class="slideContent" >
+<p>First we can specify the columns of interest using $ and calculate their variance using var().</p>
+
+<pre><code class="r">var(PlantGrowth_wide$ctrl)
+</code></pre>
+
+<pre><code>[1] 0.3399956
+</code></pre>
+
+<pre><code class="r">var(PlantGrowth_wide$trt1)
+</code></pre>
+
+<pre><code>[1] 0.6299211
+</code></pre>
+
+<pre><code class="r">var(PlantGrowth_wide$trt2)
+</code></pre>
+
+<pre><code>[1] 0.1958711
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>T-test example - Comparing variance (4&#x2F;9)</h3>
+<div class="column column1 slideContent" >
+<p>Now we can test for any differences in variances between ctrl and trt1 and ctrl and trt2 with an F-test using the var.test() function.</p>
+
+<pre><code class="r">var.test(PlantGrowth_wide$ctrl,
+         PlantGrowth_wide$trt1)
+</code></pre>
+
+<pre><code>
+    F test to compare two variances
+
+data:  PlantGrowth_wide$ctrl and PlantGrowth_wide$trt1
+F = 0.53974, num df = 9, denom df = 9, p-value = 0.3719
+alternative hypothesis: true ratio of variances is not equal to 1
+95 percent confidence interval:
+ 0.1340645 2.1730025
+sample estimates:
+ratio of variances 
+         0.5397431 
+</code></pre>
+
+
+</div>
+
+<div class="column column2 slideContent" >
+
+
+<pre><code class="r">var.test(PlantGrowth_wide$ctrl,
+         PlantGrowth_wide$trt2)
+</code></pre>
+
+<pre><code>
+    F test to compare two variances
+
+data:  PlantGrowth_wide$ctrl and PlantGrowth_wide$trt2
+F = 1.7358, num df = 9, denom df = 9, p-value = 0.4239
+alternative hypothesis: true ratio of variances is not equal to 1
+95 percent confidence interval:
+ 0.4311513 6.9883717
+sample estimates:
+ratio of variances 
+          1.735813 
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>R objects (s3 and s4) (5&#x2F;9)</h3>
+<div class="slideContent" >
+<p>In R, special objects (S3 or S4 objects) can be created which have methods associated to them. The result from var.test is an object of class htest.</p>
+
+<p>Since we have not come across this before, in order to discover its structure we can use the str() function with the object of interest as the argument.</p>
+
+<pre><code class="r">result &lt;- var.test(PlantGrowth_wide$ctrl, PlantGrowth_wide$trt1)
+str(result)
+</code></pre>
+
+<pre><code>List of 9
+ $ statistic  : Named num 0.54
+  ..- attr(*, &quot;names&quot;)= chr &quot;F&quot;
+ $ parameter  : Named int [1:2] 9 9
+  ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;num df&quot; &quot;denom df&quot;
+ $ p.value    : num 0.372
+ $ conf.int   : atomic [1:2] 0.134 2.173
+  ..- attr(*, &quot;conf.level&quot;)= num 0.95
+ $ estimate   : Named num 0.54
+  ..- attr(*, &quot;names&quot;)= chr &quot;ratio of variances&quot;
+ $ null.value : Named num 1
+  ..- attr(*, &quot;names&quot;)= chr &quot;ratio of variances&quot;
+ $ alternative: chr &quot;two.sided&quot;
+ $ method     : chr &quot;F test to compare two variances&quot;
+ $ data.name  : chr &quot;PlantGrowth_wide$ctrl and PlantGrowth_wide$trt1&quot;
+ - attr(*, &quot;class&quot;)= chr &quot;htest&quot;
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>R objects (s3 and s4) (6&#x2F;9)</h3>
+<div class="slideContent" >
+<p>Now we know the structure and class of the htest object we can access the slots containing information we want just as with a named list.</p>
+
+<p>The p-value</p>
+
+<pre><code class="r">result$p.value
+</code></pre>
+
+<pre><code>[1] 0.3718963
+</code></pre>
+
+<p>The statistic</p>
+
+<pre><code class="r">result$statistic
+</code></pre>
+
+<pre><code>        F 
+0.5397431 
+</code></pre>
+
+<p>The data used in function call</p>
+
+<pre><code class="r">result$data.name
+</code></pre>
+
+<pre><code>[1] &quot;PlantGrowth_wide$ctrl and PlantGrowth_wide$trt1&quot;
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>T-test example - Equal Variance (7&#x2F;9)</h3>
+<div class="slideContent" >
+<p>We have ascertained that ctrl and trt1 have similar variances. We can therefore perform a standard t-test to assess the significance of differences between these groups.</p>
+
+<pre><code class="r">test_res &lt;- t.test(PlantGrowth_wide$ctrl,PlantGrowth_wide$trt1,alternative =&quot;two.sided&quot;, var.equal = T)
+test_res
+</code></pre>
+
+<pre><code>
+    Two Sample t-test
+
+data:  PlantGrowth_wide$ctrl and PlantGrowth_wide$trt1
+t = 1.1913, df = 18, p-value = 0.249
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.2833003  1.0253003
+sample estimates:
+mean of x mean of y 
+    5.032     4.661 
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>T-test example - Unequal Variance (8&#x2F;9)</h3>
+<div class="slideContent" >
+<p>To compare groups of unequal variance then the var.equal argument may be set to FALSE (which is the default).</p>
+
+<p>note: <a href="exercises/Session2_exercise2.html">see exercise</a></p>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>T-test example - Specifying a formula (9&#x2F;9)</h3>
+<div class="column column1 slideContent" >
+<p>The same result to that shown could be achieved by specifying a formula for the comparison. Here we wish to compare ctrl versus trt1 so we could simply specify the formula and the data to be used.</p>
+
+<pre><code class="r">data4formula&lt;-PlantGrowth[PlantGrowth$group!=&quot;trt2&quot;,]
+summary(data4formula)
+</code></pre>
+
+<pre><code>     weight       group   
+ Min.   :3.590   ctrl:10  
+ 1st Qu.:4.388   trt1:10  
+ Median :4.750   trt2: 0  
+ Mean   :4.846            
+ 3rd Qu.:5.218            
+ Max.   :6.110            
+</code></pre>
+
+
+</div>
+
+<div class="column column2 slideContent" >
+
+
+<pre><code class="r">result_formula &lt;- t.test(weight~group,data4formula,alternative =&quot;two.sided&quot;, var.equal = T)
+result_formula
+</code></pre>
+
+<pre><code>
+    Two Sample t-test
+
+data:  weight by group
+t = 1.1913, df = 18, p-value = 0.249
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.2833003  1.0253003
+sample estimates:
+mean in group ctrl mean in group trt1 
+             5.032              4.661 
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>ANOVA (1&#x2F;3)</h3>
+<div class="slideContent" >
+<p>Compute analysis of variance (or deviance) tables for one or more fitted model objects</p>
+
+<ul>
+<li>lm()</li>
+<li>anova()</li>
+</ul>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>ANOVA - use the anova() function (2&#x2F;3)</h3>
+<div class="column column1 slideContent" >
+<pre><code class="r">PG.lm&lt;-lm(formula = weight ~ group,
+          data = PlantGrowth)
+PG.lm
+</code></pre>
+
+<pre><code>
+Call:
+lm(formula = weight ~ group, data = PlantGrowth)
+
+Coefficients:
+(Intercept)    grouptrt1    grouptrt2  
+      5.032       -0.371        0.494  
+</code></pre>
+
+
+</div>
+
+<div class="column column2 slideContent" >
+
+
+<pre><code class="r">PG.anova&lt;-anova(PG.lm)
+PG.anova
+</code></pre>
+
+<pre><code>Analysis of Variance Table
+
+Response: weight
+          Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+group      2  3.7663  1.8832  4.8461 0.01591 *
+Residuals 27 10.4921  0.3886                  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>ANOVA - results (3&#x2F;3)</h3>
+<div class="slideContent" >
+<p>More details in the next session</p>
+
+<pre><code class="r">PG.anova
+</code></pre>
+
+<pre><code>Analysis of Variance Table
+
+Response: weight
+          Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+group      2  3.7663  1.8832  4.8461 0.01591 *
+Residuals 27 10.4921  0.3886                  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Wilcoxon test</h3>
+<div class="slideContent" >
+<p><strong>wilcox.test()</strong></p>
+
+<p>Wilcoxon Signed-Rank Test is one of the Non-parametric statistical hypothesis tests. It can compart of the means between 2 paired samples without assuming them to follow the normal distribution.</p>
+
+<pre><code class="r">a &lt;- c(214, 159, 169, 202, 103, 119, 200, 109, 132, 142, 194, 104, 219, 119, 234)
+b &lt;- c(159, 135, 141, 101, 102, 168, 62, 167, 174, 159, 66, 118, 181, 171, 112)
+
+wilcox.test(a,b, paired=TRUE)
+</code></pre>
+
+<pre><code>
+    Wilcoxon signed rank test
+
+data:  a and b
+V = 80, p-value = 0.2769
+alternative hypothesis: true location shift is not equal to 0
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>fisher.test()</h3>
+<div class="slideContent" >
+<p>Given two gene lists, tests the significance of their overlap in comparison with a genomic background.</p>
+
+<p>\[ H_0:\text{ the odds ratio is no larger than 1}
+\\
+H_a:\text{ the odds ratio is larger than 1 } \]</p>
+
+<p>Assuming there are 20,000 genes in the mouse genome, we have gene list A (300 genes) and B (50 genes). The number of overlap genes between list A and B is 5. Is the overlap between the two list significant?</p>
+
+<pre><code class="r">fmatrix&lt;-matrix(c(5,40,295,19960),byrow=T,ncol=2,dimnames=list(c(&quot;In.B&quot;,&quot;Not.In.B&quot;),c(&quot;In.A&quot;,&quot;Not.In.A&quot;)))
+fmatrix
+</code></pre>
+
+<pre><code>         In.A Not.In.A
+In.B        5       40
+Not.In.B  295    19960
+</code></pre>
+
+<pre><code class="r">fisher.test(fmatrix)
+</code></pre>
+
+<pre><code>
+    Fisher&#39;s Exact Test for Count Data
+
+data:  fmatrix
+p-value = 0.0005133
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+  2.585939 21.637276
+sample estimates:
+odds ratio 
+  8.454877 
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Time for an exercise!</h3>
+<div class="slideContent" >
+<p>Exercise on this session can be found <a href="exercises/Session2_exercise2.html">here</a></p>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Answers to exercise.</h3>
+<div class="slideContent" >
+<p>Answers can be found <a href="answers/Session2_answers2.html">here</a></p>
+
+<p>R code for solutions can be found here  [here]</p>
 
 </div>
 
