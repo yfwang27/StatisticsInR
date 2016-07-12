@@ -481,7 +481,7 @@ TSS <- sum((iris_versi$Petal.Length - mean(iris_versi$Petal.Length))^2)
 summary(lmResult)$r.squared
 ```
 
-Statistics (Extra) - Calculating F-stat
+Statistics (Extra) - Calculating R-squared
 =========================================================
 
 ![alt text](imgs/fstatistic.png)
