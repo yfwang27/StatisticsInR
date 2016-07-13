@@ -117,7 +117,7 @@ Correlation between vectors (2/5)
 ```
 
 ```
-[1] 0.1478727
+[1] 0.02467276
 ```
 ***
 ![plot of chunk unnamed-chunk-7](Session3_linear_regression-figure/unnamed-chunk-7-1.png)
@@ -587,9 +587,9 @@ Statistics (Extra) - Calculating R-squared
 The fraction of variability in the independent variable (Y; or the *Petal.Length* in this example) that can be explained by the explanatory variable (X; or the *Petal.Width* in this example).
 
 $$
-TSS=\text{Total Sum of Squares}=\sum_{i=1}^n(y_i-\overline y)
+TSS=\text{Total Sum of Squares}=\sum_{i=1}^n(y_i-\overline y)^2
 \\
-SSE=\text{Sum of the Square of the residuals}=\sum_{i=1}^n(y_i-\hat{y})
+SSE=\text{Sum of the Square of the residuals}=\sum_{i=1}^n(y_i-\hat{y})^2
 $$
 
 
