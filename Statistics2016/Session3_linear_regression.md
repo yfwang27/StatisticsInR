@@ -117,7 +117,7 @@ Correlation between vectors (2/5)
 ```
 
 ```
-[1] 0.02467276
+[1] -0.03329065
 ```
 ***
 ![plot of chunk unnamed-chunk-7](Session3_linear_regression-figure/unnamed-chunk-7-1.png)
@@ -625,7 +625,6 @@ $$
 
 
 ```r
-> #MSE <- mean(lmResult$residuals^2)
 > n=nrow(iris_versi)
 > MSE <-sum(lmResult$residuals^2)/(n-2)
 > RSS <- sum((predict(lmResult) - mean(iris_versi$Petal.Length))^2)

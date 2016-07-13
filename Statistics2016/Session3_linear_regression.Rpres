@@ -494,7 +494,7 @@ F=\frac{MSM}{MSE}=\frac{\text{mean of the explained variance}}{\text{mean of the
 $$
 
 ```{r,prompt=T}
-#MSE <- mean(lmResult$residuals^2)
+
 n=nrow(iris_versi)
 MSE <-sum(lmResult$residuals^2)/(n-2)
 RSS <- sum((predict(lmResult) - mean(iris_versi$Petal.Length))^2)
