@@ -566,7 +566,7 @@ t.test(groupA,mu=something)
 ```
 *independent t-test*
 
-We are going to discuss this case in this workshop.
+We are going to discuss this case here.
 
 ```r
 t.test(groupA,groupB,paired=FALSE)
@@ -606,7 +606,7 @@ head(PlantGrowth_wide)
 
 
 
-T-test example - Calculating variance (4/10)
+Independent t-test example - Calculating variance (4/10)
 ========================================================
 
 First we can specify the columns of interest using $ and calculate their variance using var().
@@ -635,10 +635,16 @@ var(PlantGrowth_wide$trt2)
 [1] 0.1958711
 ```
 
-T-test example - Comparing variance (5/10)
+Independent t-test example - Comparing variance (5/10)
 ========================================================
 
-Now we can test for any differences in variances between ctrl and trt1 and ctrl and trt2 with an F-test using the var.test() function.
+Now we can test for any differences in variances between ctrl and trt1 with an F-test using the var.test() function.
+
+$$H_0:\sigma_{ctrl}^{2}= \sigma_{trt1}^{2}
+\\
+H_a:\sigma_{ctrl}^{2}\neq \sigma_{trt1}^{2}$$
+
+***
 
 ```r
 var.test(PlantGrowth_wide$ctrl,
@@ -657,26 +663,6 @@ alternative hypothesis: true ratio of variances is not equal to 1
 sample estimates:
 ratio of variances 
          0.5397431 
-```
-***
-
-```r
-var.test(PlantGrowth_wide$ctrl,
-         PlantGrowth_wide$trt2)
-```
-
-```
-
-	F test to compare two variances
-
-data:  PlantGrowth_wide$ctrl and PlantGrowth_wide$trt2
-F = 1.7358, num df = 9, denom df = 9, p-value = 0.4239
-alternative hypothesis: true ratio of variances is not equal to 1
-95 percent confidence interval:
- 0.4311513 6.9883717
-sample estimates:
-ratio of variances 
-          1.735813 
 ```
 
 R objects (s3 and s4) (6/10)
@@ -745,9 +731,14 @@ result$data.name
 [1] "PlantGrowth_wide$ctrl and PlantGrowth_wide$trt1"
 ```
 
-T-test example - Equal Variance (8/10)
+Independent t-test - Equal Variance (8/10)
 ========================================================
 We have ascertained that ctrl and trt1 have similar variances. We can therefore perform a standard t-test to assess the significance of differences between these groups.
+
+$$H_0:\mu_{ctrl}= \mu_{trt1}
+\\
+H_a:\mu_{ctrl}\neq \mu_{trt1}$$
+
 
 ```r
 test_res <- t.test(PlantGrowth_wide$ctrl,PlantGrowth_wide$trt1,alternative ="two.sided", var.equal = T)
