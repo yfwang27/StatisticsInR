@@ -120,18 +120,13 @@ What will happen if we repeat this experiment for 10 times, rather than only 2 t
 
 ```r
 > set.seed(123)
-> no.experiment=10
+> no.experiment=10;no.observation<-10
 > mat4plot<-matrix(nrow=no.experiment,ncol=1);
-> no.observation<-10
 > for (i in 1:no.experiment){
 +   mat4plot[i,1]<-mean(rbinom(no.observation,1,0.5))
 + }
-> hist(mat4plot[,1],xlim=c(0,1),breaks=100,
-+      xlab="mean",ylab="observed frequency",
-+      main="flip a coin 10 times, and repeat it for 10 times")
 ```
-
-![plot of chunk unnamed-chunk-6](Session2_hypothesis_testing-figure/unnamed-chunk-6-1.png)
+![plot of chunk unnamed-chunk-7](Session2_hypothesis_testing-figure/unnamed-chunk-7-1.png)
 
 
 SD and SE - Central limit theorem (5/7)
@@ -139,19 +134,19 @@ SD and SE - Central limit theorem (5/7)
 
 Flip a coin for 10 times, and repeat it for 100 times
 
-![plot of chunk unnamed-chunk-7](Session2_hypothesis_testing-figure/unnamed-chunk-7-1.png)
+![plot of chunk unnamed-chunk-8](Session2_hypothesis_testing-figure/unnamed-chunk-8-1.png)
 ***
 
 Flip a coin for 10 times, and repeat it for 1,000 times
 
-![plot of chunk unnamed-chunk-8](Session2_hypothesis_testing-figure/unnamed-chunk-8-1.png)
+![plot of chunk unnamed-chunk-9](Session2_hypothesis_testing-figure/unnamed-chunk-9-1.png)
 
 SD and SE - Central limit theorem (C.L.T.) (6/7)
 ========================================================
 
 Flip a coin for 10 times, and repeat it for 1,000 times
 
-![plot of chunk unnamed-chunk-9](Session2_hypothesis_testing-figure/unnamed-chunk-9-1.png)
+![plot of chunk unnamed-chunk-10](Session2_hypothesis_testing-figure/unnamed-chunk-10-1.png)
 ***
 $$\text{the sample mean }\overline X\text{ follows an approximate normal distribution}
   \\
@@ -179,7 +174,7 @@ SD and SE - Central limit theorem (C.L.T.) (7/7)
 
 Flip a coin for 10 times, and repeat it for 1,000 times
 
-![plot of chunk unnamed-chunk-10](Session2_hypothesis_testing-figure/unnamed-chunk-10-1.png)
+![plot of chunk unnamed-chunk-11](Session2_hypothesis_testing-figure/unnamed-chunk-11-1.png)
 
 $$
   SE=\frac{SD}{\sqrt{10}}
@@ -189,7 +184,7 @@ $$
 
 Flip a coin for 100 times and repeat it for 1,000 times
 
-![plot of chunk unnamed-chunk-11](Session2_hypothesis_testing-figure/unnamed-chunk-11-1.png)
+![plot of chunk unnamed-chunk-12](Session2_hypothesis_testing-figure/unnamed-chunk-12-1.png)
 
 $$
   SE=\frac{SD}{\sqrt{100}}
@@ -557,7 +552,7 @@ We use "PlantGrowth" as example
 ***
 data visualisation
 
-![plot of chunk unnamed-chunk-20](Session2_hypothesis_testing-figure/unnamed-chunk-20-1.png)
+![plot of chunk unnamed-chunk-21](Session2_hypothesis_testing-figure/unnamed-chunk-21-1.png)
 
 
 Hypothesis testing for mean - Load data (2/9)
