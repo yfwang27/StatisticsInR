@@ -927,6 +927,10 @@ Wilcoxon test
 
 Wilcoxon Signed-Rank Test is one of the Non-parametric statistical hypothesis tests. It is a good alternative to t-tests without assuming them to follow the normal distribution.
 
+$$H_0: \text{median}_{a}- \text{median}_{b} = 0
+\\
+H_a: \text{median}_{a}- \text{median}_{b}\neq 0$$
+
 
 ```r
 a <- c(214, 159, 169, 202, 103, 119, 200, 109, 132, 142, 194, 104, 219, 119, 234)
