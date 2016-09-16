@@ -542,7 +542,7 @@ binom.test(vote.remain, total.vote, p=0.5, alternative = "two.sided")
 
 
 
-Hypothesis testing for mean - Load data (1/9)
+Hypothesis testing for mean - Load data (1/10)
 ========================================================
 
 We use "PlantGrowth" as example
@@ -560,8 +560,27 @@ boxplot(weight~group,data=PlantGrowth,
 
 ```
 
+Hypothesis testing for mean - t-test (2/10)
+========================================================
 
-Hypothesis testing for mean - Load data (2/9)
+**t.test()**
+
+*one-sample t-test*
+```{r,warning=FALSE, eval=F}
+t.test(groupA,mu=something)
+```
+*independent t-test*
+
+We are going to discuss this case in this workshop.
+```{r,warning=FALSE, eval=F}
+t.test(groupA,groupB,paired=FALSE)
+```
+*paired t-test*
+```{r,warning=FALSE, eval=F}
+t.test(Patients_before_treatment,Patients_after_treatment,paired=TRUE)
+```
+
+Hypothesis testing for mean - Load data (3/10)
 ========================================================
 
 Convert the input data into the proper format
@@ -578,7 +597,7 @@ head(PlantGrowth_wide)
 
 
 
-T-test example - Calculating variance (3/9)
+T-test example - Calculating variance (4/10)
 ========================================================
 
 First we can specify the columns of interest using $ and calculate their variance using var().
@@ -588,7 +607,7 @@ var(PlantGrowth_wide$trt1)
 var(PlantGrowth_wide$trt2)
 ```
 
-T-test example - Comparing variance (4/9)
+T-test example - Comparing variance (5/10)
 ========================================================
 
 Now we can test for any differences in variances between ctrl and trt1 and ctrl and trt2 with an F-test using the var.test() function.
@@ -602,7 +621,7 @@ var.test(PlantGrowth_wide$ctrl,
          PlantGrowth_wide$trt2)
 ```
 
-R objects (s3 and s4) (5/9)
+R objects (s3 and s4) (6/10)
 ========================================================
 Left:30% The data type holding the result var.test() is a little more complex than the data types we have looked.
 
@@ -615,7 +634,7 @@ str(result)
 ```
 
 
-R objects (s3 and s4) (6/9)
+R objects (s3 and s4) (7/10)
 ========================================================
 Now we know the structure and class of the htest object we can access the slots containing information we want just as with a named list.
 
@@ -632,7 +651,7 @@ The data used in function call
 result$data.name
 ```
 
-T-test example - Equal Variance (7/9)
+T-test example - Equal Variance (8/10)
 ========================================================
 We have ascertained that ctrl and trt1 have similar variances. We can therefore perform a standard t-test to assess the significance of differences between these groups.
 ```{r}
@@ -640,13 +659,13 @@ test_res <- t.test(PlantGrowth_wide$ctrl,PlantGrowth_wide$trt1,alternative ="two
 test_res
 ```
 
-T-test example - Unequal Variance (8/9)
+T-test example - Unequal Variance (9/10)
 ========================================================
 To compare groups of unequal variance then the var.equal argument may be set to FALSE (which is the default).
 
 note: [see exercise](exercises/Session2_exercise2.html)
 
-T-test example - Specifying a formula (9/9)
+T-test example - Specifying a formula (10/10)
 ========================================================
 The same result to that shown could be achieved by specifying a formula for the comparison. Here we wish to compare ctrl versus trt1 so we could simply specify the formula and the data to be used.
 ```{r}
@@ -691,11 +710,55 @@ More details in the next session
 PG.anova
 ```
 
+Non-parametric test
+========================================================
+
+Non-parametric statistical hypothesis test is a test that is not based on probability distribution for the dependant variable. 
+
+It doesn't repuired the dependent varible to be normally distributed.
+
+**wilcox.test()**
+
+Wilcoxon Signed-Rank Test is one of the Non-parametric statistical hypothesis tests. It is a good alternative to t-tests without assuming the dependent variables to follow the normal distribution.
+
+t-test and Wilcoxon test alternatives
+========================================================
+
+**t.test()**
+
+*one-sample t-test*
+```{r,warning=FALSE, eval=F}
+t.test(groupA,mu=something)
+```
+*independent t-test*
+```{r,warning=FALSE, eval=F}
+t.test(groupA,groupB,paired=FALSE)
+```
+*paired t-test*
+```{r,warning=FALSE, eval=F}
+t.test(groupA,groupB,paired=TRUE)
+```
+***
+**wilcox.test()**
+
+*one-sample Wilcoxon: Signed-Rank Test*
+```{r,warning=FALSE, eval=F}
+wilcox.test(groupA,mu=something)
+```
+*Wilcoxon Rank Sum Test: Mann-Whitney U*
+```{r,warning=FALSE, eval=F}
+wilcox.test(groupA,groupB,paired=FALSE)
+```
+*paired Wilcoxon:Signed-Rank Test*
+```{r,warning=FALSE, eval=F}
+wilcox.test(groupA,groupB,paired=TRUE)
+```
+
 Wilcoxon test
 ========================================================
 **wilcox.test()**
 
-Wilcoxon Signed-Rank Test is one of the Non-parametric statistical hypothesis tests. It can compart of the means between 2 paired samples without assuming them to follow the normal distribution.
+Wilcoxon Signed-Rank Test is one of the Non-parametric statistical hypothesis tests. It is a good alternative to t-tests without assuming them to follow the normal distribution.
 
 ```{r}
 a <- c(214, 159, 169, 202, 103, 119, 200, 109, 132, 142, 194, 104, 219, 119, 234)
@@ -703,7 +766,6 @@ b <- c(159, 135, 141, 101, 102, 168, 62, 167, 174, 159, 66, 118, 181, 171, 112)
 
 wilcox.test(a,b, paired=TRUE)
 ```
-
 
 fisher.test()
 ========================================================
