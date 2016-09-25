@@ -604,9 +604,25 @@ head(PlantGrowth_wide)
 6         6 4.61 3.83 5.29
 ```
 
-
-
 Independent t-test example - Calculating variance (4/10)
+========================================================
+What is the difference in variances between ctrl and trt1?
+
+F test
+
+$$F= \frac{S^2_x}{S^2_y}
+\\
+S^2_x:\text{ sample varience for group x}
+\\
+S^2_y:\text{ sample varience for gorup y}
+\\\\
+\text{degrees of freedom for the numerator}=n_x-1
+\\
+\text{degrees of freedom for the denominator}=n_y-1
+$$
+
+
+Calculating variance with R - var() function (5/10)
 ========================================================
 
 First we can specify the columns of interest using $ and calculate their variance using var().
@@ -635,7 +651,38 @@ var(PlantGrowth_wide$trt2)
 [1] 0.1958711
 ```
 
-Independent t-test example - Comparing variance (5/10)
+Calculating F-ratio (6/10)
+========================================================
+
+
+```r
+Fratio<-var(PlantGrowth_wide$ctrl)/var(PlantGrowth_wide$trt1)
+Fratio
+```
+
+```
+[1] 0.5397431
+```
+
+```r
+df_trt1<-10-1
+df_ctrl<-10-1
+```
+
+Calculate the F critical value
+
+F distribution, ⍺=0.05, df1=5, and df2=5
+
+```r
+qf(c(0.025,0.975),df1=df_trt1, df2=df_ctrl)
+```
+
+```
+[1] 0.2483859 4.0259942
+```
+
+
+Calculating F test with R (6/10)
 ========================================================
 
 Now we can test for any differences in variances between ctrl and trt1 with an F-test using the var.test() function.
@@ -665,7 +712,7 @@ ratio of variances
          0.5397431 
 ```
 
-R objects (s3 and s4) (6/10)
+R objects (s3 and s4) (7/10)
 ========================================================
 Left:30% The data type holding the result var.test() is a little more complex than the data types we have looked.
 
@@ -698,7 +745,7 @@ List of 9
 ```
 
 
-R objects (s3 and s4) (7/10)
+R objects (s3 and s4) (8/10)
 ========================================================
 Now we know the structure and class of the htest object we can access the slots containing information we want just as with a named list.
 
@@ -731,7 +778,7 @@ result$data.name
 [1] "PlantGrowth_wide$ctrl and PlantGrowth_wide$trt1"
 ```
 
-Independent t-test - Equal Variance (8/10)
+Independent t-test - Equal Variance (9/10)
 ========================================================
 We have ascertained that ctrl and trt1 have similar variances. We can therefore perform a standard t-test to assess the significance of differences between these groups.
 
@@ -759,13 +806,13 @@ mean of x mean of y
     5.032     4.661 
 ```
 
-T-test example - Unequal Variance (9/10)
+T-test example - Unequal Variance (10/10)
 ========================================================
 To compare groups of unequal variance then the var.equal argument may be set to FALSE (which is the default).
 
 note: [see exercise](exercises/Session2_exercise2.html)
 
-T-test example - Specifying a formula (10/10)
+T-test example - Specifying a formula (11/10)
 ========================================================
 The same result to that shown could be achieved by specifying a formula for the comparison. Here we wish to compare ctrl versus trt1 so we could simply specify the formula and the data to be used.
 
