@@ -530,7 +530,7 @@ probability of success
 
 
 
-Hypothesis testing for mean - Load data (1/10)
+Hypothesis testing for mean - Load data (1/12)
 ========================================================
 
 We use "PlantGrowth" as example
@@ -554,7 +554,7 @@ data visualisation
 
 ![plot of chunk unnamed-chunk-21](Session2_hypothesis_testing-figure/unnamed-chunk-21-1.png)
 
-Hypothesis testing for mean - t-test (2/10)
+Hypothesis testing for mean - t-test (2/12)
 ========================================================
 
 **t.test()**
@@ -577,7 +577,7 @@ t.test(groupA,groupB,paired=FALSE)
 t.test(Patients_before_treatment,Patients_after_treatment,paired=TRUE)
 ```
 
-Hypothesis testing for mean - Load data (3/10)
+Hypothesis testing for mean - Load data (3/12)
 ========================================================
 
 Convert the input data into the proper format
@@ -604,7 +604,7 @@ head(PlantGrowth_wide)
 6         6 4.61 3.83 5.29
 ```
 
-Independent t-test example - Calculating variance (4/10)
+Independent t-test example - Calculating variance (4/12)
 ========================================================
 What is the difference in variances between ctrl and trt1?
 
@@ -622,7 +622,7 @@ S^2_y:\text{ sample varience for gorup y}
 $$
 
 
-Calculating variance with R - var() function (5/10)
+Calculating variance with R - var() function (5/12)
 ========================================================
 
 First we can specify the columns of interest using $ and calculate their variance using var().
@@ -651,7 +651,7 @@ var(PlantGrowth_wide$trt2)
 [1] 0.1958711
 ```
 
-Calculating F-ratio (6/10)
+Calculating F-ratio (6/12)
 ========================================================
 
 
@@ -682,7 +682,7 @@ qf(c(0.025,0.975),df1=df_trt1, df2=df_ctrl)
 ```
 
 
-Calculating F test with R (6/10)
+Calculating F test with R (7/12)
 ========================================================
 
 Now we can test for any differences in variances between ctrl and trt1 with an F-test using the var.test() function.
@@ -712,7 +712,7 @@ ratio of variances
          0.5397431 
 ```
 
-R objects (s3 and s4) (7/10)
+R objects (s3 and s4) (8/12)
 ========================================================
 Left:30% The data type holding the result var.test() is a little more complex than the data types we have looked.
 
@@ -745,7 +745,7 @@ List of 9
 ```
 
 
-R objects (s3 and s4) (8/10)
+R objects (s3 and s4) (9/12)
 ========================================================
 Now we know the structure and class of the htest object we can access the slots containing information we want just as with a named list.
 
@@ -778,7 +778,7 @@ result$data.name
 [1] "PlantGrowth_wide$ctrl and PlantGrowth_wide$trt1"
 ```
 
-Independent t-test - Equal Variance (9/10)
+Independent t-test - Equal Variance (10/12)
 ========================================================
 We have ascertained that ctrl and trt1 have similar variances. We can therefore perform a standard t-test to assess the significance of differences between these groups.
 
@@ -806,13 +806,13 @@ mean of x mean of y
     5.032     4.661 
 ```
 
-T-test example - Unequal Variance (10/10)
+T-test example - Unequal Variance (11/12)
 ========================================================
 To compare groups of unequal variance then the var.equal argument may be set to FALSE (which is the default).
 
 note: [see exercise](exercises/Session2_exercise2.html)
 
-T-test example - Specifying a formula (11/10)
+T-test example - Specifying a formula (12/12)
 ========================================================
 The same result to that shown could be achieved by specifying a formula for the comparison. Here we wish to compare ctrl versus trt1 so we could simply specify the formula and the data to be used.
 
