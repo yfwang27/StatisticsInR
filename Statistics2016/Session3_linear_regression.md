@@ -58,7 +58,7 @@ Correlation between vectors (2/6)
 ```
 
 ```
-[1] -0.09229917
+[1] -0.09604148
 ```
 ***
 ![plot of chunk unnamed-chunk-2](Session3_linear_regression-figure/unnamed-chunk-2-1.png)
@@ -281,6 +281,103 @@ $$b_1\text{: the amount of f(x) will change when x changes 1 unit}$$
 <img src="Session3_linear_regression-figure/unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="720px" />
 
 
+Interpret output of lm() - residuals (6/14)
+=========================================================
+
+The **residuals** are the difference between the predicted and actual values.
+To retrieve the residuals we can access the slot or use the **resid()** function.
+
+
+```r
+> summary(resid(lmResult))
+```
+
+```
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+-24.840  -7.361  -2.384   0.000   3.616  68.710 
+```
+
+```r
+> summary(lmResult$residual)
+```
+
+```
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+-24.840  -7.361  -2.384   0.000   3.616  68.710 
+```
+Ideally you would want your residuals to be normally distributed around 0.
+
+
+Interpret output of lm() - residuals (7/14)
+=========================================================
+
+Plot the residuals against the independent variable (X)
+
+
+```r
+plot(kid.weights$height,lmResult$residual,
+     ylab="residuals",xlab="height (inches)")
+abline(h=0,col="blueviolet",lwd=3, lty=3)
+```
+
+<img src="Session3_linear_regression-figure/unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="720px" />
+
+
+Interpret output of lm() - residuals (8/14)
+=========================================================
+
+Plot the residuals against the independent variable (X)
+
+<img src="Session3_linear_regression-figure/unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" width="720px" />
+
+***
+$$
+Error_i = y_i - \hat{y}
+\\
+
+Error_i^2  = (y_i - \hat{y})^2
+\\
+\text{- sum of the square of the residuals (SSE)}
+\\
+SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
+$$
+
+
+
+Interpret output of lm() - residuals (9/14)
+=========================================================
+
+Residuals from the model
+
+![plot of chunk unnamed-chunk-21](Session3_linear_regression-figure/unnamed-chunk-21-1.png)
+- Sum of the square of the residuals (SSE)
+$$
+SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
+$$
+
+***
+
+Residuals from the mean
+
+![plot of chunk unnamed-chunk-22](Session3_linear_regression-figure/unnamed-chunk-22-1.png)
+
+- Total Sum of Squares (TSS)
+
+$$
+  \begin{aligned}
+  TSS  = \sum_{i=1}^{n}(y_i-\overline y)^2
+  \end{aligned}
+$$
+
+
+
+
+
+
+
+
+
+
 Linear regression (2/14)
 =========================================================
 Use the *Petal.Width* to predict the *Petal.Length* from the iris data as example
@@ -343,7 +440,7 @@ If we only know the Petal.Length, and would like to use this information to pred
 > abline(h=PetalLen.mean, col="forestgreen",lwd=3)
 ```
 
-![plot of chunk unnamed-chunk-20](Session3_linear_regression-figure/unnamed-chunk-20-1.png)
+![plot of chunk unnamed-chunk-25](Session3_linear_regression-figure/unnamed-chunk-25-1.png)
 
 
 Regression and linear models (4/14)
@@ -351,7 +448,7 @@ Regression and linear models (4/14)
 
 If we only know the *Petal.Length*, and would like to use this information to predict the *Petal.Length*
 
-![plot of chunk unnamed-chunk-21](Session3_linear_regression-figure/unnamed-chunk-21-1.png)
+![plot of chunk unnamed-chunk-26](Session3_linear_regression-figure/unnamed-chunk-26-1.png)
 ***
 
 $$\text{In this case, the expected value is mean } = \overline y $$
@@ -371,7 +468,7 @@ Regression and linear models (5/14)
 
 Zoom in [just see first 4 data points]
 
-![plot of chunk unnamed-chunk-22](Session3_linear_regression-figure/unnamed-chunk-22-1.png)
+![plot of chunk unnamed-chunk-27](Session3_linear_regression-figure/unnamed-chunk-27-1.png)
 ***
 
 $$\text{In this case, the expected values is mean } = \overline y $$
@@ -407,7 +504,7 @@ Now we use the "iris_versi" *Petal.Width* to predict *Petal.Length*
 
 We can plot *Petal.Width* as X and *Petal.Length* as Y
 
-![plot of chunk unnamed-chunk-23](Session3_linear_regression-figure/unnamed-chunk-23-1.png)
+![plot of chunk unnamed-chunk-28](Session3_linear_regression-figure/unnamed-chunk-28-1.png)
 ***
 $$
   x = \text{independent or explanatory variable}
@@ -424,71 +521,150 @@ $$b_1\text{(slope): the amount of f(x) will change when x changes 1 unit}$$
 
 
 
-Regression and linear models - residuals (10/14)
+
+
+Regression and linear models - R-squared (14/14)
 =========================================================
-
-The **residuals** are the difference between the predicted and actual values.
-To retrieve the residuals we can access the slot or use the **resid()** function.
-
-
-```r
-> summary(resid(lmResult))
-```
+Left: 70%
 
 ```
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
--24.840  -7.361  -2.384   0.000   3.616  68.710 
+
+Call:
+lm(formula = weight ~ height, data = kid.weights)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-24.837  -7.361  -2.384   3.616  68.708 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -31.34191    3.17493  -9.872   <2e-16 ***
+height        1.90904    0.08343  22.882   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 14.09 on 248 degrees of freedom
+Multiple R-squared:  0.6786,	Adjusted R-squared:  0.6773 
+F-statistic: 523.6 on 1 and 248 DF,  p-value: < 2.2e-16
 ```
-
-```r
-> summary(lmResult$residual)
-```
-
-```
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
--24.840  -7.361  -2.384   0.000   3.616  68.710 
-```
-Ideally you would want your residuals to be normally distributed around 0.
-
-
-Regression and linear models - residuals (11/14)
-=========================================================
-
-
-```r
-> IrisLm.res<-lmResult$residual
-> head(IrisLm.res)
-```
-
-```
-         1          2          3          4          5          6 
- -3.201748  36.253033 -10.292185  12.890247 -11.383142  15.524863 
-```
-
 ***
+- The **R-squared** value represents the proportion of variability in the response variable that is explained by the explanatory variable.
 
-Plot the residuals against the independent variable (X)
+- A high **R-squared** here indicates that the line fits closely to the data.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Regression and linear models - F-statistics.
+=========================================================
+Left: 70%
 
 ```
-Error in xy.coords(x, y, xlabel, ylabel, log) : 
-  'x' and 'y' lengths differ
+
+Call:
+lm(formula = weight ~ height, data = kid.weights)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-24.837  -7.361  -2.384   3.616  68.708 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -31.34191    3.17493  -9.872   <2e-16 ***
+height        1.90904    0.08343  22.882   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 14.09 on 248 degrees of freedom
+Multiple R-squared:  0.6786,	Adjusted R-squared:  0.6773 
+F-statistic: 523.6 on 1 and 248 DF,  p-value: < 2.2e-16
 ```
+***
+The results from linear models also provides a measure of significance for a variable not being relevant.
+
+Statistics (Extra) - A fit line
+=========================================================
+
+![alt text](imgs/fittedline.png)
+
+Statistics (Extra) - Calculating R-squared
+=========================================================
+
+![alt text](imgs/rsquared.png)
+
+Statistics (Extra) - Calculating R-squared
+=========================================================
+
+The fraction of variability in the independent variable (Y; or the *Petal.Length* in this example) that can be explained by the explanatory variable (X; or the *Petal.Width* in this example).
+
+$$
+TSS=\text{Total Sum of Squares}=\sum_{i=1}^n(y_i-\overline y)^2
+\\
+SSE=\text{Sum of the Square of the residuals}=\sum_{i=1}^n(y_i-\hat{y})^2
+$$
+
+
+```r
+> SSE <- sum(resid(lmResult)^2)
+> TSS <- sum((iris_versi$Petal.Length - mean(iris_versi$Petal.Length))^2)
+> 1- SSE/TSS
+```
+
+```
+[1] -4550.917
+```
+
+```r
+> summary(lmResult)$r.squared
+```
+
+```
+[1] 0.6785746
+```
+
+Statistics (Extra) - Calculating R-squared
+=========================================================
+
+![alt text](imgs/fstatistic.png)
+
+Statistics (Extra) - Calculating F-stat
+=========================================================
+
+$$
+F=\frac{MSM}{MSE}=\frac{\text{mean of the explained variance}}{\text{mean of the unexplained variance}}=\frac{({\displaystyle\frac{SSM}1})}{({\displaystyle\frac{SSE}{n-2}})}
+$$
+
+
+```r
+> n=nrow(iris_versi)
+> MSE <-sum(lmResult$residuals^2)/(n-2)
+> RSS <- sum((predict(lmResult) - mean(iris_versi$Petal.Length))^2)
+> MSM <-RSS/1
+> 
+> MSM/MSE
+```
+
+```
+[1] 385.048
+```
+
+```r
+> summary(lmResult)$fstatistic
+```
+
+```
+   value    numdf    dendf 
+523.5631   1.0000 248.0000 
+```
+
+Time for an exercise!
+========================================================
+
+Exercise on this session can be found [here](exercises/Session3_exercise3.html)
+
+
+
+Answers to exercise.
+========================================================
+
+Answers can be found [here](answers/Session3_answers3.html)
+
+R code for solutions can be found here  [here]
+

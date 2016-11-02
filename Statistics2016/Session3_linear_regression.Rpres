@@ -200,6 +200,117 @@ pwh + geom_point() + stat_smooth(method = "lm",se=F) +
 ```
 
 
+Interpret output of lm() - residuals (6/14)
+=========================================================
+
+The **residuals** are the difference between the predicted and actual values.
+To retrieve the residuals we can access the slot or use the **resid()** function.
+
+```{r,prompt=T,echo=T}
+summary(resid(lmResult))
+summary(lmResult$residual)
+```
+Ideally you would want your residuals to be normally distributed around 0.
+
+
+Interpret output of lm() - residuals (7/14)
+=========================================================
+
+Plot the residuals against the independent variable (X)
+
+```{r,echo=T,fig.width=5,fig.height=5,dpi=300,out.width="720px",height="720px"}
+plot(kid.weights$height,lmResult$residual,
+     ylab="residuals",xlab="height (inches)")
+abline(h=0,col="blueviolet",lwd=3, lty=3)
+
+```
+
+
+Interpret output of lm() - residuals (8/14)
+=========================================================
+
+Plot the residuals against the independent variable (X)
+
+```{r,echo=F,fig.width=5,fig.height=5,dpi=300,out.width="720px",height="720px"}
+plot(kid.weights$height,lmResult$residual,
+     ylab="residuals",xlab="height (x)")
+abline(h=0,col="blueviolet",lwd=3, lty=3)
+segments(x0=kid.weights$height,y0=0,
+         x1=kid.weights$height,y1=lmResult$residual,col="brown",lwd=3)
+```
+
+***
+$$
+Error_i = y_i - \hat{y}
+\\
+
+Error_i^2  = (y_i - \hat{y})^2
+\\
+\text{- sum of the square of the residuals (SSE)}
+\\
+SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
+$$
+
+
+
+Interpret output of lm() - residuals (9/14)
+=========================================================
+
+Residuals from the model
+
+```{r,echo=F}
+plot(kid.weights$height,lmResult$residual,
+     ylab="residuals",xlab="height (x)")
+abline(h=0,col="blueviolet",lwd=3, lty=3)
+#rect(xleft=iris_versi$Petal.Width,ybottom=0,
+#     xright=iris_versi$Petal.Width+abs(lmResult$residual),
+#     ytop=0+lmResult$residual,
+#     density=30,col = "darkgreen")
+
+segments(x0=kid.weights$height,y0=0,
+         x1=kid.weights$height,y1=lmResult$residual,col="brown",lwd=3)
+```
+- Sum of the square of the residuals (SSE)
+$$
+SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
+$$
+
+***
+
+Residuals from the mean
+
+```{r,echo=F}
+diff_df<-kid.weights$weight-mean(kid.weights$weight)
+plot(kid.weights$weight, xlim=c(0,100),
+     ylab="weight (y)", xlab="x")
+abline(h=mean(kid.weights$weight),
+       col="forestgreen",lwd=3,lty=3)
+
+#rect(xleft=c(1:4),ybottom=mean(iris_versi$Petal.Length),
+#     xright=c(1:4)+abs(diff_df[c(1:4)]),
+#     ytop=mean(iris_versi$Petal.Length)+diff_df[c(1:4)],
+#     density=30,col = "blue")
+segments(x0=c(1:100),y0=kid.weights$weight[c(1:100)],
+         x1=c(1:100),y1=mean(kid.weights$weight),col="brown",lwd=3)
+```
+
+- Total Sum of Squares (TSS)
+
+$$
+  \begin{aligned}
+  TSS  = \sum_{i=1}^{n}(y_i-\overline y)^2
+  \end{aligned}
+$$
+
+
+
+
+
+
+
+
+
+
 Linear regression (2/14)
 =========================================================
 Use the *Petal.Width* to predict the *Petal.Length* from the iris data as example
@@ -335,128 +446,6 @@ $$
 $$b_0\text{(intercept): the value of f(x) when x =0}$$
 
 $$b_1\text{(slope): the amount of f(x) will change when x changes 1 unit}$$
-
-
-
-Regression and linear models - residuals (10/14)
-=========================================================
-
-The **residuals** are the difference between the predicted and actual values.
-To retrieve the residuals we can access the slot or use the **resid()** function.
-
-```{r,prompt=T,echo=T}
-summary(resid(lmResult))
-summary(lmResult$residual)
-```
-Ideally you would want your residuals to be normally distributed around 0.
-
-
-Regression and linear models - residuals (11/14)
-=========================================================
-
-```{r,prompt=T,echo=T}
-IrisLm.res<-lmResult$residual
-head(IrisLm.res)
-
-```
-
-***
-
-Plot the residuals against the independent variable (X)
-
-```{r,echo=F}
-plot(iris_versi$Petal.Width,IrisLm.res,ylim=c(-2.5,2.5),
-     ylab="residuals",xlab="Petal Width of Iris.versicolor (x)")
-abline(h=0,col="blueviolet",lwd=3, lty=3)
-
-```
-
-
-Regression and linear models - residuals (12/14)
-=========================================================
-
-```{r,prompt=T,echo=T}
-IrisLm.res<-lmResult$residual
-head(IrisLm.res)
-
-```
-$$
-Error_i = y_i - \hat{y}
-\\
-
-Error_i^2  = (y_i - \hat{y})^2
-\\
-\text{- sum of the square of the residuals (SSE)}
-\\
-SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
-$$
-
-***
-
-Plot the residuals against the independent variable (X)
-
-```{r,echo=F}
-plot(iris_versi$Petal.Width,IrisLm.res,ylim=c(-2.5,2.5),
-     ylab="residuals",xlab="Petal Width of Iris.versicolor (x)")
-abline(h=0,col="blueviolet",lwd=3, lty=3)
-segments(x0=iris_versi$Petal.Width,y0=0,
-         x1=iris_versi$Petal.Width,y1=lmResult$residual,col="brown",lwd=3)
-```
-
-
-
-Regression and linear models - residuals (13/14)
-=========================================================
-
-Residuals from the model
-
-```{r,echo=F}
-plot(iris_versi$Petal.Width,IrisLm.res,ylim=c(-2.5,2.5),
-     ylab="residuals",xlab="Petal Width of Iris.versicolor (x)")
-abline(h=0,col="blueviolet",lwd=3, lty=3)
-
-#rect(xleft=iris_versi$Petal.Width,ybottom=0,
-#     xright=iris_versi$Petal.Width+abs(lmResult$residual),
-#     ytop=0+lmResult$residual,
-#     density=30,col = "darkgreen")
-
-
-segments(x0=iris_versi$Petal.Width,y0=0,
-         x1=iris_versi$Petal.Width,y1=lmResult$residual,col="brown",lwd=3)
-```
-
-- Sum of the square of the residuals (SSE)
-$$
-SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
-$$
-
-***
-
-Residuals from the mean
-
-```{r,echo=F}
-diff_df<-iris_versi$Petal.Length-PetalLen.mean
-plot(iris_versi$Petal.Length, ylim=c(2,6.5),
-     ylab="Petal Length of first 4 data points (y)", xlab="x")
-abline(h=mean(iris_versi$Petal.Length),
-       col="forestgreen",lwd=3)
-
-#rect(xleft=c(1:4),ybottom=mean(iris_versi$Petal.Length),
-#     xright=c(1:4)+abs(diff_df[c(1:4)]),
-#     ytop=mean(iris_versi$Petal.Length)+diff_df[c(1:4)],
-#     density=30,col = "blue")
-
-segments(x0=c(1:50),y0=iris_versi$Petal.Length,
-         x1=c(1:50),y1=mean(iris_versi$Petal.Length),col="brown",lwd=3)
-```
-
-- Total Sum of Squares (TSS)
-
-$$
-  \begin{aligned}
-  TSS  = \sum_{i=1}^{n}(y_i-\overline y)^2
-  \end{aligned}
-$$
 
 
 
