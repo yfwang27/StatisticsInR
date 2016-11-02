@@ -16,38 +16,10 @@ Outline
 - linear regression
 
 
-Dataset - use the "iris" data (1/2)
-========================================================
-
-```{r,prompt=T}
-data(iris)
-```
-Some basic checks
-```{r,prompt=T}
-class(iris)
-str(iris)
-```
-***
-```{r,prompt=T}
-head(iris)
-```
-
-Dataset - use the "iris" data (2/2)
-========================================================
-[Use the dplyr package to make data tidy](http://bioinformatics-core-shared-training.github.io/r-intermediate/)
-```{r, warning=FALSE, eval=T,prompt=T}
-#install.packages("dplyr")
-library("dplyr")
-```
-
-```{r,prompt=T}
-# tbl_df()
-```
-
-Correlation (1/5)
+Correlation (1/6)
 =========================================================
 
-A common task in statistical analysis is to investigate the relationship between pairs of numeric vectors.
+A common task in statistical analysis is to investigate the linear relationship between pairs of numeric vectors.
 
 This can be done by identifying the correlation between numeric vectors using the **cor()** function in R.
 
@@ -55,10 +27,10 @@ In this example we use **cor()** to identify the Pearson correlation between two
 
 - Perfectly posively correlated vectors will return 1
 - Perfectly negatively correlated vectors will return -1
-- Vectors showing no or little correlation will be close to 0.
+- Vectors showing no or little linear correlation will be close to 0.
 
 
-Correlation between vectors (2/5)
+Correlation between vectors (2/6)
 =========================================================
 
 ```{r,prompt=T}
@@ -79,24 +51,42 @@ plot(x,z)
 par(mfrow=c(1,1))
 ```
 
+Correlation example (3/6)
+=========================================================
 
-Correlation over a matrix (3/5)
+Example of blood pressure of 15 males taken by machine and expert. We would like to see whether there is a relationship between machine and expert measured blood pressure.
+
+```{r,prompt=T}
+#install.packages("UsingR")
+library("UsingR")
+data(blood)
+head(blood)
+cor(blood$Machine,blood$Expert)
+```
+***
+```{r,echo=F,prompt=T}
+library("ggplot2")
+p <- ggplot(blood, aes(Expert, Machine))
+p + geom_point()
+
+```
+
+Correlation over a matrix (4/6)
 =========================================================
 left: 70%
 Often we wish to apply correlation analysis to all columns or rows in a matrix in a pair-wise manner. To do this in R, we can simply pass the **cor()** function a single argument of the numeric matrix of interest. The **cor()** function will then perform all pair-wise correlations between columns.
 
 - subset data.frame
 ```{r,prompt=T}
-iris4cor<-iris[,1:4]
-```
-- change colnames
-```{r,prompt=T}
-colnames(iris4cor)<-gsub("(.+)(\\.)(\\w{3})(.+)","\\1\\2\\3",colnames(iris4cor))
-head(iris4cor)
-
+data(iris)
+head(iris)
+iris4cor<-iris[,c(1:4)]; 
+# or
+# iris4cor<-iris[,-5]
 ```
 
-Correlation over a matrix (4/5)
+
+Correlation over a matrix (5/6)
 =========================================================
 ```{r,prompt=T}
 cor(iris4cor)
@@ -108,7 +98,7 @@ mtext(colnames(iris4cor),side=1,at=seq(0,1,length.out=4),las=2,cex=0.8)
 
 ```
 
-Correlation (5/6)
+Correlation (6/6)
 ========================================================
 ```{r,prompt=T}
 pairs(iris4cor)

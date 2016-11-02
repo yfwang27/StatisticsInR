@@ -16,69 +16,10 @@ Outline
 - linear regression
 
 
-Dataset - use the "iris" data (1/2)
-========================================================
-
-
-```r
-> data(iris)
-```
-Some basic checks
-
-```r
-> class(iris)
-```
-
-```
-[1] "data.frame"
-```
-
-```r
-> str(iris)
-```
-
-```
-'data.frame':	150 obs. of  5 variables:
- $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
- $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
- $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
- $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
- $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-```
-***
-
-```r
-> head(iris)
-```
-
-```
-  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-1          5.1         3.5          1.4         0.2  setosa
-2          4.9         3.0          1.4         0.2  setosa
-3          4.7         3.2          1.3         0.2  setosa
-4          4.6         3.1          1.5         0.2  setosa
-5          5.0         3.6          1.4         0.2  setosa
-6          5.4         3.9          1.7         0.4  setosa
-```
-
-Dataset - use the "iris" data (2/2)
-========================================================
-[Use the dplyr package to make data tidy](http://bioinformatics-core-shared-training.github.io/r-intermediate/)
-
-```r
-> #install.packages("dplyr")
-> library("dplyr")
-```
-
-
-```r
-> # tbl_df()
-```
-
-Correlation (1/5)
+Correlation (1/6)
 =========================================================
 
-A common task in statistical analysis is to investigate the relationship between pairs of numeric vectors.
+A common task in statistical analysis is to investigate the linear relationship between pairs of numeric vectors.
 
 This can be done by identifying the correlation between numeric vectors using the **cor()** function in R.
 
@@ -86,10 +27,10 @@ In this example we use **cor()** to identify the Pearson correlation between two
 
 - Perfectly posively correlated vectors will return 1
 - Perfectly negatively correlated vectors will return -1
-- Vectors showing no or little correlation will be close to 0.
+- Vectors showing no or little linear correlation will be close to 0.
 
 
-Correlation between vectors (2/5)
+Correlation between vectors (2/6)
 =========================================================
 
 
@@ -117,13 +58,45 @@ Correlation between vectors (2/5)
 ```
 
 ```
-[1] 0.137096
+[1] -0.1320132
 ```
 ***
-![plot of chunk unnamed-chunk-7](Session3_linear_regression-figure/unnamed-chunk-7-1.png)
+![plot of chunk unnamed-chunk-2](Session3_linear_regression-figure/unnamed-chunk-2-1.png)
+
+Correlation example (3/6)
+=========================================================
+
+Example of blood pressure of 15 males taken by machine and expert. We would like to see whether there is a relationship between machine and expert measured blood pressure.
 
 
-Correlation over a matrix (3/5)
+```r
+> #install.packages("UsingR")
+> library("UsingR")
+> data(blood)
+> head(blood)
+```
+
+```
+  Machine Expert
+1      68     72
+2      82     84
+3      94     89
+4     106    100
+5      92     97
+6      80     88
+```
+
+```r
+> cor(blood$Machine,blood$Expert)
+```
+
+```
+[1] 0.9068599
+```
+***
+![plot of chunk unnamed-chunk-4](Session3_linear_regression-figure/unnamed-chunk-4-1.png)
+
+Correlation over a matrix (4/6)
 =========================================================
 left: 70%
 Often we wish to apply correlation analysis to all columns or rows in a matrix in a pair-wise manner. To do this in R, we can simply pass the **cor()** function a single argument of the numeric matrix of interest. The **cor()** function will then perform all pair-wise correlations between columns.
@@ -131,26 +104,28 @@ Often we wish to apply correlation analysis to all columns or rows in a matrix i
 - subset data.frame
 
 ```r
-> iris4cor<-iris[,1:4]
+> data(iris)
+> head(iris)
 ```
-- change colnames
+
+```
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+```
 
 ```r
-> colnames(iris4cor)<-gsub("(.+)(\\.)(\\w{3})(.+)","\\1\\2\\3",colnames(iris4cor))
-> head(iris4cor)
+> iris4cor<-iris[,c(1:4)]; 
+> # or
+> # iris4cor<-iris[,-5]
 ```
 
-```
-  Sepal.Len Sepal.Wid Petal.Len Petal.Wid
-1       5.1       3.5       1.4       0.2
-2       4.9       3.0       1.4       0.2
-3       4.7       3.2       1.3       0.2
-4       4.6       3.1       1.5       0.2
-5       5.0       3.6       1.4       0.2
-6       5.4       3.9       1.7       0.4
-```
 
-Correlation over a matrix (4/5)
+Correlation over a matrix (5/6)
 =========================================================
 
 ```r
@@ -158,22 +133,22 @@ Correlation over a matrix (4/5)
 ```
 
 ```
-           Sepal.Len  Sepal.Wid  Petal.Len  Petal.Wid
-Sepal.Len  1.0000000 -0.1175698  0.8717538  0.8179411
-Sepal.Wid -0.1175698  1.0000000 -0.4284401 -0.3661259
-Petal.Len  0.8717538 -0.4284401  1.0000000  0.9628654
-Petal.Wid  0.8179411 -0.3661259  0.9628654  1.0000000
+             Sepal.Length Sepal.Width Petal.Length Petal.Width
+Sepal.Length    1.0000000  -0.1175698    0.8717538   0.8179411
+Sepal.Width    -0.1175698   1.0000000   -0.4284401  -0.3661259
+Petal.Length    0.8717538  -0.4284401    1.0000000   0.9628654
+Petal.Width     0.8179411  -0.3661259    0.9628654   1.0000000
 ```
-<img src="Session3_linear_regression-figure/unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="820px" />
+<img src="Session3_linear_regression-figure/unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="820px" />
 
-Correlation (5/6)
+Correlation (6/6)
 ========================================================
 
 ```r
 > pairs(iris4cor)
 ```
 
-![plot of chunk unnamed-chunk-12](Session3_linear_regression-figure/unnamed-chunk-12-1.png)
+![plot of chunk unnamed-chunk-8](Session3_linear_regression-figure/unnamed-chunk-8-1.png)
 
 
 Regression and linear models (1/14)
@@ -247,7 +222,7 @@ If we only know the Petal.Length, and would like to use this information to pred
 > abline(h=PetalLen.mean, col="forestgreen",lwd=3)
 ```
 
-![plot of chunk unnamed-chunk-15](Session3_linear_regression-figure/unnamed-chunk-15-1.png)
+![plot of chunk unnamed-chunk-11](Session3_linear_regression-figure/unnamed-chunk-11-1.png)
 
 
 Regression and linear models (4/14)
@@ -255,7 +230,7 @@ Regression and linear models (4/14)
 
 If we only know the *Petal.Length*, and would like to use this information to predict the *Petal.Length*
 
-![plot of chunk unnamed-chunk-16](Session3_linear_regression-figure/unnamed-chunk-16-1.png)
+![plot of chunk unnamed-chunk-12](Session3_linear_regression-figure/unnamed-chunk-12-1.png)
 ***
 
 $$\text{In this case, the expected value is mean } = \overline y $$
@@ -275,7 +250,7 @@ Regression and linear models (5/14)
 
 Zoom in [just see first 4 data points]
 
-![plot of chunk unnamed-chunk-17](Session3_linear_regression-figure/unnamed-chunk-17-1.png)
+![plot of chunk unnamed-chunk-13](Session3_linear_regression-figure/unnamed-chunk-13-1.png)
 ***
 
 $$\text{In this case, the expected values is mean } = \overline y $$
@@ -311,7 +286,7 @@ Now we use the "iris_versi" *Petal.Width* to predict *Petal.Length*
 
 We can plot *Petal.Width* as X and *Petal.Length* as Y
 
-![plot of chunk unnamed-chunk-18](Session3_linear_regression-figure/unnamed-chunk-18-1.png)
+![plot of chunk unnamed-chunk-14](Session3_linear_regression-figure/unnamed-chunk-14-1.png)
 ***
 $$
   x = \text{independent or explanatory variable}
@@ -403,7 +378,7 @@ $$b_0\text{: the value of f(x) when x =0}$$
 $$b_1\text{: the amount of f(x) will change when x changes 1 unit}$$
 
 ***
-![plot of chunk unnamed-chunk-22](Session3_linear_regression-figure/unnamed-chunk-22-1.png)
+![plot of chunk unnamed-chunk-18](Session3_linear_regression-figure/unnamed-chunk-18-1.png)
 
 Regression and linear models - residuals (10/14)
 =========================================================
@@ -450,7 +425,7 @@ Regression and linear models - residuals (11/14)
 
 Plot the residuals against the independent variable (X)
 
-![plot of chunk unnamed-chunk-25](Session3_linear_regression-figure/unnamed-chunk-25-1.png)
+![plot of chunk unnamed-chunk-21](Session3_linear_regression-figure/unnamed-chunk-21-1.png)
 
 
 Regression and linear models - residuals (12/14)
@@ -481,7 +456,7 @@ $$
 
 Plot the residuals against the independent variable (X)
 
-![plot of chunk unnamed-chunk-27](Session3_linear_regression-figure/unnamed-chunk-27-1.png)
+![plot of chunk unnamed-chunk-23](Session3_linear_regression-figure/unnamed-chunk-23-1.png)
 
 
 
@@ -490,7 +465,7 @@ Regression and linear models - residuals (13/14)
 
 Residuals from the model
 
-![plot of chunk unnamed-chunk-28](Session3_linear_regression-figure/unnamed-chunk-28-1.png)
+![plot of chunk unnamed-chunk-24](Session3_linear_regression-figure/unnamed-chunk-24-1.png)
 
 - Sum of the square of the residuals (SSE)
 $$
@@ -501,7 +476,7 @@ $$
 
 Residuals from the mean
 
-![plot of chunk unnamed-chunk-29](Session3_linear_regression-figure/unnamed-chunk-29-1.png)
+![plot of chunk unnamed-chunk-25](Session3_linear_regression-figure/unnamed-chunk-25-1.png)
 
 - Total Sum of Squares (TSS)
 
