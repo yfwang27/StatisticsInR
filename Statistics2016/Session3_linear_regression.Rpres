@@ -107,16 +107,30 @@ pairs(iris4cor)
 ```
 
 
-Regression and linear models (1/14)
+Linear regression (1/14)
 =========================================================
 
-We have seen how we can find the correlation between two sets of variables using **cor()** function.
+We have seen how we can find the linear correlation between two sets of variables using **cor()** function.
 
 R also provides a comprehensive set of tools for regression analysis including the well used linear modeling function **lm()**
 
+- least square method
+
+*minimize the vertical distance between the fitted line and data points* 
+
+```{r,echo=F,prompt=T,fig.width=4,fig.height=4,dpi=300,out.width="720px",height="720px"}
+library("ggplot2")
+p <- ggplot(blood, aes(Expert, Machine))
+p + geom_point()+
+  theme(axis.text=element_text(size=12),
+        axis.title=element_text(size=14,face="bold"))+
+  stat_smooth(method = "lm")
+
+```
+
 To fit a linear regression we use a similar set of arguments as passed to the t-test fuction in the previous slide.
 
-Regression and linear models (2/14)
+Linear regression (2/14)
 =========================================================
 Use the *Petal.Width* to predict the *Petal.Length* from the iris data as example
 

@@ -58,7 +58,7 @@ Correlation between vectors (2/6)
 ```
 
 ```
-[1] 0.06220479
+[1] 0.06935203
 ```
 ***
 ![plot of chunk unnamed-chunk-2](Session3_linear_regression-figure/unnamed-chunk-2-1.png)
@@ -151,16 +151,22 @@ Correlation (6/6)
 ![plot of chunk unnamed-chunk-8](Session3_linear_regression-figure/unnamed-chunk-8-1.png)
 
 
-Regression and linear models (1/14)
+Linear regression (1/14)
 =========================================================
 
-We have seen how we can find the correlation between two sets of variables using **cor()** function.
+We have seen how we can find the linear correlation between two sets of variables using **cor()** function.
 
 R also provides a comprehensive set of tools for regression analysis including the well used linear modeling function **lm()**
 
+- least square method
+
+*minimize the vertical distance between the fitted line and data points* 
+
+<img src="Session3_linear_regression-figure/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="720px" />
+
 To fit a linear regression we use a similar set of arguments as passed to the t-test fuction in the previous slide.
 
-Regression and linear models (2/14)
+Linear regression (2/14)
 =========================================================
 Use the *Petal.Width* to predict the *Petal.Length* from the iris data as example
 
@@ -222,7 +228,7 @@ If we only know the Petal.Length, and would like to use this information to pred
 > abline(h=PetalLen.mean, col="forestgreen",lwd=3)
 ```
 
-![plot of chunk unnamed-chunk-11](Session3_linear_regression-figure/unnamed-chunk-11-1.png)
+![plot of chunk unnamed-chunk-12](Session3_linear_regression-figure/unnamed-chunk-12-1.png)
 
 
 Regression and linear models (4/14)
@@ -230,7 +236,7 @@ Regression and linear models (4/14)
 
 If we only know the *Petal.Length*, and would like to use this information to predict the *Petal.Length*
 
-![plot of chunk unnamed-chunk-12](Session3_linear_regression-figure/unnamed-chunk-12-1.png)
+![plot of chunk unnamed-chunk-13](Session3_linear_regression-figure/unnamed-chunk-13-1.png)
 ***
 
 $$\text{In this case, the expected value is mean } = \overline y $$
@@ -250,7 +256,7 @@ Regression and linear models (5/14)
 
 Zoom in [just see first 4 data points]
 
-![plot of chunk unnamed-chunk-13](Session3_linear_regression-figure/unnamed-chunk-13-1.png)
+![plot of chunk unnamed-chunk-14](Session3_linear_regression-figure/unnamed-chunk-14-1.png)
 ***
 
 $$\text{In this case, the expected values is mean } = \overline y $$
@@ -286,7 +292,7 @@ Now we use the "iris_versi" *Petal.Width* to predict *Petal.Length*
 
 We can plot *Petal.Width* as X and *Petal.Length* as Y
 
-![plot of chunk unnamed-chunk-14](Session3_linear_regression-figure/unnamed-chunk-14-1.png)
+![plot of chunk unnamed-chunk-15](Session3_linear_regression-figure/unnamed-chunk-15-1.png)
 ***
 $$
   x = \text{independent or explanatory variable}
@@ -378,7 +384,7 @@ $$b_0\text{: the value of f(x) when x =0}$$
 $$b_1\text{: the amount of f(x) will change when x changes 1 unit}$$
 
 ***
-![plot of chunk unnamed-chunk-18](Session3_linear_regression-figure/unnamed-chunk-18-1.png)
+![plot of chunk unnamed-chunk-19](Session3_linear_regression-figure/unnamed-chunk-19-1.png)
 
 Regression and linear models - residuals (10/14)
 =========================================================
@@ -425,7 +431,7 @@ Regression and linear models - residuals (11/14)
 
 Plot the residuals against the independent variable (X)
 
-![plot of chunk unnamed-chunk-21](Session3_linear_regression-figure/unnamed-chunk-21-1.png)
+![plot of chunk unnamed-chunk-22](Session3_linear_regression-figure/unnamed-chunk-22-1.png)
 
 
 Regression and linear models - residuals (12/14)
@@ -456,7 +462,7 @@ $$
 
 Plot the residuals against the independent variable (X)
 
-![plot of chunk unnamed-chunk-23](Session3_linear_regression-figure/unnamed-chunk-23-1.png)
+![plot of chunk unnamed-chunk-24](Session3_linear_regression-figure/unnamed-chunk-24-1.png)
 
 
 
@@ -465,7 +471,7 @@ Regression and linear models - residuals (13/14)
 
 Residuals from the model
 
-![plot of chunk unnamed-chunk-24](Session3_linear_regression-figure/unnamed-chunk-24-1.png)
+![plot of chunk unnamed-chunk-25](Session3_linear_regression-figure/unnamed-chunk-25-1.png)
 
 - Sum of the square of the residuals (SSE)
 $$
@@ -476,7 +482,7 @@ $$
 
 Residuals from the mean
 
-![plot of chunk unnamed-chunk-25](Session3_linear_regression-figure/unnamed-chunk-25-1.png)
+![plot of chunk unnamed-chunk-26](Session3_linear_regression-figure/unnamed-chunk-26-1.png)
 
 - Total Sum of Squares (TSS)
 
