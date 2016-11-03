@@ -131,7 +131,7 @@ pwh + geom_point() + labs(x = "kids height (inches)",y="kids weight (pounds)") +
 Linear regression (2/14)
 =========================================================
 left: 70%
-We use *kid.weights* dataset as example
+We use *kid.weights* dataset as example and see whether we can use kids height to predict kids weight
 ```{r,prompt=T}
 #install.packages("UsingR")
 #library("UsingR")
@@ -212,21 +212,54 @@ summary(lmResult$residual)
 ```
 Ideally you would want your residuals to be normally distributed around 0.
 
+$$
+E[e_{i}]=0
+$$
 
-Interpret output of lm() - residuals (7/14)
+More about residuals (7/14)
 =========================================================
 
-Plot the residuals against the independent variable (X)
+Plot the residuals against the independent variable (X), i.e. the height
+
+```{r,echo=T,fig.width=9,fig.height=5,dpi=300,out.width="1020",height="720"}
+plot(kid.weights$height,kid.weights$weight,ylim=c(0,150),
+     ylab="weigth (pounds)",xlab="height (inches)")
+abline(lmResult,col="blueviolet",lwd=3, lty=1)
+
+```
+
+More about residuals (8/14)
+=========================================================
+
+Plot the residuals against the independent variable (X), i.e. the height
+
+```{r,echo=F,fig.width=9,fig.height=7,dpi=300,out.width="1020",height="800"}
+plot(kid.weights$height,kid.weights$weight,ylim=c(0,150),
+     ylab="weigth (pounds)",xlab="height (inches)")
+abline(lmResult,col="blueviolet",lwd=3, lty=1)
+y<-kid.weights$weight;x<-kid.weights$height
+yhat<-predict(lmResult)
+for (i in 1:nrow(kid.weights)){
+  lines(c(x[i],x[i]),
+        c(y[i],yhat[i]),
+        col="red",lwd=2)
+}
+```
+
+More about residuals (8/14)
+=========================================================
+
+Plot the residuals against the independent variable (X), i.e. the height
 
 ```{r,echo=T,fig.width=5,fig.height=5,dpi=300,out.width="720px",height="720px"}
 plot(kid.weights$height,lmResult$residual,
-     ylab="residuals",xlab="height (inches)")
+     ylab="residuals (weight pounds)",xlab="height (inches)")
 abline(h=0,col="blueviolet",lwd=3, lty=3)
 
 ```
 
 
-Interpret output of lm() - residuals (8/14)
+More about residuals (8/14)
 =========================================================
 
 Plot the residuals against the independent variable (X)
@@ -253,7 +286,7 @@ $$
 
 
 
-Interpret output of lm() - residuals (9/14)
+More about residuals- residuals (9/14)
 =========================================================
 
 Residuals from the model
@@ -304,6 +337,25 @@ $$
 
 
 
+Statistics (Extra) - Calculating F-stat
+=========================================================
+
+$$
+F=\frac{MSM}{MSE}=\frac{\text{mean of the explained variance}}{\text{mean of the unexplained variance}}=\frac{({\displaystyle\frac{SSM}1})}{({\displaystyle\frac{SSE}{n-2}})}
+$$
+
+```{r,prompt=T}
+
+n=nrow(kid.weights)
+MSE <-sum(lmResult$residuals^2)/(n-2)
+RSS <- sum((predict(lmResult) - mean(kid.weights$weight))^2)
+MSM <-RSS/1
+
+MSM/MSE
+
+summary(lmResult)$fstatistic
+
+```
 
 
 
@@ -504,25 +556,6 @@ Statistics (Extra) - Calculating R-squared
 
 ![alt text](imgs/fstatistic.png)
 
-Statistics (Extra) - Calculating F-stat
-=========================================================
-
-$$
-F=\frac{MSM}{MSE}=\frac{\text{mean of the explained variance}}{\text{mean of the unexplained variance}}=\frac{({\displaystyle\frac{SSM}1})}{({\displaystyle\frac{SSE}{n-2}})}
-$$
-
-```{r,prompt=T}
-
-n=nrow(iris_versi)
-MSE <-sum(lmResult$residuals^2)/(n-2)
-RSS <- sum((predict(lmResult) - mean(iris_versi$Petal.Length))^2)
-MSM <-RSS/1
-
-MSM/MSE
-
-summary(lmResult)$fstatistic
-
-```
 
 Time for an exercise!
 ========================================================
