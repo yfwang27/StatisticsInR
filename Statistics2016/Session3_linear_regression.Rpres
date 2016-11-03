@@ -118,27 +118,27 @@ R also provides a comprehensive set of tools for regression analysis including t
 
 *minimize the vertical distance between the fitted line and data points* 
 
-```{r,echo=F,prompt=T,fig.width=3,fig.height=3,dpi=300,out.width="720px",height="720px"}
+```{r,echo=F,prompt=T,fig.width=3,fig.height=3,dpi=300,out.width="650px",height="650px"}
 library("ggplot2")
-p <- ggplot(blood, aes(Expert, Machine))
-p + geom_point()+
-  theme(axis.text=element_text(size=10),
-        axis.title=element_text(size=10,face="bold"))+
-  stat_smooth(method = "lm",se=F)
+data(kid.weights)
+pwh <-  ggplot(kid.weights, aes(height, weight))
+pwh + geom_point() + labs(x = "kids height (inches)",y="kids weight (pounds)") + 
+   stat_smooth(method="lm",se=F)
+```
 
 ```
 
-
 Linear regression (2/14)
 =========================================================
+left: 70%
 We use *kid.weights* dataset as example
 ```{r,prompt=T}
 #install.packages("UsingR")
 #library("UsingR")
 data(kid.weights)
 str(kid.weights)
-# or using head() function to see the first 6 lines
-# head(kid.weights)
+# or using head() function
+head(kid.weights)
 ```
 ***
 ```{r,echo=F,prompt=T,fig.width=4,fig.height=4,dpi=300,out.width="820px",height="820px"}

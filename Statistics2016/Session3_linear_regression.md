@@ -58,7 +58,7 @@ Correlation between vectors (2/6)
 ```
 
 ```
-[1] -0.09604148
+[1] -0.02065681
 ```
 ***
 ![plot of chunk unnamed-chunk-2](Session3_linear_regression-figure/unnamed-chunk-2-1.png)
@@ -162,11 +162,13 @@ R also provides a comprehensive set of tools for regression analysis including t
 
 *minimize the vertical distance between the fitted line and data points* 
 
-<img src="Session3_linear_regression-figure/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="720px" />
+<img src="Session3_linear_regression-figure/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="650px" />
 
+```
 
 Linear regression (2/14)
 =========================================================
+left: 70%
 We use *kid.weights* dataset as example
 
 ```r
@@ -185,8 +187,18 @@ We use *kid.weights* dataset as example
 ```
 
 ```r
-> # or using head() function to see the first 6 lines
-> # head(kid.weights)
+> # or using head() function
+> head(kid.weights)
+```
+
+```
+  age weight height gender
+1  58     38     38      M
+2 103     87     43      M
+3  87     50     48      M
+4 138     98     61      M
+5  82     47     47      F
+6  52     30     24      F
 ```
 ***
 <img src="Session3_linear_regression-figure/unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="820px" />
