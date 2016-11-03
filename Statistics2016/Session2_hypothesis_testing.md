@@ -1,7 +1,7 @@
 Session2: Hypothesis Testing and ANOVA
 ========================================================
 author: MRC Clinical Sciences Centre (http://mrccsc.github.io/)
-date: 12/July/2016
+date: 14/Nov/2016
 width: 1440
 height: 1100
 autosize: true
