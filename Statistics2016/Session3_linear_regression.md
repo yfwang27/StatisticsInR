@@ -1,7 +1,7 @@
 Session3: Correlation and Linear Regression
 ========================================================
 author: MRC Clinical Sciences Centre (http://mrccsc.github.io/)
-date: 12/July/2016
+date: 14/Nov/2016
 width: 1440
 height: 1100
 autosize: true
@@ -58,7 +58,7 @@ Correlation between vectors (2/6)
 ```
 
 ```
-[1] -0.1111192
+[1] -0.01790343
 ```
 ***
 ![plot of chunk unnamed-chunk-2](Session3_linear_regression-figure/unnamed-chunk-2-1.png)
