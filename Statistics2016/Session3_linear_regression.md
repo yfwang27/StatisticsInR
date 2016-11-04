@@ -58,7 +58,7 @@ Correlation between vectors (2/6)
 ```
 
 ```
-[1] 0.06055568
+[1] 0.01284301
 ```
 ***
 ![plot of chunk unnamed-chunk-2](Session3_linear_regression-figure/unnamed-chunk-2-1.png)
@@ -151,7 +151,7 @@ Correlation (6/6)
 ![plot of chunk unnamed-chunk-8](Session3_linear_regression-figure/unnamed-chunk-8-1.png)
 
 
-Linear regression (1/17)
+Linear regression (1/18)
 =========================================================
 
 We have seen how we can find the linear correlation between two sets of variables using **cor()** function.
@@ -165,7 +165,7 @@ R also provides a comprehensive set of tools for regression analysis including t
 <img src="Session3_linear_regression-figure/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="650px" />
 
 
-Linear regression (2/17)
+Linear regression (2/18)
 =========================================================
 left: 70%
 We use *kid.weights* dataset as example and see whether we can use kids height to predict kids weight
@@ -203,7 +203,7 @@ We use *kid.weights* dataset as example and see whether we can use kids height t
 <img src="Session3_linear_regression-figure/unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="820px" />
 
 
-Linear regression (3/17)
+Linear regression (3/18)
 =========================================================
 The **lm()** function fits a linear regression to your data and provides useful information on the generated fit.
 
@@ -225,7 +225,7 @@ Coefficients:
 ```
 
 
-Interpret output of lm() (4/17)
+Interpret output of lm() (4/18)
 =========================================================
 
 As we have seen, printing the model result provides the intercept and slope of line.
@@ -256,7 +256,7 @@ Multiple R-squared:  0.6786,	Adjusted R-squared:  0.6773
 F-statistic: 523.6 on 1 and 248 DF,  p-value: < 2.2e-16
 ```
 
-Interpret output of lm() - coefficients (5/17)
+Interpret output of lm() - coefficients (5/18)
 =========================================================
 left: 70%
 
@@ -292,7 +292,45 @@ $$b_1\text{: the amount of f(x) will change when x changes 1 unit}$$
 <img src="Session3_linear_regression-figure/unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="720px" />
 
 
-Interpret output of lm() - residuals (6/17)
+More about coefficients (6/18)
+=========================================================
+
+Predict the kid weight with the height information.
+
+If we have 3 kids with height = 23, 40 and 66 inches, how do we predict their weights?
+
+
+Use the information from the *$coefficients*
+
+```r
+> new_kid_height<-c(23,40,66)
+> beta0<-lmResult$coefficients[1]
+> beta1<-lmResult$coefficients[2]
+> 
+> predicted_new_kid_weight<-beta0+beta1*new_kid_height
+> predicted_new_kid_weight
+```
+
+```
+[1] 12.56609 45.01984 94.65497
+```
+
+Use the *predict()*
+
+```r
+new_kid_height_df <- data.frame(height=c(23,40,66))
+cleaver_predicted_kid_weight<-predict(lmResult,new_kid_height_df)
+cleaver_predicted_kid_weight
+```
+
+```
+       1        2        3 
+12.56609 45.01984 94.65497 
+```
+
+
+
+Interpret output of lm() - residuals (7/18)
 =========================================================
 
 The **residuals** are the difference between the predicted and actual values.
@@ -322,7 +360,7 @@ $$
 E[e_{i}]=0
 $$
 
-More about residuals (7/17)
+More about residuals (8/18)
 =========================================================
 
 Plot the residuals
@@ -334,39 +372,44 @@ plot(kid.weights$height,kid.weights$weight,ylim=c(-30,150),
 abline(lmResult,col="blueviolet",lwd=3, lty=1)
 ```
 
-<img src="Session3_linear_regression-figure/unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="1000" />
+<img src="Session3_linear_regression-figure/unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="1000" />
 
-More about residuals (8/17)
+More about residuals (9/18)
 =========================================================
 
-Plot the residuals
+Residual is the vertical distance between the observed data and the regression line. It has the same unit as the dependent variable.
 
-<img src="Session3_linear_regression-figure/unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" width="1020" />
+<img src="Session3_linear_regression-figure/unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" width="1020" />
 
-More about residuals (9/17)
+More about residuals (10/18)
 =========================================================
 
-Plot the residuals
+SSE shows the residual variability
 
-<img src="Session3_linear_regression-figure/unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="1020" />
+It shows the variability that cannot be explained by the regression model
+
+<img src="Session3_linear_regression-figure/unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" width="1020" />
 ***
 $$
-Error_i = y_i - \hat{y}
+Error_i = y_i - \hat{y_i}
 \\
-
-Error_i^2  = (y_i - \hat{y})^2
+y_i\text{: the observed weight of ith kid}
+\\
+\hat{y_i}\text{: the predicted weight of ith kid}
+\\
+Error_i^2  = (y_i - \hat{y_i})^2
 \\
 \text{- sum of the square of the residuals (SSE)}
 \\
-SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
+SSE  = \sum_{i=1}^{n}(y_i-\hat{y_i})^2
 $$
 
 
 
-More about residuals (10/17)
+More about residuals (11/18)
 =========================================================
 
-Plot the residuals against the independent variable (X), i.e. the height
+Plot the residuals against the independent variable (X), i.e. the height. It makes the residual accessment easiler by eyes.
 
 
 ```r
@@ -375,52 +418,52 @@ plot(kid.weights$height,lmResult$residual,ylim=c(-30,150),
 abline(h=0,col="blueviolet",lwd=3, lty=1)
 ```
 
-<img src="Session3_linear_regression-figure/unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" width="1000px" />
+<img src="Session3_linear_regression-figure/unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="1000px" />
 
-More about residuals (11/17)
+More about residuals (12/18)
 =========================================================
 
-Plot the residuals against the independent variable (X), i.e. the height
+Plot the residuals against the independent variable (X), i.e. the height. 
 
-<img src="Session3_linear_regression-figure/unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" width="1020" />
+<img src="Session3_linear_regression-figure/unnamed-chunk-25-1.png" title="plot of chunk unnamed-chunk-25" alt="plot of chunk unnamed-chunk-25" width="1020" />
 
-More about residuals (12/17)
+More about residuals (13/18)
 =========================================================
 
 Plot the residuals against the independent variable (X)
 
-<img src="Session3_linear_regression-figure/unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="720px" />
+<img src="Session3_linear_regression-figure/unnamed-chunk-26-1.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" width="720px" />
 
 ***
 $$
-Error_i = y_i - \hat{y}
+Error_i = y_i - \hat{y_i}
 \\
 
-Error_i^2  = (y_i - \hat{y})^2
+Error_i^2  = (y_i - \hat{y_i})^2
 \\
 \text{- sum of the square of the residuals (SSE)}
 \\
-SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
+SSE  = \sum_{i=1}^{n}(y_i-\hat{y_i})^2
 $$
 
 
 
-More about residuals- residuals (13/17)
+More about residuals (14/18)
 =========================================================
 
 Residuals from the model
 
-![plot of chunk unnamed-chunk-25](Session3_linear_regression-figure/unnamed-chunk-25-1.png)
+![plot of chunk unnamed-chunk-27](Session3_linear_regression-figure/unnamed-chunk-27-1.png)
 - Sum of the square of the residuals (SSE)
 $$
-SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
+SSE  = \sum_{i=1}^{n}(y_i-\hat{y_i})^2
 $$
 
 ***
 
-Residuals from the mean
+Residuals from the mean: assuming the independent variable (X), i.e. height in our case, does not exist
 
-![plot of chunk unnamed-chunk-26](Session3_linear_regression-figure/unnamed-chunk-26-1.png)
+![plot of chunk unnamed-chunk-28](Session3_linear_regression-figure/unnamed-chunk-28-1.png)
 
 - Total Sum of Squares (TSS)
 
@@ -432,7 +475,7 @@ $$
 
 
 
-Interpret output of lm() - R-squared (14/17)
+Interpret output of lm() - R-squared (15/18)
 =========================================================
 
 - The **R-squared** value represents the proportion of variability in the response variable that is explained by the explanatory variable.
@@ -448,7 +491,7 @@ Interpret output of lm() - R-squared (14/17)
 [1] 0.6785746
 ```
 
-More about R-squared - Calculating R-squared (15/17)
+More about R-squared - Calculating R-squared (16/18)
 =========================================================
 
 The fraction of variability in the independent variable (Y; or the *weight* in this example) that can be explained by the explanatory variable (X; or the *height* in this example).
@@ -480,7 +523,7 @@ $$
 ```
 
 
-Interpret output of lm() - F-statistics (16/17)
+Interpret output of lm() - F-statistics (17/18)
 =========================================================
 
 The results from linear models also provides a measure of significance for a variable not being relevant
@@ -495,7 +538,7 @@ The results from linear models also provides a measure of significance for a var
 523.5631   1.0000 248.0000 
 ```
 
-More about F-statistics - Calculating F-stat (17/17)
+More about F-statistics - Calculating F-stat (18/18)
 =========================================================
 
 $$
@@ -606,7 +649,7 @@ If we only know the Petal.Length, and would like to use this information to pred
 > abline(h=PetalLen.mean, col="forestgreen",lwd=3)
 ```
 
-![plot of chunk unnamed-chunk-33](Session3_linear_regression-figure/unnamed-chunk-33-1.png)
+![plot of chunk unnamed-chunk-35](Session3_linear_regression-figure/unnamed-chunk-35-1.png)
 
 
 TBC
@@ -614,7 +657,7 @@ TBC
 
 If we only know the *Petal.Length*, and would like to use this information to predict the *Petal.Length*
 
-![plot of chunk unnamed-chunk-34](Session3_linear_regression-figure/unnamed-chunk-34-1.png)
+![plot of chunk unnamed-chunk-36](Session3_linear_regression-figure/unnamed-chunk-36-1.png)
 ***
 
 $$\text{In this case, the expected value is mean } = \overline y $$
@@ -634,7 +677,7 @@ TBC
 
 Zoom in [just see first 4 data points]
 
-![plot of chunk unnamed-chunk-35](Session3_linear_regression-figure/unnamed-chunk-35-1.png)
+![plot of chunk unnamed-chunk-37](Session3_linear_regression-figure/unnamed-chunk-37-1.png)
 ***
 
 $$\text{In this case, the expected values is mean } = \overline y $$

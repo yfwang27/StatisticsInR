@@ -107,7 +107,7 @@ pairs(iris4cor)
 ```
 
 
-Linear regression (1/17)
+Linear regression (1/18)
 =========================================================
 
 We have seen how we can find the linear correlation between two sets of variables using **cor()** function.
@@ -127,7 +127,7 @@ pwh + geom_point() + labs(x = "kids height (inches)",y="kids weight (pounds)") +
 ```
 
 
-Linear regression (2/17)
+Linear regression (2/18)
 =========================================================
 left: 70%
 We use *kid.weights* dataset as example and see whether we can use kids height to predict kids weight
@@ -146,7 +146,7 @@ pwh + geom_point() + labs(x = "height (inches)",y="weight (pounds)")
 ```
 
 
-Linear regression (3/17)
+Linear regression (3/18)
 =========================================================
 The **lm()** function fits a linear regression to your data and provides useful information on the generated fit.
 
@@ -157,7 +157,7 @@ lmResult
 ```
 
 
-Interpret output of lm() (4/17)
+Interpret output of lm() (4/18)
 =========================================================
 
 As we have seen, printing the model result provides the intercept and slope of line.
@@ -166,7 +166,7 @@ To get some more information on the model we can use the **summary()** function
 summary(lmResult)
 ```
 
-Interpret output of lm() - coefficients (5/17)
+Interpret output of lm() - coefficients (5/18)
 =========================================================
 left: 70%
 ```{r,prompt=T}
@@ -199,7 +199,34 @@ pwh + geom_point() + stat_smooth(method = "lm",se=F) +
 ```
 
 
-Interpret output of lm() - residuals (6/17)
+More about coefficients (6/18)
+=========================================================
+
+Predict the kid weight with the height information.
+
+If we have 3 kids with height = 23, 40 and 66 inches, how do we predict their weights?
+
+
+Use the information from the *$coefficients*
+```{r,prompt=T}
+new_kid_height<-c(23,40,66)
+beta0<-lmResult$coefficients[1]
+beta1<-lmResult$coefficients[2]
+
+predicted_new_kid_weight<-beta0+beta1*new_kid_height
+predicted_new_kid_weight
+```
+
+Use the *predict()*
+```{r}
+new_kid_height_df <- data.frame(height=c(23,40,66))
+cleaver_predicted_kid_weight<-predict(lmResult,new_kid_height_df)
+cleaver_predicted_kid_weight
+```
+
+
+
+Interpret output of lm() - residuals (7/18)
 =========================================================
 
 The **residuals** are the difference between the predicted and actual values.
@@ -215,7 +242,7 @@ $$
 E[e_{i}]=0
 $$
 
-More about residuals (7/17)
+More about residuals (8/18)
 =========================================================
 
 Plot the residuals
@@ -227,10 +254,10 @@ abline(lmResult,col="blueviolet",lwd=3, lty=1)
 
 ```
 
-More about residuals (8/17)
+More about residuals (9/18)
 =========================================================
 
-Plot the residuals
+Residual is the vertical distance between the observed data and the regression line. It has the same unit as the dependent variable.
 
 ```{r,echo=F,fig.width=9,fig.height=7,dpi=300,out.width="1020",height="800"}
 plot(kid.weights$height,kid.weights$weight,ylim=c(-30,150),
@@ -245,10 +272,12 @@ for (i in 1:nrow(kid.weights)){
 }
 ```
 
-More about residuals (9/17)
+More about residuals (10/18)
 =========================================================
 
-Plot the residuals
+SSE shows the residual variability
+
+It shows the variability that cannot be explained by the regression model
 
 ```{r,echo=F,fig.width=9,fig.height=7,dpi=300,out.width="1020",height="800"}
 plot(kid.weights$height,kid.weights$weight,ylim=c(-30,150),
@@ -264,22 +293,25 @@ for (i in 1:nrow(kid.weights)){
 ```
 ***
 $$
-Error_i = y_i - \hat{y}
+Error_i = y_i - \hat{y_i}
 \\
-
-Error_i^2  = (y_i - \hat{y})^2
+y_i\text{: the observed weight of ith kid}
+\\
+\hat{y_i}\text{: the predicted weight of ith kid}
+\\
+Error_i^2  = (y_i - \hat{y_i})^2
 \\
 \text{- sum of the square of the residuals (SSE)}
 \\
-SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
+SSE  = \sum_{i=1}^{n}(y_i-\hat{y_i})^2
 $$
 
 
 
-More about residuals (10/17)
+More about residuals (11/18)
 =========================================================
 
-Plot the residuals against the independent variable (X), i.e. the height
+Plot the residuals against the independent variable (X), i.e. the height. It makes the residual accessment easiler by eyes.
 
 ```{r,echo=T,fig.width=9,fig.height=7,dpi=300,out.width="1000px",height="750px"}
 plot(kid.weights$height,lmResult$residual,ylim=c(-30,150),
@@ -288,10 +320,10 @@ abline(h=0,col="blueviolet",lwd=3, lty=1)
 
 ```
 
-More about residuals (11/17)
+More about residuals (12/18)
 =========================================================
 
-Plot the residuals against the independent variable (X), i.e. the height
+Plot the residuals against the independent variable (X), i.e. the height. 
 
 ```{r,echo=F,fig.width=9,fig.height=7,dpi=300,out.width="1020",height="800px"}
 plot(kid.weights$height,lmResult$residual,ylim=c(-30,150),
@@ -304,70 +336,68 @@ for (i in 1:nrow(kid.weights)){
 }
 ```
 
-More about residuals (12/17)
+More about residuals (13/18)
 =========================================================
 
 Plot the residuals against the independent variable (X)
 
 ```{r,echo=F,fig.width=5,fig.height=5,dpi=300,out.width="720px",height="720px"}
 plot(kid.weights$height,lmResult$residual,ylim=c(-30,150),
-     ylab="residuals (weigth pounds)",xlab="height (x)")
-abline(h=0,col="blueviolet",lwd=3, lty=3)
-segments(x0=kid.weights$height,y0=0,
-         x1=kid.weights$height,y1=lmResult$residual,col="brown",lwd=3)
+     ylab="residuals (weight pounds)",xlab="height (inches)")
+abline(h=0,col="blueviolet",lwd=3, lty=1)
+x<-kid.weights$height
+resid<-lmResult$residuals
+for (i in 1:nrow(kid.weights)){
+  lines(c(x[i],x[i]),c(0,resid[i]), col="red",lwd=2)
+}
+
 ```
 
 ***
 $$
-Error_i = y_i - \hat{y}
+Error_i = y_i - \hat{y_i}
 \\
 
-Error_i^2  = (y_i - \hat{y})^2
+Error_i^2  = (y_i - \hat{y_i})^2
 \\
 \text{- sum of the square of the residuals (SSE)}
 \\
-SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
+SSE  = \sum_{i=1}^{n}(y_i-\hat{y_i})^2
 $$
 
 
 
-More about residuals- residuals (13/17)
+More about residuals (14/18)
 =========================================================
 
 Residuals from the model
 
 ```{r,echo=F}
 plot(kid.weights$height,lmResult$residual,ylim=c(-30,150),
-     ylab="residuals",xlab="height (x)")
-abline(h=0,col="blueviolet",lwd=3, lty=3)
-#rect(xleft=iris_versi$Petal.Width,ybottom=0,
-#     xright=iris_versi$Petal.Width+abs(lmResult$residual),
-#     ytop=0+lmResult$residual,
-#     density=30,col = "darkgreen")
-
-segments(x0=kid.weights$height,y0=0,
-         x1=kid.weights$height,y1=lmResult$residual,col="brown",lwd=3)
+     ylab="residuals (weight pounds)",xlab="height (inches)")
+abline(h=0,col="blueviolet",lwd=3, lty=1)
+x<-kid.weights$height
+resid<-lmResult$residuals
+for (i in 1:nrow(kid.weights)){
+  lines(c(x[i],x[i]),c(0,resid[i]), col="red",lwd=2)
+}
 ```
 - Sum of the square of the residuals (SSE)
 $$
-SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
+SSE  = \sum_{i=1}^{n}(y_i-\hat{y_i})^2
 $$
 
 ***
 
-Residuals from the mean
+Residuals from the mean: assuming the independent variable (X), i.e. height in our case, does not exist
 
 ```{r,echo=F}
 diff_df<-kid.weights$weight-mean(kid.weights$weight)
 plot(kid.weights$weight, ylim=c(-30,150),
-     ylab="weight (y)", xlab="x")
+     ylab="rediduals (weight pounds)", xlab="x")
 abline(h=mean(kid.weights$weight),
        col="forestgreen",lwd=3,lty=3)
 
-#rect(xleft=c(1:4),ybottom=mean(iris_versi$Petal.Length),
-#     xright=c(1:4)+abs(diff_df[c(1:4)]),
-#     ytop=mean(iris_versi$Petal.Length)+diff_df[c(1:4)],
-#     density=30,col = "blue")
 segments(x0=c(1:nrow(kid.weights)),y0=kid.weights$weight,
          x1=c(1:nrow(kid.weights)),y1=mean(kid.weights$weight),col="brown",lwd=3)
 ```
@@ -382,7 +412,7 @@ $$
 
 
 
-Interpret output of lm() - R-squared (14/17)
+Interpret output of lm() - R-squared (15/18)
 =========================================================
 
 - The **R-squared** value represents the proportion of variability in the response variable that is explained by the explanatory variable.
@@ -393,7 +423,7 @@ Interpret output of lm() - R-squared (14/17)
 summary(lmResult)$r.squared
 ```
 
-More about R-squared - Calculating R-squared (15/17)
+More about R-squared - Calculating R-squared (16/18)
 =========================================================
 
 The fraction of variability in the independent variable (Y; or the *weight* in this example) that can be explained by the explanatory variable (X; or the *height* in this example).
@@ -413,7 +443,7 @@ summary(lmResult)$r.squared
 ```
 
 
-Interpret output of lm() - F-statistics (16/17)
+Interpret output of lm() - F-statistics (17/18)
 =========================================================
 
 The results from linear models also provides a measure of significance for a variable not being relevant
@@ -422,7 +452,7 @@ The results from linear models also provides a measure of significance for a var
 summary(lmResult)$fstatistic
 ```
 
-More about F-statistics - Calculating F-stat (17/17)
+More about F-statistics - Calculating F-stat (18/18)
 =========================================================
 
 $$
