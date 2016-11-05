@@ -143,7 +143,7 @@ Recap some basic R functions (6/6)
 ftable(Life_exp[,c("area","gender")])
 ```
 
-Spread of data - use "Life_exp$life.expectancy" (1/9)
+Spread of data - use "Life_exp$life.expectancy" (1/10)
 ========================================================
 
 - working with plots
@@ -152,7 +152,7 @@ Spread of data - use "Life_exp$life.expectancy" (1/9)
 --[Plotting in R](http://mrccsc.github.io/Reproducible-R/r_course/presentations/slides/introToR_Session1.html#/plotting)
 
 
-Spread of data - work with plots (2/9)
+Spread of data - work with plots (2/10)
 ========================================================
 
 Scatter plot: plot the life.expectancy against index
@@ -161,7 +161,7 @@ Scatter plot: plot the life.expectancy against index
 plot(Life_exp$life.expectancy,ylab="Life expectancy (Years)")
 ```
 
-Spread of data - work with plots (3/9)
+Spread of data - work with plots (3/10)
 ========================================================
 sort the data from min to max
 
@@ -186,7 +186,7 @@ plot(sort(Life_exp$life.expectancy),ylab="Life expectancy (Years)",xaxt="n")
          v=quantile(c(1:nrow(Life_exp)))[c(2,4)],col="pink",lwd=3,lty=2)
 ```
 
-Spread of data - work with plots (4/9)
+Spread of data - work with plots (4/10)
 ========================================================
 
 **min()**, **max()**, **median()**, **range()** and **quantile()** functions
@@ -200,7 +200,7 @@ range(Life_exp$life.expectancy)
 quantile(Life_exp$life.expectancy)
 ```
 
-Spread of data - work with plots (5/9)
+Spread of data - work with plots (5/10)
 ========================================================
 Left: 40%
 
@@ -218,7 +218,7 @@ quantile(Life_exp$life.expectancy)[c(2,4)]
 ```
 
 
-Spread of data - work with plots (6/9)
+Spread of data - work with plots (6/10)
 ========================================================
 
 ```{r, echo=FALSE,fig.width=6,fig.height=6,dpi=300,out.width="720px",height="720px"}
@@ -236,7 +236,7 @@ par(mfrow=c(1,2))
 par(mfrow=c(1,1))
 ```
 
-Spread of data -  work with plots (7/9)
+Spread of data -  work with plots (7/10)
 ========================================================
 **summary()**
 ```{r,prompt=T}
@@ -251,7 +251,7 @@ range(Life_exp$life.expectancy)
 IQR(Life_exp$life.expectancy)
 ```
 
-Spread of data - Variance and Standard deviation (8/9)
+Spread of data - Variance and Standard deviation (8/10)
 ========================================================
 
 $$
@@ -270,14 +270,19 @@ sd.life.exp<-sqrt(var.life.exp)
 c(var.life.exp, sd.life.exp)
 ```
 
-Spread of data - var() and sd() function (9/9)
+Spread of data - var() and sd() function (9/10)
 ========================================================
 ```{r,prompt=T}
 var(Life_exp$life.expectancy)
 sd(Life_exp$life.expectancy)
 ```
 
-we use the SD more often because it has the same units as the mean. BUT, if you know one, then you automatically know the other as well.
+More about SD and Variance (10/10)
+========================================================
+- we use the SD more often because it has the same units as the data BUT, if you know one, then you automatically know the other as well.
+
+- in many analysis, variances are used more often, i.e. F-test
+
 
 Data shape - histogram (1/4)
 ========================================================

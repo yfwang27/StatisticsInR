@@ -550,17 +550,17 @@ We use "PlantGrowth" as example
 
 ```r
 > data("PlantGrowth")
-> head(PlantGrowth)
+> summary(PlantGrowth)
 ```
 
 ```
-  weight group
-1   4.17  ctrl
-2   5.58  ctrl
-3   5.18  ctrl
-4   6.11  ctrl
-5   4.50  ctrl
-6   4.61  ctrl
+     weight       group   
+ Min.   :3.590   ctrl:10  
+ 1st Qu.:4.550   trt1:10  
+ Median :5.155   trt2:10  
+ Mean   :5.073            
+ 3rd Qu.:5.530            
+ Max.   :6.310            
 ```
 ***
 data visualisation
@@ -870,10 +870,24 @@ mean in group ctrl mean in group trt1
 ANOVA (1/3)
 ========================================================
 
-Compute analysis of variance (or deviance) tables for one or more fitted model objects
+Compute analysis of variance (or deviance), a.k.a. ANOVA, for one or more fitted model objects.
 
-- lm()
-- anova()
+ANOVA is a statistical method that tests
+
+$$H_0:\mu_{1}= \mu_{2}=... \mu_{k}$$
+
+by comparing the variability between groups to the variability within groups
+
+**assumptions**
+
+1. the samples are independent
+
+2. the populations are normally distributed
+
+3. the population variances are equal
+
+$$\sigma_{1}^2= \sigma_{2}^2=... \sigma_{k}^2$$
+
 
 
 ANOVA - use the anova() function (2/3)

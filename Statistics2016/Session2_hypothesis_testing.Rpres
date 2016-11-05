@@ -561,7 +561,7 @@ Hypothesis testing for mean - Load data (1/12)
 We use "PlantGrowth" as example
 ```{r, prompt=T}
 data("PlantGrowth")
-head(PlantGrowth)
+summary(PlantGrowth)
 ```
 ***
 data visualisation
@@ -738,10 +738,24 @@ result_formula
 ANOVA (1/3)
 ========================================================
 
-Compute analysis of variance (or deviance) tables for one or more fitted model objects
+Compute analysis of variance (or deviance), a.k.a. ANOVA, for one or more fitted model objects.
 
-- lm()
-- anova()
+ANOVA is a statistical method that tests
+
+$$H_0:\mu_{1}= \mu_{2}=... \mu_{k}$$
+
+by comparing the variability between groups to the variability within groups
+
+**assumptions**
+
+1. the samples are independent
+
+2. the populations are normally distributed
+
+3. the population variances are equal
+
+$$\sigma_{1}^2= \sigma_{2}^2=... \sigma_{k}^2$$
+
 
 
 ANOVA - use the anova() function (2/3)

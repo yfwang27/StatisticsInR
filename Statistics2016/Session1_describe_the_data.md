@@ -197,7 +197,7 @@ Scotland              20    20
 Wales                 20    20
 ```
 
-Spread of data - use "Life_exp$life.expectancy" (1/9)
+Spread of data - use "Life_exp$life.expectancy" (1/10)
 ========================================================
 
 - working with plots
@@ -206,7 +206,7 @@ Spread of data - use "Life_exp$life.expectancy" (1/9)
 --[Plotting in R](http://mrccsc.github.io/Reproducible-R/r_course/presentations/slides/introToR_Session1.html#/plotting)
 
 
-Spread of data - work with plots (2/9)
+Spread of data - work with plots (2/10)
 ========================================================
 
 Scatter plot: plot the life.expectancy against index
@@ -218,7 +218,7 @@ Scatter plot: plot the life.expectancy against index
 
 <img src="Session1_describe_the_data-figure/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="720px" />
 
-Spread of data - work with plots (3/9)
+Spread of data - work with plots (3/10)
 ========================================================
 sort the data from min to max
 
@@ -229,7 +229,7 @@ start to see something here...
 
 <img src="Session1_describe_the_data-figure/unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="720px" />
 
-Spread of data - work with plots (4/9)
+Spread of data - work with plots (4/10)
 ========================================================
 
 **min()**, **max()**, **median()**, **range()** and **quantile()** functions
@@ -263,7 +263,7 @@ Spread of data - work with plots (4/9)
 71.470 75.085 78.005 79.910 83.010 
 ```
 
-Spread of data - work with plots (5/9)
+Spread of data - work with plots (5/10)
 ========================================================
 Left: 40%
 
@@ -298,12 +298,12 @@ Boxplot
 ```
 
 
-Spread of data - work with plots (6/9)
+Spread of data - work with plots (6/10)
 ========================================================
 
 <img src="Session1_describe_the_data-figure/unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="720px" />
 
-Spread of data -  work with plots (7/9)
+Spread of data -  work with plots (7/10)
 ========================================================
 **summary()**
 
@@ -334,7 +334,7 @@ Spread of data -  work with plots (7/9)
 [1] 4.825
 ```
 
-Spread of data - Variance and Standard deviation (8/9)
+Spread of data - Variance and Standard deviation (8/10)
 ========================================================
 
 $$
@@ -358,7 +358,7 @@ $$
 [1] 8.653772 2.941729
 ```
 
-Spread of data - var() and sd() function (9/9)
+Spread of data - var() and sd() function (9/10)
 ========================================================
 
 ```r
@@ -377,7 +377,12 @@ Spread of data - var() and sd() function (9/9)
 [1] 2.941729
 ```
 
-we use the SD more often because it has the same units as the mean. BUT, if you know one, then you automatically know the other as well.
+More about SD and Variance (10/10)
+========================================================
+- we use the SD more often because it has the same units as the data BUT, if you know one, then you automatically know the other as well.
+
+- in many analysis, variances are used more often, i.e. F-test
+
 
 Data shape - histogram (1/4)
 ========================================================
