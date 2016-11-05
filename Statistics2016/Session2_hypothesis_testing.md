@@ -25,13 +25,13 @@ Hypothesis testing and ANOVA
 - Analysis of Variance (ANOVA)
 
 
-SD and SE (1/7)
+SD and SE (1/8)
 ========================================================
 
 ![alt text](imgs/stat_sampling.png)
 
 
-SD and SE - sampling distribution for the mean (2/7)
+SD and SE - sampling distribution for the mean (2/8)
 ========================================================
 
 If we flip a fair coin 10 times, what is the mean of this experiment?
@@ -72,7 +72,7 @@ If we flip a fair coin 10 times ***again***, what is the mean of this experiment
 ```
 
 
-SD and SE - sampling distribution for the mean (3/7)
+SD and SE - sampling distribution for the mean (3/8)
 ========================================================
 
 If we flip a fair coin 10 times, what is the mean of this experiment?
@@ -113,7 +113,7 @@ If we flip a fair coin 10 times ***again***, what is the mean of this experiment
 ```
 ![plot of chunk unnamed-chunk-5](Session2_hypothesis_testing-figure/unnamed-chunk-5-1.png)
 
-SD and SE - sampling distribution for the mean (4/7)
+SD and SE - sampling distribution for the mean (4/8)
 ========================================================
 
 What will happen if we repeat this experiment for 10 times, rather than only 2 times
@@ -129,7 +129,7 @@ What will happen if we repeat this experiment for 10 times, rather than only 2 t
 ![plot of chunk unnamed-chunk-7](Session2_hypothesis_testing-figure/unnamed-chunk-7-1.png)
 
 
-SD and SE - Central limit theorem (5/7)
+SD and SE - Central limit theorem (5/8)
 ========================================================
 
 Flip a coin for 10 times, and repeat it for 100 times
@@ -141,7 +141,7 @@ Flip a coin for 10 times, and repeat it for 1,000 times
 
 ![plot of chunk unnamed-chunk-9](Session2_hypothesis_testing-figure/unnamed-chunk-9-1.png)
 
-SD and SE - Central limit theorem (C.L.T.) (6/7)
+SD and SE - Central limit theorem (C.L.T.) (6/8)
 ========================================================
 
 Flip a coin for 10 times, and repeat it for 1,000 times
@@ -169,7 +169,7 @@ $$
 
 
 
-SD and SE - Central limit theorem (C.L.T.) (7/7)
+SD and SE - Central limit theorem (C.L.T.) (7/8)
 ========================================================
 
 Flip a coin for 10 times, and repeat it for 1,000 times
@@ -189,6 +189,19 @@ Flip a coin for 100 times and repeat it for 1,000 times
 $$
   SE=\frac{SD}{\sqrt{100}}
 $$
+
+
+
+SD and SE (8/8)
+========================================================
+
+- SE (standard error; standard error of sample mean): shows how accurate the sample mean of your experiment is likely to be
+
+- SD (standard deviation): shows the spread of your data points
+
+- You should not use the SE to replace the SD because they are different information. 
+
+- If you really want to show SE in your result, remember you MUST show the n (sample size) as well so that people can back calculate your SD.
 
 
 
