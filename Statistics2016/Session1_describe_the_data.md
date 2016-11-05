@@ -31,7 +31,7 @@ Or can be downloaded as a zip archive from here.
 Materials. - Presentations, source code and practicals.
 ========================================================
 
-Once the zip file in unarchived. All presentations as HTML slides and pages, their R code and HTML practical sheets will be available in the directories underneath.
+Once the zip files are unzipped, all presentations are available as HTML slides and pages. Practical sheets will be available in the directories underneath.
 
 * **exercises/**
 Practicals as HTML pages.
@@ -216,18 +216,18 @@ Scatter plot: plot the life.expectancy against index
 > plot(Life_exp$life.expectancy,ylab="Life expectancy (Years)")
 ```
 
-![plot of chunk unnamed-chunk-9](Session1_describe_the_data-figure/unnamed-chunk-9-1.png)
+<img src="Session1_describe_the_data-figure/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="720px" />
 
 Spread of data - work with plots (3/9)
 ========================================================
 sort the data from min to max
 
-![plot of chunk unnamed-chunk-10](Session1_describe_the_data-figure/unnamed-chunk-10-1.png)
+<img src="Session1_describe_the_data-figure/unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="720px" />
 ***
 
 start to see something here...
 
-![plot of chunk unnamed-chunk-11](Session1_describe_the_data-figure/unnamed-chunk-11-1.png)
+<img src="Session1_describe_the_data-figure/unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="720px" />
 
 Spread of data - work with plots (4/9)
 ========================================================
@@ -269,7 +269,7 @@ Left: 40%
 
 Boxplot
 
-![plot of chunk unnamed-chunk-13](Session1_describe_the_data-figure/unnamed-chunk-13-1.png)
+<img src="Session1_describe_the_data-figure/unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="720px" />
 ***
 
 ```r
@@ -301,7 +301,7 @@ Boxplot
 Spread of data - work with plots (6/9)
 ========================================================
 
-![plot of chunk unnamed-chunk-15](Session1_describe_the_data-figure/unnamed-chunk-15-1.png)
+<img src="Session1_describe_the_data-figure/unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="720px" />
 
 Spread of data -  work with plots (7/9)
 ========================================================
@@ -377,6 +377,7 @@ Spread of data - var() and sd() function (9/9)
 [1] 2.941729
 ```
 
+we use the SD more often because it has the same units as the mean. BUT, if you know one, then you automatically know the other as well.
 
 Data shape - histogram (1/4)
 ========================================================
@@ -386,7 +387,7 @@ Data shape - histogram (1/4)
 > hist(Life_exp$life.expectancy,breaks=10)
 ```
 
-![plot of chunk unnamed-chunk-21](Session1_describe_the_data-figure/unnamed-chunk-21-1.png)
+<img src="Session1_describe_the_data-figure/unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="720px" />
 
 Data shape - histogram (2/4)
 ========================================================
@@ -397,7 +398,7 @@ Data shape - histogram (2/4)
 > lines(density(Life_exp$life.expectancy),col="red")
 ```
 
-![plot of chunk unnamed-chunk-22](Session1_describe_the_data-figure/unnamed-chunk-22-1.png)
+<img src="Session1_describe_the_data-figure/unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" width="720px" />
 
 Data shape - histogram (3/4)
 ========================================================

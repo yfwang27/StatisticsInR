@@ -31,7 +31,7 @@ Or can be downloaded as a zip archive from here.
 Materials. - Presentations, source code and practicals.
 ========================================================
 
-Once the zip file in unarchived. All presentations as HTML slides and pages, their R code and HTML practical sheets will be available in the directories underneath.
+Once the zip files are unzipped, all presentations are available as HTML slides and pages. Practical sheets will be available in the directories underneath.
 
 * **exercises/**
 Practicals as HTML pages.
@@ -157,7 +157,7 @@ Spread of data - work with plots (2/9)
 
 Scatter plot: plot the life.expectancy against index
 
-```{r,prompt=T}
+```{r,prompt=T,fig.width=3.5,fig.height=3.5,dpi=300,out.width="720px",height="720px"}
 plot(Life_exp$life.expectancy,ylab="Life expectancy (Years)")
 ```
 
@@ -165,14 +165,14 @@ Spread of data - work with plots (3/9)
 ========================================================
 sort the data from min to max
 
-```{r,prompt=T,echo=F}
+```{r,prompt=T,echo=F,fig.width=3.5,fig.height=3.5,dpi=300,out.width="720px",height="720px"}
 plot(sort(Life_exp$life.expectancy),ylab="Life expectancy (Years)")
 ```
 ***
 
 start to see something here...
 
-```{r,echo=F}
+```{r,echo=F,fig.width=3.5,fig.height=3.5,dpi=300,out.width="720px",height="720px"}
 quan_1<-quantile(c(1:nrow(Life_exp)))[2]
 quan_3<-quantile(c(1:nrow(Life_exp)))[4]
 plot(sort(Life_exp$life.expectancy),ylab="Life expectancy (Years)",xaxt="n")
@@ -206,7 +206,7 @@ Left: 40%
 
 Boxplot
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,fig.width=3.5,fig.height=3.5,dpi=300,out.width="720px",height="720px"}
 boxplot(Life_exp$life.expectancy,ylab="Life expectancy (Years)")
 abline(h=mean(Life_exp$life.expectancy),col="forestgreen",lwd=3)
 ```
@@ -221,7 +221,7 @@ quantile(Life_exp$life.expectancy)[c(2,4)]
 Spread of data - work with plots (6/9)
 ========================================================
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,fig.width=6,fig.height=6,dpi=300,out.width="720px",height="720px"}
 par(mfrow=c(1,2))
   boxplot(Life_exp$life.expectancy,ylab="Life expectancy (Years)")
   plot(sort(Life_exp$life.expectancy),ylab="Life expectancy (Years)",xaxt="n")
@@ -277,18 +277,19 @@ var(Life_exp$life.expectancy)
 sd(Life_exp$life.expectancy)
 ```
 
+we use the SD more often because it has the same units as the mean. BUT, if you know one, then you automatically know the other as well.
 
 Data shape - histogram (1/4)
 ========================================================
 
-```{r,prompt=T}
+```{r,prompt=T,fig.width=4.5,fig.height=3.5,dpi=300,out.width="720px",height="720px"}
 hist(Life_exp$life.expectancy,breaks=10)
 ```
 
 Data shape - histogram (2/4)
 ========================================================
 
-```{r,prompt=T}
+```{r,prompt=T,fig.width=4.5,fig.height=3.5,dpi=300,out.width="720px",height="720px"}
 hist(Life_exp$life.expectancy,breaks=10,freq = F)
 lines(density(Life_exp$life.expectancy),col="red")
 
@@ -297,7 +298,7 @@ lines(density(Life_exp$life.expectancy),col="red")
 Data shape - histogram (3/4)
 ========================================================
 
-```{r,echo=F}
+```{r,echo=F,fig.width=6,fig.height=5.5,dpi=300}
 par(mfrow=c(2,1))
   hist(Life_exp$life.expectancy,breaks=10,freq = F,xlim=range(Life_exp$life.expectancy))
   lines(density(Life_exp$life.expectancy),col="red",lwd=3)
