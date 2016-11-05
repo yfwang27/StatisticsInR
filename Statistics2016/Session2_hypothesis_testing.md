@@ -872,7 +872,7 @@ ANOVA (1/3)
 
 Compute analysis of variance (or deviance), a.k.a. ANOVA, for one or more fitted model objects.
 
-ANOVA is a statistical method that tests
+ANOVA is a statistical method that uses F-test to test
 
 $$H_0:\mu_{1}= \mu_{2}=... \mu_{k}$$
 
@@ -894,8 +894,7 @@ ANOVA - use the anova() function (2/3)
 ========================================================
 
 ```r
-PG.lm<-lm(formula = weight ~ group,
-          data = PlantGrowth)
+PG.lm<-lm(formula = weight ~ group,data = PlantGrowth)
 PG.lm
 ```
 
@@ -908,7 +907,7 @@ Coefficients:
 (Intercept)    grouptrt1    grouptrt2  
       5.032       -0.371        0.494  
 ```
-***
+
 
 ```r
 PG.anova<-anova(PG.lm)

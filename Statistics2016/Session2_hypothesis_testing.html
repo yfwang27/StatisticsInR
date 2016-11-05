@@ -1502,16 +1502,16 @@ probability of success
 <p>We use &ldquo;PlantGrowth&rdquo; as example</p>
 
 <pre><code class="r">&gt; data(&quot;PlantGrowth&quot;)
-&gt; head(PlantGrowth)
+&gt; summary(PlantGrowth)
 </code></pre>
 
-<pre><code>  weight group
-1   4.17  ctrl
-2   5.58  ctrl
-3   5.18  ctrl
-4   6.11  ctrl
-5   4.50  ctrl
-6   4.61  ctrl
+<pre><code>     weight       group   
+ Min.   :3.590   ctrl:10  
+ 1st Qu.:4.550   trt1:10  
+ Median :5.155   trt2:10  
+ Mean   :5.073            
+ 3rd Qu.:5.530            
+ Max.   :6.310            
 </code></pre>
 
 
@@ -1839,21 +1839,31 @@ mean in group ctrl mean in group trt1
 <section data-transition="linear" data-transition-speed="default">
 <h3>ANOVA (1&#x2F;3)</h3>
 <div class="slideContent" >
-<p>Compute analysis of variance (or deviance) tables for one or more fitted model objects</p>
+<p>Compute analysis of variance (or deviance), a.k.a. ANOVA, for one or more fitted model objects.</p>
 
-<ul>
-<li>lm()</li>
-<li>anova()</li>
-</ul>
+<p>ANOVA is a statistical method that uses F-test to test</p>
+
+<p>\[ H_0:\mu_{1}= \mu_{2}=... \mu_{k} \]</p>
+
+<p>by comparing the variability between groups to the variability within groups</p>
+
+<p><strong>assumptions</strong></p>
+
+<ol>
+<li><p>the samples are independent</p></li>
+<li><p>the populations are normally distributed</p></li>
+<li><p>the population variances are equal</p></li>
+</ol>
+
+<p>\[ \sigma_{1}^2= \sigma_{2}^2=... \sigma_{k}^2 \]</p>
 
 </div>
 
 </section>
 <section data-transition="linear" data-transition-speed="default">
 <h3>ANOVA - use the anova() function (2&#x2F;3)</h3>
-<div class="column column1 slideContent" >
-<pre><code class="r">PG.lm&lt;-lm(formula = weight ~ group,
-          data = PlantGrowth)
+<div class="slideContent" >
+<pre><code class="r">PG.lm&lt;-lm(formula = weight ~ group,data = PlantGrowth)
 PG.lm
 </code></pre>
 
@@ -1865,12 +1875,6 @@ Coefficients:
 (Intercept)    grouptrt1    grouptrt2  
       5.032       -0.371        0.494  
 </code></pre>
-
-
-</div>
-
-<div class="column column2 slideContent" >
-
 
 <pre><code class="r">PG.anova&lt;-anova(PG.lm)
 PG.anova
