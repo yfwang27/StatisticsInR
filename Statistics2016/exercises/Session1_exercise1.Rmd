@@ -1,11 +1,11 @@
 ---
 title: "Exercise 1 for Session1: data summary"
 author: "MRC Clinical Sciences Centre (http://mrccsc.github.io/)"
-date: "12/July/2016"
+date: "14/Nov/2016"
 output: html_document
 ---
 
-These exercises cover the sections of Statistics in R [Session1: data summary]("Session1_describe_the_data-rpubs.html").
+These exercises cover the sections of Statistics in R [Session1: data summary]("../Session1_describe_the_data.html").
 
 **Exercise 1**
 

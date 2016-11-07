@@ -58,7 +58,7 @@ Correlation between vectors (2/6)
 ```
 
 ```
-[1] 0.1072839
+[1] -0.1635492
 ```
 ***
 ![plot of chunk unnamed-chunk-2](Session3_linear_regression-figure/unnamed-chunk-2-1.png)
@@ -596,7 +596,9 @@ $$
 Interpret output of lm() - F-statistics (22/23)
 =========================================================
 
-The results from linear models also provides a measure of significance for a variable not being relevant
+The R-squared shows the fraction of the total variability that is explained by the linear relationship with the explanatory variable. However, it does not provide a formal hypothesis test for this relationship. 
+
+The F-test results from linear models also provides a measure of significance for a variable not being relevant
 
 
 ```r
@@ -650,138 +652,6 @@ Statistics (Extra) - Calculating R-squared
 =========================================================
 
 ![alt text](imgs/rsquared.png)
-
-
-
-
-
-
-
-
-TBC
-=========================================================
-Use the *Petal.Width* to predict the *Petal.Length* from the iris data as example
-
-We will focus on *Iris.versicolor* as example
-
-***
-- subset data *iris*
-
-```r
-> iris_versi<-iris[iris$Species=="versicolor", c("Petal.Length","Petal.Width")]
-> dim(iris_versi)
-```
-
-```
-[1] 50  2
-```
-
-```r
-> head(iris_versi)
-```
-
-```
-   Petal.Length Petal.Width
-51          4.7         1.4
-52          4.5         1.5
-53          4.9         1.5
-54          4.0         1.3
-55          4.6         1.5
-56          4.5         1.3
-```
-
-TBC
-=========================================================
-
-If we only know the Petal.Length, and would like to use this information to predict the Petal.Length
-
-
-```r
-> head(iris_versi[,"Petal.Length"])
-```
-
-```
-[1] 4.7 4.5 4.9 4.0 4.6 4.5
-```
-
-```r
-> PetalLen.mean<-mean(iris_versi$Petal.Length)
-> PetalLen.mean
-```
-
-```
-[1] 4.26
-```
-***
-
-```r
-> plot(iris_versi$Petal.Length,ylab="Petal Length of Iris.versicolor")
-> abline(h=PetalLen.mean, col="forestgreen",lwd=3)
-```
-
-![plot of chunk unnamed-chunk-40](Session3_linear_regression-figure/unnamed-chunk-40-1.png)
-
-
-TBC
-=========================================================
-
-If we only know the *Petal.Length*, and would like to use this information to predict the *Petal.Length*
-
-![plot of chunk unnamed-chunk-41](Session3_linear_regression-figure/unnamed-chunk-41-1.png)
-***
-
-$$\text{In this case, the expected value is mean } = \overline y $$
-
-- residuals (Error)
-
-$$
-  \begin{aligned}
-
-  Error_i & = y_i - \overline y
-  \\ \\
-  \end{aligned}
-$$
-
-TBC
-=========================================================
-
-Zoom in [just see first 4 data points]
-
-![plot of chunk unnamed-chunk-42](Session3_linear_regression-figure/unnamed-chunk-42-1.png)
-***
-
-$$\text{In this case, the expected values is mean } = \overline y $$
-
-- residuals (Error)
-
-$$
-  \begin{aligned}
-  \\
-  Error_i & = y_i - \overline y
-  \end{aligned}
-$$
-- square of the residuals
-
-$$
-  \begin{aligned}
-  Error_i^2  = (y_i - \overline y)^2
-  \end{aligned}
-$$
-
-- sum of the square of the residuals (SSE)
-
-$$
-  \begin{aligned}
-  SSE  = \sum_{i=1}^{n}(y_i-\overline y)^2
-  \end{aligned}
-$$
-
-
-Statistics (Extra) - Calculating R-squared
-=========================================================
-
-![alt text](imgs/fstatistic.png)
-
 
 
 Time for an exercise!

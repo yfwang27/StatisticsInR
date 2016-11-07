@@ -1,0 +1,55 @@
+---
+title: "Answer 1 for Session1 part1: data summary"
+author: "MRC Clinical Sciences Centre (http://mrccsc.github.io/)"
+date: "14/Nov/2016"
+output: html_document
+---
+
+These exercises cover the sections of Statistics in R [Session1: data summary]("../Session1_describe_the_data.html").
+
+**Exercise 1**
+
+- Read in the file Life_expectancy_at_birth.csv.
+```{r,message=T}
+ Life_exp<-read.csv("../data/Life_expectancy_at_birth.csv",header=T)
+```
+- Use the *head()* function to show the first 6 rows of the data. How many variables are there?
+```{r,message=T}
+ head(Life_exp)
+```
+- Use the *str()* function to see the data type of each column.
+```{r,message=T}
+ str(Life_exp)
+```
+- Use the *summary()* function to show the summarized information of the dataset.
+```{r,message=T}
+ summary(Life_exp)
+```
+- How many males and females are in the area of England.
+```{r,message=T}
+ Eng.life.exp<-Life_exp[Life_exp$area=="England",]
+ ftable(Eng.life.exp$gender)
+```
+- Which function will you use to see the maximum and minumum of the life.expectancy in area England? 
+```{r,message=T}
+ # you can use min() and max() functions
+ c(min(Eng.life.exp[,"life.expectancy"]),max(Eng.life.exp[,"life.expectancy"]))
+ # or just use the range() function
+ range(Eng.life.exp[,"life.expectancy"])
+```
+- What are the median life expenctancies of of Males and Females, respectively, in England?
+```{r,message=T}
+ median(Eng.life.exp[Eng.life.exp$gender=="Males","life.expectancy"])
+ median(Eng.life.exp[Eng.life.exp$gender=="Females","life.expectancy"])
+```
+- What are the quantiles of life.expectancy in area Wales, N.Ireland, and in Scotland, respectively.
+```{r,message=T}
+ quantile(Life_exp[Life_exp$area == "Wales","life.expectancy"])
+ quantile(Life_exp[Life_exp$area == "N.Ireland","life.expectancy"])
+ quantile(Life_exp[Life_exp$area == "Scotland","life.expectancy"])
+```
+- show the variance and standard deviation of the life.expectancy in England
+```{r,message=T}
+ var(Life_exp[Life_exp$area == "England","life.expectancy"])
+ sd(Life_exp[Life_exp$area == "England","life.expectancy"])
+```

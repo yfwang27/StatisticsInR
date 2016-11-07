@@ -303,7 +303,7 @@ lines(density(Life_exp$life.expectancy),col="red")
 Data shape - histogram (3/4)
 ========================================================
 
-```{r,echo=F,fig.width=6,fig.height=5.5,dpi=300}
+```{r,echo=F,fig.width=4.5,fig.height=5,dpi=300}
 par(mfrow=c(2,1))
   hist(Life_exp$life.expectancy,breaks=10,freq = F,xlim=range(Life_exp$life.expectancy))
   lines(density(Life_exp$life.expectancy),col="red",lwd=3)
@@ -336,6 +336,19 @@ vioplot(Life_exp$life.expectancy,
         ylim=range(Life_exp$life.expectancy),
         horizontal = T)
 ```
+
+
+Time for an exercise!
+========================================================
+
+Exercise on this part can be found [here](./exercises/Session1_exercise1_part1.html)
+
+
+Answers to exercise.
+========================================================
+
+Answers can be found [here](./answers/Session1_answers1_part1.html)
+
 
 
 Distributions (1/6)

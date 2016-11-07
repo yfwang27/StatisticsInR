@@ -433,6 +433,19 @@ library("vioplot")
 ![plot of chunk unnamed-chunk-26](Session1_describe_the_data-figure/unnamed-chunk-26-1.png)
 
 
+Time for an exercise!
+========================================================
+
+Exercise on this part can be found [here](./exercises/Session1_exercise1_part1.html)
+
+
+Answers to exercise.
+========================================================
+
+Answers can be found [here](./answers/Session1_answers1_part1.html)
+
+
+
 Distributions (1/6)
 ========================================================
 - Binomial distribution
