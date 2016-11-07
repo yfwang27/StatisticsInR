@@ -58,7 +58,7 @@ Correlation between vectors (2/6)
 ```
 
 ```
-[1] -0.00622123
+[1] -0.2681818
 ```
 ***
 ![plot of chunk unnamed-chunk-2](Session3_linear_regression-figure/unnamed-chunk-2-1.png)
@@ -467,7 +467,7 @@ Interpret output of lm() - R-squared (14/21)
 More about R-squared (15/21)
 =========================================================
 
-- Question: How would you describe (or summarize) kid's weight when the height information is absence?
+- Question: How would you describe (or summarize) kid's weight when the **height information is absence**? Which information you would use to predict a new child's weight?
 
 
 ```r
@@ -495,7 +495,7 @@ More about R-squared (15/21)
 More about R-squared (16/21)
 =========================================================
 
-- Question: How would you describe (or summarize) kid's weight when the height information is absence?
+- Question: How would you describe (or summarize) kid's weight when the **height information is absence**? Which information you would use to predict a new child's weight?
 
 - mean might be a good choice
 
@@ -507,6 +507,8 @@ More about R-squared (16/21)
 ```
 [1] 38.384
 ```
+
+- If we have a new child, we could assume that the kid's weight is around 38.384 pounds.
 
 More about R-squared (17/21)
 =========================================================
