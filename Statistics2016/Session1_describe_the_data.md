@@ -438,28 +438,10 @@ Distributions (1/6)
 - Binomial distribution
 - Normal distribution
 
-
-Distributions (2/6)
+Binomial distribution (2/6)
 ========================================================
-R comes with functions for extracting information from most common distibutions types. An example of standard R functions for dealing with distibution can be seen here using the normal distributions.
 
-- pnorm - cumulative distribution for x, aka c.d.f. (cumulative distribution function)
-- qnorm - inverse of pnorm (from probability gives x)
-- dnorm - distribution density, aka p.d.f. (probability density function)
-- rnorm - random number from normal distribution
-
-Distributions (3/6)
-========================================================
-Similar functions are available for other distibution types including:
-
-- pbinom (binomial)
-- pt (T distribution)
-- pnbinom (negative binomial),
-- phyper (hypergeometric)
-
-
-Binomial distribution (4/6)
-========================================================
+Example: flip a fair (50% of head and 50% of tail) coin 10 times
 
 $$X \sim Binom(n,p)$$
 
@@ -476,21 +458,49 @@ Var(X)=\frac{p(1-p)}n
 \\
 $$
 
-For example:
+In this case:
 
-$$X \sim B(100,0.2)$$
+$$X \sim B(10,0.5)$$
 
 ***
 
 ![plot of chunk unnamed-chunk-27](Session1_describe_the_data-figure/unnamed-chunk-27-1.png)
 
-
-Normal distribution (5/6)
+Normal distribution (3/6)
 ========================================================
 
-$$X \sim Normal(\mu,\sigma^2)$$
+Example: body temperature of 150 MRC CSC staff
 
-![plot of chunk unnamed-chunk-28](Session1_describe_the_data-figure/unnamed-chunk-28-1.png)
+$$X \sim Normal(\mu,\sigma^2)
+\\
+\mu=mean
+\\
+\sigma=\text{standard deviation}
+$$
+
+***
+
+<img src="Session1_describe_the_data-figure/unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="720px" />
+
+
+Distributions (4/6)
+========================================================
+R comes with functions for extracting information from most common distibutions types. An example of standard R functions for dealing with distibution can be seen here using the normal distributions.
+
+- pnorm - cumulative distribution for x, aka c.d.f. (cumulative distribution function)
+- qnorm - inverse of pnorm (from probability gives x)
+- dnorm - distribution density
+- rnorm - random number from normal distribution
+
+Distributions (5/6)
+========================================================
+Similar functions are available for other distibution types including:
+
+- pbinom (binomial)
+- pt (T distribution)
+- pnbinom (negative binomial),
+- phyper (hypergeometric)
+
 
 Standard Normal distribution (6/6)
 ========================================================
@@ -536,7 +546,7 @@ Normal distribution example (2/3)
 ========================================================
 We can also use these functions to interrogate values assuming a normal distribution for the data.
 
-The probablity of a value being exactly 8 for a distribution of mean 8 and standard deviation 3.
+The probablity of a value being VERY close to 8 (or exactly 8 for discrete distributions) for a distribution of mean 8 and standard deviation 3.
 
 
 ```r
@@ -551,7 +561,7 @@ dnorm(8,mean=8,sd=3)
 
 Normal distribution example (3/3)
 ========================================================
-The probablity of a value being less than 8 for a distribution of mean 8 and standard deviation 3.
+The probablity (P(X<=x)) of a value being less than 8 for a distribution of mean 8 and standard deviation 3.
 
 ```r
 pnorm(8,mean=8,sd=3)
