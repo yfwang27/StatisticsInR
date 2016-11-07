@@ -21,3 +21,33 @@ These exercises cover the sections of Statistics in R [Session1: data summary]("
 # option 2
   1-pnorm(2,mean=0,sd=1)
 ```
+
+**bonus question (optional)**
+
+- load the gene expression matrix that has been created for this exercise from "data/gene_exp_matrix.RData"
+
+```{r}
+load("../data/gene_exp_matrix.RData")
+head(gene_exp_matrix)
+```
+
+- use the gene expression to draw a heatmap
+```{r}
+#install.packages("gplots")
+library("gplots")
+heatmap.2(gene_exp_matrix,symkey=FALSE, trace="none",cexCol=0.75,cexRow=0.35,
+          density.info="none",Colv = F,dendrogram="row")
+
+```
+
+- Use the *scale()* function to perform the Z-score transformation, and use the code above to generate the heatmap again (hint: read the help page of *?scale*, and you might need to use *t()* function as well)
+
+```{r,message=T}
+# option 1
+scaled_gene_exp_matrix<-t(scale(t(gene_exp_matrix)))
+heatmap.2(scaled_gene_exp_matrix,symkey=FALSE, trace="none",cexCol=0.75,cexRow=0.35,
+          density.info="none",Colv = F,dendrogram="row")
+```
+
+However, the *heatmap.2()* function has a argument **scale**, which does the same thing for you....
+

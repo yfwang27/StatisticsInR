@@ -630,5 +630,4 @@ Answers to exercise.
 
 Answers can be found [here](./answers/Session1_answers1.html)
 
-R code for solutions can be found here  [here]
 
