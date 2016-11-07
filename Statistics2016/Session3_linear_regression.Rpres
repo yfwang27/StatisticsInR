@@ -64,7 +64,7 @@ head(blood)
 cor(blood$Machine,blood$Expert)
 ```
 ***
-```{r,echo=F,prompt=T}
+```{r,echo=F,prompt=T,fig.width=6,fig.height=5.5,dpi=300}
 library("ggplot2")
 p <- ggplot(blood, aes(Expert, Machine))
 p + geom_point()+
@@ -93,16 +93,16 @@ Correlation over a matrix (5/6)
 ```{r,prompt=T}
 cor(iris4cor)
 ```
-```{r,eval=T,echo=F,fig.width=4,fig.height=4,dpi=300,out.width="720px",height="720px"}
+```{r,eval=T,echo=F,fig.width=4,fig.height=3.5,dpi=300}
 image(cor(iris4cor),axes=F)
-mtext(colnames(iris4cor),side=2,at=seq(0,1,length.out=4),las=1,cex=0.8)
-mtext(colnames(iris4cor),side=1,at=seq(0,1,length.out=4),las=2,cex=0.8)
+mtext(colnames(iris4cor),side=2,at=seq(0,1,length.out=4),las=1,cex=0.6)
+mtext(colnames(iris4cor),side=1,at=seq(0,1,length.out=4),las=2,cex=0.6)
 
 ```
 
 Correlation (6/6)
 ========================================================
-```{r,prompt=T}
+```{r,prompt=T,fig.width=5,fig.height=5,dpi=300,out.width="650px",height="650px"}
 pairs(iris4cor)
 ```
 
