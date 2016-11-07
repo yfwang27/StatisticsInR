@@ -542,32 +542,7 @@ probability of success
 ```
 
 
-
-Hypothesis testing for mean - Load data (1/12)
-========================================================
-
-We use "PlantGrowth" as example
-
-```r
-> data("PlantGrowth")
-> summary(PlantGrowth)
-```
-
-```
-     weight       group   
- Min.   :3.590   ctrl:10  
- 1st Qu.:4.550   trt1:10  
- Median :5.155   trt2:10  
- Mean   :5.073            
- 3rd Qu.:5.530            
- Max.   :6.310            
-```
-***
-data visualisation
-
-![plot of chunk unnamed-chunk-21](Session2_hypothesis_testing-figure/unnamed-chunk-21-1.png)
-
-Hypothesis testing for mean - t-test (2/12)
+Hypothesis testing for mean - t-test (1/12)
 ========================================================
 
 **t.test()**
@@ -590,36 +565,43 @@ t.test(groupA,groupB,paired=FALSE)
 t.test(Patients_before_treatment,Patients_after_treatment,paired=TRUE)
 ```
 
-Hypothesis testing for mean - Load data (3/12)
+Hypothesis testing for mean - Load data (2/12)
 ========================================================
 
-Convert the input data into the proper format
+Use the *chicken* dataset as example: weight gain of chickens fed 3 different rations
+
 
 ```r
-#install.packages("tidyr")
-library("tidyr")
+#install.packages("UsingR")
+library("UsingR")
+data(chicken)
+head(chicken)
+```
+
+```
+  Ration1 Ration2 Ration3
+1       4       3       6
+2       4       4       7
+3       7       5       7
+4       3       4       7
+5       2       6       6
+6       5       4       8
 ```
 
 ```r
-PlantGrowthforwide<-PlantGrowth
-PlantGrowthforwide$replicate<-rep(c(1:10),3)
-PlantGrowth_wide<-spread(PlantGrowthforwide, group, weight)
-head(PlantGrowth_wide)
+dim(chicken)
 ```
 
 ```
-  replicate ctrl trt1 trt2
-1         1 4.17 4.81 6.31
-2         2 5.58 4.17 5.12
-3         3 5.18 4.41 5.54
-4         4 6.11 3.59 5.50
-5         5 4.50 5.87 5.37
-6         6 4.61 3.83 5.29
+[1] 13  3
 ```
+***
+![plot of chunk unnamed-chunk-24](Session2_hypothesis_testing-figure/unnamed-chunk-24-1.png)
 
-Independent t-test example - Calculating variance (4/12)
+
+Independent t-test example - Calculating variance (3/12)
 ========================================================
-What is the difference in variances between ctrl and trt1?
+What is the difference in variances between Ration1 and Ration2?
 
 F test
 
@@ -635,51 +617,51 @@ S^2_y:\text{ sample varience for gorup y}
 $$
 
 
-Calculating variance with R - var() function (5/12)
+Calculating variance with R - var() function (4/12)
 ========================================================
 
 First we can specify the columns of interest using $ and calculate their variance using var().
 
 ```r
-var(PlantGrowth_wide$ctrl)
+var(chicken$Ration1)
 ```
 
 ```
-[1] 0.3399956
-```
-
-```r
-var(PlantGrowth_wide$trt1)
-```
-
-```
-[1] 0.6299211
+[1] 2.141026
 ```
 
 ```r
-var(PlantGrowth_wide$trt2)
+var(chicken$Ration2)
 ```
 
 ```
-[1] 0.1958711
+[1] 1.166667
 ```
 
-Calculating F-ratio (6/12)
+```r
+var(chicken$Ration3)
+```
+
+```
+[1] 0.7564103
+```
+
+Calculating F-ratio (5/12)
 ========================================================
 
 
 ```r
-Fratio<-var(PlantGrowth_wide$ctrl)/var(PlantGrowth_wide$trt1)
+Fratio<-var(chicken$Ration1)/var(chicken$Ration2)
 Fratio
 ```
 
 ```
-[1] 0.5397431
+[1] 1.835165
 ```
 
 ```r
-df_trt1<-10-1
-df_ctrl<-10-1
+df_Ration1<-13-1
+df_Ration2<-13-1
 ```
 
 Calculate the F critical value
@@ -687,15 +669,15 @@ Calculate the F critical value
 F distribution, ⍺=0.05, df1=5, and df2=5
 
 ```r
-qf(c(0.025,0.975),df1=df_trt1, df2=df_ctrl)
+qf(c(0.025,0.975),df1=df_Ration1, df2=df_Ration2)
 ```
 
 ```
-[1] 0.2483859 4.0259942
+[1] 0.3051314 3.2772771
 ```
 
 
-Calculating F test with R (7/12)
+Calculating F test with R (6/12)
 ========================================================
 
 Now we can test for any differences in variances between ctrl and trt1 with an F-test using the var.test() function.
@@ -707,25 +689,24 @@ H_a:\sigma_{ctrl}^{2}\neq \sigma_{trt1}^{2}$$
 ***
 
 ```r
-var.test(PlantGrowth_wide$ctrl,
-         PlantGrowth_wide$trt1)
+var.test(chicken$Ration1,chicken$Ration2)
 ```
 
 ```
 
 	F test to compare two variances
 
-data:  PlantGrowth_wide$ctrl and PlantGrowth_wide$trt1
-F = 0.53974, num df = 9, denom df = 9, p-value = 0.3719
+data:  chicken$Ration1 and chicken$Ration2
+F = 1.8352, num df = 12, denom df = 12, p-value = 0.3066
 alternative hypothesis: true ratio of variances is not equal to 1
 95 percent confidence interval:
- 0.1340645 2.1730025
+ 0.5599663 6.0143437
 sample estimates:
 ratio of variances 
-         0.5397431 
+          1.835165 
 ```
 
-R objects (s3 and s4) (8/12)
+R objects (s3 and s4) (7/12)
 ========================================================
 Left:30% The data type holding the result var.test() is a little more complex than the data types we have looked.
 
@@ -734,31 +715,31 @@ In R, special objects (S3 or S4 objects) can be created which have methods assoc
 Since we have not come across this before, in order to discover its structure we can use the str() function with the object of interest as the argument.
 
 ```r
-result <- var.test(PlantGrowth_wide$ctrl, PlantGrowth_wide$trt1)
+result <- var.test(chicken$Ration1,chicken$Ration2)
 str(result)
 ```
 
 ```
 List of 9
- $ statistic  : Named num 0.54
+ $ statistic  : Named num 1.84
   ..- attr(*, "names")= chr "F"
- $ parameter  : Named int [1:2] 9 9
+ $ parameter  : Named int [1:2] 12 12
   ..- attr(*, "names")= chr [1:2] "num df" "denom df"
- $ p.value    : num 0.372
- $ conf.int   : atomic [1:2] 0.134 2.173
+ $ p.value    : num 0.307
+ $ conf.int   : atomic [1:2] 0.56 6.01
   ..- attr(*, "conf.level")= num 0.95
- $ estimate   : Named num 0.54
+ $ estimate   : Named num 1.84
   ..- attr(*, "names")= chr "ratio of variances"
  $ null.value : Named num 1
   ..- attr(*, "names")= chr "ratio of variances"
  $ alternative: chr "two.sided"
  $ method     : chr "F test to compare two variances"
- $ data.name  : chr "PlantGrowth_wide$ctrl and PlantGrowth_wide$trt1"
+ $ data.name  : chr "chicken$Ration1 and chicken$Ration2"
  - attr(*, "class")= chr "htest"
 ```
 
 
-R objects (s3 and s4) (9/12)
+R objects (s3 and s4) (8/12)
 ========================================================
 Now we know the structure and class of the htest object we can access the slots containing information we want just as with a named list.
 
@@ -769,7 +750,7 @@ result$p.value
 ```
 
 ```
-[1] 0.3718963
+[1] 0.3066159
 ```
 The statistic
 
@@ -778,8 +759,8 @@ result$statistic
 ```
 
 ```
-        F 
-0.5397431 
+       F 
+1.835165 
 ```
 The data used in function call
 
@@ -788,20 +769,20 @@ result$data.name
 ```
 
 ```
-[1] "PlantGrowth_wide$ctrl and PlantGrowth_wide$trt1"
+[1] "chicken$Ration1 and chicken$Ration2"
 ```
 
-Independent t-test - Equal Variance (10/12)
+Independent t-test (9/12)
 ========================================================
-We have ascertained that ctrl and trt1 have similar variances. We can therefore perform a standard t-test to assess the significance of differences between these groups.
+We have ascertained that Ration1 and Ration2 have similar variances. We can therefore perform a standard t-test to assess the significance of differences between these groups.
 
-$$H_0:\mu_{ctrl}= \mu_{trt1}
+$$H_0:\mu_{Ration1}= \mu_{Ration2}
 \\
-H_a:\mu_{ctrl}\neq \mu_{trt1}$$
+H_a:\mu_{Ration1}\neq \mu_{Ration2}$$
 
 
 ```r
-test_res <- t.test(PlantGrowth_wide$ctrl,PlantGrowth_wide$trt1,alternative ="two.sided", var.equal = T)
+test_res <- t.test(chicken$Ration1,chicken$Ration2,alternative ="two.sided", var.equal = T)
 test_res
 ```
 
@@ -809,46 +790,56 @@ test_res
 
 	Two Sample t-test
 
-data:  PlantGrowth_wide$ctrl and PlantGrowth_wide$trt1
-t = 1.1913, df = 18, p-value = 0.249
+data:  chicken$Ration1 and chicken$Ration2
+t = -1.6775, df = 24, p-value = 0.1064
 alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
- -0.2833003  1.0253003
+ -1.8872221  0.1949145
 sample estimates:
 mean of x mean of y 
-    5.032     4.661 
+ 4.153846  5.000000 
 ```
 
-T-test example - Unequal Variance (11/12)
+T-test example - Specifying a formula (11/12)
 ========================================================
-To compare groups of unequal variance then the var.equal argument may be set to FALSE (which is the default).
-
-note: [see exercise](exercises/Session2_exercise2.html)
-
-T-test example - Specifying a formula (12/12)
-========================================================
-The same result to that shown could be achieved by specifying a formula for the comparison. Here we wish to compare ctrl versus trt1 so we could simply specify the formula and the data to be used.
+The same result to that shown could be achieved by specifying a formula for the comparison. Here we wish to compare Ration1 versus Ration2 so we could simply specify the formula and the data to be used.
 
 ```r
-data4formula<-PlantGrowth[PlantGrowth$group!="trt2",]
+data4formula<-data.frame(weight_gain=c(chicken$Ration1,chicken$Ration2),
+                         group=c(rep("Ration1",13),rep("Ration2",13)))
+head(data4formula)
+```
+
+```
+  weight_gain   group
+1           4 Ration1
+2           4 Ration1
+3           7 Ration1
+4           3 Ration1
+5           2 Ration1
+6           5 Ration1
+```
+
+```r
 summary(data4formula)
 ```
 
 ```
-     weight       group   
- Min.   :3.590   ctrl:10  
- 1st Qu.:4.388   trt1:10  
- Median :4.750   trt2: 0  
- Mean   :4.846            
- 3rd Qu.:5.218            
- Max.   :6.110            
+  weight_gain        group   
+ Min.   :2.000   Ration1:13  
+ 1st Qu.:4.000   Ration2:13  
+ Median :5.000               
+ Mean   :4.577               
+ 3rd Qu.:5.000               
+ Max.   :7.000               
 ```
 
-***
+T-test example - Specifying a formula (12/12)
+========================================================
 
 
 ```r
-result_formula <- t.test(weight~group,data4formula,alternative ="two.sided", var.equal = T)
+result_formula <- t.test(weight_gain~group,data4formula,alternative ="two.sided", var.equal = T)
 result_formula
 ```
 
@@ -856,18 +847,18 @@ result_formula
 
 	Two Sample t-test
 
-data:  weight by group
-t = 1.1913, df = 18, p-value = 0.249
+data:  weight_gain by group
+t = -1.6775, df = 24, p-value = 0.1064
 alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
- -0.2833003  1.0253003
+ -1.8872221  0.1949145
 sample estimates:
-mean in group ctrl mean in group trt1 
-             5.032              4.661 
+mean in group Ration1 mean in group Ration2 
+             4.153846              5.000000 
 ```
 
 
-ANOVA (1/3)
+ANOVA (1/4)
 ========================================================
 
 Compute analysis of variance (or deviance), a.k.a. ANOVA, for one or more fitted model objects.
@@ -878,24 +869,33 @@ $$H_0:\mu_{1}= \mu_{2}=... \mu_{k}$$
 
 by comparing the variability between groups to the variability within groups
 
-**assumptions**
 
-1. the samples are independent
-
-2. the populations are normally distributed
-
-3. the population variances are equal
-
-$$\sigma_{1}^2= \sigma_{2}^2=... \sigma_{k}^2$$
-
-
-
-ANOVA - use the anova() function (2/3)
+ANOVA (2/4)
 ========================================================
 
 ```r
-PG.lm<-lm(formula = weight ~ group,data = PlantGrowth)
-PG.lm
+data(PlantGrowth)
+summary(PlantGrowth)
+```
+
+```
+     weight       group   
+ Min.   :3.590   ctrl:10  
+ 1st Qu.:4.550   trt1:10  
+ Median :5.155   trt2:10  
+ Mean   :5.073            
+ 3rd Qu.:5.530            
+ Max.   :6.310            
+```
+***
+![plot of chunk unnamed-chunk-37](Session2_hypothesis_testing-figure/unnamed-chunk-37-1.png)
+
+ANOVA - use the anova() function (3/4)
+========================================================
+
+```r
+lmPG<-lm(formula = weight ~ group,data = PlantGrowth)
+lmPG
 ```
 
 ```
@@ -910,8 +910,8 @@ Coefficients:
 
 
 ```r
-PG.anova<-anova(PG.lm)
-PG.anova
+anova_PG<-anova(lmPG)
+anova_PG
 ```
 
 ```
@@ -925,12 +925,12 @@ Residuals 27 10.4921  0.3886
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-ANOVA - results (3/3)
+ANOVA - results (4/4)
 ========================================================
 More details in the next session
 
 ```r
-PG.anova
+anova_PG
 ```
 
 ```

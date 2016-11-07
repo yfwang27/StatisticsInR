@@ -58,7 +58,7 @@ Correlation between vectors (2/6)
 ```
 
 ```
-[1] 0.1761506
+[1] 0.03357302
 ```
 ***
 ![plot of chunk unnamed-chunk-2](Session3_linear_regression-figure/unnamed-chunk-2-1.png)
@@ -666,5 +666,4 @@ Answers to exercise.
 
 Answers can be found [here](answers/Session3_answers3.html)
 
-R code for solutions can be found here  [here]
 
