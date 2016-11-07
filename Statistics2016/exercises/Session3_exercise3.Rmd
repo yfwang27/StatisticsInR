@@ -1,7 +1,7 @@
 ---
 title: "Exercise for Session3: Correlation and Linear Regression"
 author: "MRC Clinical Sciences Centre (http://mrccsc.github.io/)"
-date: "12/July/2016"
+date: "14/Nov/2016"
 output: html_document
 ---
 
@@ -9,8 +9,13 @@ These exercises cover the sections of Statistics in R [Session3: Correlation and
 
 **Exercise 1**
 
-- Read in the file lmExercise.txt.
-- What is the formula for the best fit lines for X vs Y and X vs Z
-- What are the Rsquared for X vs Y and X vs Z.
-- Predict values for X when Y is 100 and Z is 100.
+Use the *Petal.Width* (X) to predict the *Petal.Length* (Y) from the iris data
+
+- load the *iris* data
+```{r}
+data(iris)
+```
+- What is the formula for the best fit lines for X vs Y
+- What are the Rsquared for *Petal.Width* (X) vs *Petal.Length* (Y)
+- Predict the *Petal.Length* when *Petal.Width=c(0.6,0.7,1.8)*
 
