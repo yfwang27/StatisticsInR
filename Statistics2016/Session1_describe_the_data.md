@@ -446,12 +446,12 @@ Answers can be found [here](./answers/Session1_answers1_part1.html)
 
 
 
-Distributions (1/6)
+Distributions (1/10)
 ========================================================
 - Binomial distribution
 - Normal distribution
 
-Binomial distribution (2/6)
+Binomial distribution (2/10)
 ========================================================
 
 Example: flip a fair (50% of head and 50% of tail) coin 10 times
@@ -479,7 +479,7 @@ $$X \sim B(10,0.5)$$
 
 ![plot of chunk unnamed-chunk-27](Session1_describe_the_data-figure/unnamed-chunk-27-1.png)
 
-Normal distribution (3/6)
+Normal distribution (3/10)
 ========================================================
 
 Example: body temperature of 150 MRC CSC staff
@@ -496,7 +496,7 @@ $$
 <img src="Session1_describe_the_data-figure/unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="720px" />
 
 
-Distributions (4/6)
+Distributions (4/10)
 ========================================================
 R comes with functions for extracting information from most common distibutions types. An example of standard R functions for dealing with distibution can be seen here using the normal distributions.
 
@@ -505,7 +505,7 @@ R comes with functions for extracting information from most common distibutions 
 - dnorm - distribution density
 - rnorm - random number from normal distribution
 
-Distributions (5/6)
+Distributions (5/10)
 ========================================================
 Similar functions are available for other distibution types including:
 
@@ -515,26 +515,7 @@ Similar functions are available for other distibution types including:
 - phyper (hypergeometric)
 
 
-Standard Normal distribution (6/6)
-========================================================
-
-$$X \sim Normal(\mu,\sigma^2)$$
-
-![plot of chunk unnamed-chunk-29](Session1_describe_the_data-figure/unnamed-chunk-29-1.png)
-***
-
-Z-score transformation
-
-$$
-Z=\frac{X-\mu}\sigma
-\\
-\\
-Z \sim Normal(0,1)
-$$
-
-![plot of chunk unnamed-chunk-30](Session1_describe_the_data-figure/unnamed-chunk-30-1.png)
-
-Normal distribution example (1/3)
+Normal distribution example (6/10)
 ========================================================
 
 We can use **rnorm()** function to generate random values following a normal distribution. Here we produce 10 normally distributed numeric values with mean 8 and standard deviation of 3
@@ -552,10 +533,10 @@ rnorm(10,mean=8,sd=3)
 
 If you want to regenerate the exact random numbers, use the **set.seed()** function before generating any random numbers.
 
-![plot of chunk unnamed-chunk-32](Session1_describe_the_data-figure/unnamed-chunk-32-1.png)
+![plot of chunk unnamed-chunk-30](Session1_describe_the_data-figure/unnamed-chunk-30-1.png)
 
 
-Normal distribution example (2/3)
+Normal distribution example (7/10)
 ========================================================
 We can also use these functions to interrogate values assuming a normal distribution for the data.
 
@@ -570,9 +551,9 @@ dnorm(8,mean=8,sd=3)
 [1] 0.1329808
 ```
 
-![plot of chunk unnamed-chunk-34](Session1_describe_the_data-figure/unnamed-chunk-34-1.png)
+![plot of chunk unnamed-chunk-32](Session1_describe_the_data-figure/unnamed-chunk-32-1.png)
 
-Normal distribution example (3/3)
+Normal distribution example (8/10)
 ========================================================
 The probablity (P(X<=x)) of a value being less than 8 for a distribution of mean 8 and standard deviation 3.
 
@@ -584,7 +565,7 @@ pnorm(8,mean=8,sd=3)
 [1] 0.5
 ```
 
-![plot of chunk unnamed-chunk-36](Session1_describe_the_data-figure/unnamed-chunk-36-1.png)
+![plot of chunk unnamed-chunk-34](Session1_describe_the_data-figure/unnamed-chunk-34-1.png)
 
 ***
 
@@ -599,6 +580,44 @@ qnorm(0.5,mean=8,sd=3)
 [1] 8
 ```
 
+
+Standard Normal distribution (9/10)
+========================================================
+
+$$X \sim Normal(\mu,\sigma^2)$$
+
+![plot of chunk unnamed-chunk-36](Session1_describe_the_data-figure/unnamed-chunk-36-1.png)
+***
+
+Z-score transformation
+
+$$
+Z=\frac{X-\mu}\sigma
+\\
+\\
+Z \sim Normal(0,1)
+$$
+
+![plot of chunk unnamed-chunk-37](Session1_describe_the_data-figure/unnamed-chunk-37-1.png)
+
+Standard Normal distribution (10/10)
+========================================================
+
+
+```r
+x<-rnorm(10000,mean=5, sd=2.5)
+hist(x)
+```
+
+![plot of chunk unnamed-chunk-38](Session1_describe_the_data-figure/unnamed-chunk-38-1.png)
+***
+
+```r
+ztransfer<-scale(x)
+hist(ztransfer)
+```
+
+![plot of chunk unnamed-chunk-39](Session1_describe_the_data-figure/unnamed-chunk-39-1.png)
 
 Time for an exercise!
 ========================================================
