@@ -377,6 +377,14 @@ Some common tests include:
 - fisher.test() - Testing for independence of 2 variables in a contingency table (Fisher's exact test)
 
 
+Hypothesis testing
+========================================================
+
+*H0*: Null hypothesis
+
+*Ha*: Alternative hypothesis
+
+
 Hypothesis testing for propotions
 ========================================================
 
