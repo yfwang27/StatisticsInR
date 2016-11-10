@@ -769,7 +769,7 @@ result_formula
 ```
 
 
-ANOVA (1/4)
+ANOVA (1/5)
 ========================================================
 
 Compute analysis of variance (or deviance), a.k.a. ANOVA, for one or more fitted model objects.
@@ -781,7 +781,7 @@ $$H_0:\mu_{1}= \mu_{2}=... \mu_{k}$$
 by comparing the variability between groups to the variability within groups
 
 
-ANOVA (2/4)
+ANOVA (2/5)
 ========================================================
 ```{r}
 data(PlantGrowth)
@@ -795,7 +795,13 @@ boxplot(weight~group,data=PlantGrowth,
 
 ```
 
-ANOVA - use the anova() function (3/4)
+ANOVA (3/5)
+========================================================
+
+![alt text](imgs/ANOVA.png)
+
+
+ANOVA - use the anova() function (4/5)
 ========================================================
 ```{r}
 lmPG<-lm(formula = weight ~ group,data = PlantGrowth)
@@ -807,7 +813,7 @@ anova_PG<-anova(lmPG)
 anova_PG
 ```
 
-ANOVA - results (4/4)
+ANOVA - results (5/5)
 ========================================================
 More details in the next session
 ```{r}

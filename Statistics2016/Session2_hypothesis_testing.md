@@ -894,7 +894,7 @@ mean in group Ration1 mean in group Ration2
 ```
 
 
-ANOVA (1/4)
+ANOVA (1/5)
 ========================================================
 
 Compute analysis of variance (or deviance), a.k.a. ANOVA, for one or more fitted model objects.
@@ -906,7 +906,7 @@ $$H_0:\mu_{1}= \mu_{2}=... \mu_{k}$$
 by comparing the variability between groups to the variability within groups
 
 
-ANOVA (2/4)
+ANOVA (2/5)
 ========================================================
 
 ```r
@@ -926,7 +926,13 @@ summary(PlantGrowth)
 ***
 ![plot of chunk unnamed-chunk-38](Session2_hypothesis_testing-figure/unnamed-chunk-38-1.png)
 
-ANOVA - use the anova() function (3/4)
+ANOVA (3/5)
+========================================================
+
+![alt text](imgs/ANOVA.png)
+
+
+ANOVA - use the anova() function (4/5)
 ========================================================
 
 ```r
@@ -961,7 +967,7 @@ Residuals 27 10.4921  0.3886
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-ANOVA - results (4/4)
+ANOVA - results (5/5)
 ========================================================
 More details in the next session
 
