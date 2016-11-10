@@ -117,7 +117,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Answer for Session2: Hypothesis Testing and ANOVA</h1>
 <h4 class="author"><em>MRC Clinical Sciences Centre (<a href="http://mrccsc.github.io/" class="uri">http://mrccsc.github.io/</a>)</em></h4>
-<h4 class="date"><em>12/July/2016</em></h4>
+<h4 class="date"><em>14/Nov/2016</em></h4>
 
 </div>
 
@@ -131,7 +131,9 @@ $(document).ready(function () {
 <ul>
 <li>How many genes are ofInterest and how many in pathways.</li>
 </ul>
-<pre class="r"><code> summary(catAndExpr)</code></pre>
+<pre class="r"><code> # option 1
+ # use summary() function
+ summary(catAndExpr)</code></pre>
 <pre><code>##     geneName        ofInterest       pathway     Expression   
 ##  Gene1  : 1   NotSelected:80   Glycolysis:55   Min.   :19.94  
 ##  Gene10 : 1   Selected   :20   TGFb      :45   1st Qu.:22.99  
@@ -140,10 +142,27 @@ $(document).ready(function () {
 ##  Gene12 : 1                                    3rd Qu.:55.32  
 ##  Gene13 : 1                                    Max.   :74.08  
 ##  (Other):94</code></pre>
+<pre class="r"><code> # option 2
+ # use head() function to see the first 6 rows of the data
+ head(catAndExpr)</code></pre>
+<pre><code>##   geneName ofInterest    pathway Expression
+## 1    Gene1   Selected Glycolysis   20.09519
+## 2    Gene2   Selected Glycolysis   23.00306
+## 3    Gene3   Selected Glycolysis   20.99712
+## 4    Gene4   Selected Glycolysis   43.01145
+## 5    Gene5   Selected Glycolysis   22.00567
+## 6    Gene6   Selected Glycolysis   20.99162</code></pre>
+<pre class="r"><code> # use table() fucntion
+ table(catAndExpr$ofInterest)</code></pre>
+<pre><code>## 
+## NotSelected    Selected 
+##          80          20</code></pre>
 <ul>
 <li>What are quantiles of expression overall, in Glycolysis genes and in TGFb genes.</li>
 </ul>
-<pre class="r"><code> summary(catAndExpr)</code></pre>
+<pre class="r"><code> # option 1
+ # use summary() function
+ summary(catAndExpr)</code></pre>
 <pre><code>##     geneName        ofInterest       pathway     Expression   
 ##  Gene1  : 1   NotSelected:80   Glycolysis:55   Min.   :19.94  
 ##  Gene10 : 1   Selected   :20   TGFb      :45   1st Qu.:22.99  
@@ -170,6 +189,17 @@ $(document).ready(function () {
 ##  Gene19 : 1                                    3rd Qu.:58.06  
 ##  Gene20 : 1                                    Max.   :66.10  
 ##  (Other):39</code></pre>
+<pre class="r"><code> # option 2
+ # use quantile() function
+ quantile(catAndExpr[,&quot;Expression&quot;])</code></pre>
+<pre><code>##       0%      25%      50%      75%     100% 
+## 19.94369 22.99099 43.02823 55.31985 74.08310</code></pre>
+<pre class="r"><code> quantile(catAndExpr[catAndExpr$pathway == &quot;Glycolysis&quot;,&quot;Expression&quot;])</code></pre>
+<pre><code>##       0%      25%      50%      75%     100% 
+## 19.94369 21.00981 23.00306 27.06326 74.08310</code></pre>
+<pre class="r"><code> quantile(catAndExpr[catAndExpr$pathway == &quot;TGFb&quot;,&quot;Expression&quot;])</code></pre>
+<pre><code>##       0%      25%      50%      75%     100% 
+## 42.91023 50.08556 54.03696 58.06482 66.09706</code></pre>
 <ul>
 <li>How many genes were selected and in Glycolysis pathway.</li>
 </ul>
@@ -179,7 +209,12 @@ contingency</code></pre>
 ## ofInterest                         
 ## NotSelected                 40   40
 ## Selected                    15    5</code></pre>
-<pre class="r"><code>catAndExpr$ofInterest&lt;-relevel(catAndExpr$ofInterest,ref=&quot;Selected&quot;)
+<pre class="r"><code># You might have noticed that the &quot;contingency&quot; above has row names c(&quot;NotSelected&quot;,&quot;Selected&quot;&quot;)
+# If you run levels() function, you will see 
+levels(catAndExpr$ofInterest)</code></pre>
+<pre><code>## [1] &quot;NotSelected&quot; &quot;Selected&quot;</code></pre>
+<pre class="r"><code># You can change the levels of catAndExpr$ofInterest by using relevel() function
+catAndExpr$ofInterest&lt;-relevel(catAndExpr$ofInterest,ref=&quot;Selected&quot;)
 contingency &lt;- ftable(catAndExpr[,c(&quot;ofInterest&quot;,&quot;pathway&quot;)])
 contingency</code></pre>
 <pre><code>##             pathway Glycolysis TGFb
