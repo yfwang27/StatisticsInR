@@ -1123,7 +1123,7 @@ hljs.initHighlightingOnLoad();
 
 </section>
 <section data-transition="linear" data-transition-speed="default">
-<h3>Confidence Interval for proportions (1&#x2F;4)</h3>
+<h3>Confidence Interval for proportions (1&#x2F;4) [optional material]</h3>
 <div class="column column1 slideContent" >
 <ul>
 <li>\[ 
@@ -1196,7 +1196,7 @@ hljs.initHighlightingOnLoad();
 
 </section>
 <section data-transition="linear" data-transition-speed="default">
-<h3>Confidence Interval for means (2&#x2F;4)</h3>
+<h3>Confidence Interval for means (2&#x2F;4) [optional material]</h3>
 <div class="column column1 slideContent" >
 <ul>
 <li>\[ 
@@ -1269,7 +1269,7 @@ hljs.initHighlightingOnLoad();
 
 </section>
 <section data-transition="linear" data-transition-speed="default">
-<h3>Confidence Interval for means (3&#x2F;4)</h3>
+<h3>Confidence Interval for means (3&#x2F;4) [optional material]</h3>
 <div class="slideContent" >
 <p>after substitution, rather than having</p>
 
@@ -1312,7 +1312,7 @@ hljs.initHighlightingOnLoad();
 <p><em>for example</em></p>
 
 <p>\[ 
-\text{95% CI for }\overline X\text{ means the probabily that the confidence interval contains the population mean}
+\text{95% CI for }\overline X\text{ is the probabily that the confidence interval contains the population mean}
 
  \]</p>
 
@@ -1340,9 +1340,17 @@ hljs.initHighlightingOnLoad();
 <section data-transition="linear" data-transition-speed="default">
 <h3>Hypothesis testing</h3>
 <div class="slideContent" >
-<p><em>H0</em>: Null hypothesis</p>
+<p><strong>H0</strong></p>
 
-<p><em>Ha</em>: Alternative hypothesis</p>
+<p>Null hypothesis is assumed true and unless there is statitical evidence to reject it in favor of an alternative hypothesis.</p>
+
+<p><strong>Ha or H1</strong></p>
+
+<p>Alternative hypothesis is hoped or expected to be true instead of the null hypothesis.</p>
+
+<p><strong>P Value</strong></p>
+
+<p>If <strong>H0</strong> is true, what is the probability of finding the observed, or more extreme, results.</p>
 
 </div>
 
@@ -1355,6 +1363,12 @@ hljs.initHighlightingOnLoad();
 <p>[data/EU-referendum-result-data.csv]</p>
 
 <p>Did more than 50% percent of the voting UK population support remaining in the EU?</p>
+
+<p>\[ 
+H_0:\text{ Vote for remain equal to 50%; p=0.5}
+\\
+H_a:\text{ Vote for remain is less than 50%; p<0.5 }
+ \]</p>
 
 <pre><code class="r">vote.leave=17410742
 
@@ -1657,18 +1671,12 @@ df_Ration2&lt;-13-1
 </section>
 <section data-transition="linear" data-transition-speed="default">
 <h3>Calculating F test with R (6&#x2F;12)</h3>
-<div class="column column1 slideContent" >
-<p>Now we can test for any differences in variances between ctrl and trt1 with an F-test using the var.test() function.</p>
+<div class="slideContent" >
+<p>Now we can test for any differences in variances between Ration1 and Ration2 with an F-test using the var.test() function.</p>
 
-<p>\[ H_0:\sigma_{ctrl}^{2}= \sigma_{trt1}^{2}
+<p>\[ H_0:\sigma_{Ration1}^{2}= \sigma_{Ration2}^{2}
 \\
-H_a:\sigma_{ctrl}^{2}\neq \sigma_{trt1}^{2} \]</p>
-
-
-</div>
-
-<div class="column column2 slideContent" >
-
+H_a:\sigma_{Ration1}^{2}\neq \sigma_{Ration2}^{2} \]</p>
 
 <pre><code class="r">var.test(chicken$Ration1,chicken$Ration2)
 </code></pre>
@@ -2074,8 +2082,6 @@ odds ratio
 <h3>Answers to exercise.</h3>
 <div class="slideContent" >
 <p>Answers can be found <a href="answers/Session2_answers2.html">here</a></p>
-
-<p>R code for solutions can be found here  [here]</p>
 
 </div>
 

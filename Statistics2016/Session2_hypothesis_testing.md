@@ -374,7 +374,7 @@ $$
 *for example*
 
 $$
-\text{95% CI for }\overline X\text{ means the probabily that the confidence interval contains the population mean}
+\text{95% CI for }\overline X\text{ is the probabily that the confidence interval contains the population mean}
 
 $$
 
@@ -394,9 +394,17 @@ Some common tests include:
 Hypothesis testing
 ========================================================
 
-*H0*: Null hypothesis
+**H0**
 
-*Ha*: Alternative hypothesis
+Null hypothesis is assumed true and unless there is statitical evidence to reject it in favor of an alternative hypothesis.
+
+**Ha or H1**
+
+Alternative hypothesis is hoped or expected to be true instead of the null hypothesis.
+
+**P Value**
+
+If **H0** is true, what is the probability of finding the observed, or more extreme, results.
 
 
 Hypothesis testing for propotions
@@ -407,6 +415,13 @@ example: EU referendum result 2016
 [data/EU-referendum-result-data.csv]
 
 Did more than 50% percent of the voting UK population support remaining in the EU?
+
+$$
+H_0:\text{ Vote for remain equal to 50%; p=0.5}
+\\
+H_a:\text{ Vote for remain is less than 50%; p<0.5 }
+$$
+
 
 ```r
 vote.leave=17410742
@@ -702,13 +717,12 @@ qf(c(0.025,0.975),df1=df_Ration1, df2=df_Ration2)
 Calculating F test with R (6/12)
 ========================================================
 
-Now we can test for any differences in variances between ctrl and trt1 with an F-test using the var.test() function.
+Now we can test for any differences in variances between Ration1 and Ration2 with an F-test using the var.test() function.
 
-$$H_0:\sigma_{ctrl}^{2}= \sigma_{trt1}^{2}
+$$H_0:\sigma_{Ration1}^{2}= \sigma_{Ration2}^{2}
 \\
-H_a:\sigma_{ctrl}^{2}\neq \sigma_{trt1}^{2}$$
+H_a:\sigma_{Ration1}^{2}\neq \sigma_{Ration2}^{2}$$
 
-***
 
 ```r
 var.test(chicken$Ration1,chicken$Ration2)
@@ -1096,7 +1110,5 @@ Answers to exercise.
 ========================================================
 
 Answers can be found [here](answers/Session2_answers2.html)
-
-R code for solutions can be found here  [here]
 
 
