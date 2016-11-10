@@ -204,6 +204,10 @@ SD and SE (8/8)
 - If you really want to show SE in your result, remember you MUST show the n (sample size) as well so that people can back calculate your SD.
 
 
+Confidence Interval
+========================================================
+![plot of chunk unnamed-chunk-13](Session2_hypothesis_testing-figure/unnamed-chunk-13-1.png)
+
 
 Confidence Interval for proportions (1/4)
 ========================================================
@@ -604,7 +608,7 @@ dim(chicken)
 [1] 13  3
 ```
 ***
-![plot of chunk unnamed-chunk-24](Session2_hypothesis_testing-figure/unnamed-chunk-24-1.png)
+![plot of chunk unnamed-chunk-25](Session2_hypothesis_testing-figure/unnamed-chunk-25-1.png)
 
 
 Independent t-test example - Calculating variance (3/12)
@@ -896,7 +900,7 @@ summary(PlantGrowth)
  Max.   :6.310            
 ```
 ***
-![plot of chunk unnamed-chunk-37](Session2_hypothesis_testing-figure/unnamed-chunk-37-1.png)
+![plot of chunk unnamed-chunk-38](Session2_hypothesis_testing-figure/unnamed-chunk-38-1.png)
 
 ANOVA - use the anova() function (3/4)
 ========================================================

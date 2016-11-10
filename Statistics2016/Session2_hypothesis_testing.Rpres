@@ -276,6 +276,28 @@ SD and SE (8/8)
 - If you really want to show SE in your result, remember you MUST show the n (sample size) as well so that people can back calculate your SD.
 
 
+Confidence Interval
+========================================================
+```{r,echo=F,fig.width=2.5,fig.height=2,dpi=300}
+set.seed(123)
+no.experiment=1000
+mat4plot<-matrix(nrow=no.experiment,ncol=1)
+no.observation<-10
+for (i in 1:no.experiment){
+  mat4plot[i,1]<-mean(rbinom(no.observation,1,0.5))
+}
+dfmat4plot<-data.frame(mean=mat4plot[,1])
+ggplot(dfmat4plot,aes(mean))+
+  geom_bar(aes(y = (..count..)/sum(..count..)))+
+  ylab("fraction of\n observed frequency")+
+  scale_x_continuous(limit=c(-0.1,1.1),breaks=seq(0,1,by=0.1))+
+  #scale_y_continuous(limit=c(0,0.5),breaks=seq(0,0.5,by=0.1))+
+  ggtitle("flip a coin 10 times\n and repeat it for 1,000 times")+
+  theme(plot.title = element_text(size = 8),axis.text.y = element_text(size =6),
+        axis.text.x = element_text(angle =90))
+
+```
+
 
 Confidence Interval for proportions (1/4)
 ========================================================
