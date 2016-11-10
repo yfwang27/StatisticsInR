@@ -206,10 +206,13 @@ SD and SE (8/8)
 
 Confidence Interval
 ========================================================
+
+If we repeatedly flip a coin for 10 times, how confident we are that we will get a sample mean that is close to the population mean.
+
 ![plot of chunk unnamed-chunk-13](Session2_hypothesis_testing-figure/unnamed-chunk-13-1.png)
 
 
-Confidence Interval for proportions (1/4)
+Confidence Interval for proportions (1/4) [optional material]
 ========================================================
 
 - $$
@@ -268,7 +271,7 @@ $$
 ***$$\text{or substitute }p=1/2$$***
 
 
-Confidence Interval for means (2/4)
+Confidence Interval for means (2/4) [optional material]
 ========================================================
 
 - $$
@@ -328,7 +331,7 @@ $$E(S^2)=\sigma^2$$
 
 
 
-Confidence Interval for means (3/4)
+Confidence Interval for means (3/4) [optional material]
 ========================================================
 
 after substitution, rather than having
@@ -346,7 +349,7 @@ $$t_{n-1}:\text{t distribution with n-1 degrees of freedom}.$$
 Confidence Interval (CI) (4/4)
 ========================================================
 
-Confidence Interval for proportions
+*Confidence Interval for proportions*
 
 $$
 \begin{aligned}
@@ -354,11 +357,10 @@ $$
   \\\\
   \hat{p}\pm z_\frac\alpha2\sqrt{\frac{p(1-p)}n}.
 \end{aligned}
+
 $$
 
-***
-
-Confidence Interval for means
+*Confidence Interval for means*
 
 $$
 \begin{aligned}
@@ -366,6 +368,14 @@ $$
   \\\\
   \overline X\pm t_\frac\alpha2\frac S{\sqrt n}.
 \end{aligned}
+\\
+$$
+
+*for example*
+
+$$
+\text{95% CI for }\overline X\text{ means the probabily that the confidence interval contains the population mean}
+
 $$
 
 Statistical tests
