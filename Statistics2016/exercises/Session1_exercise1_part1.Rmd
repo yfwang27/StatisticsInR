@@ -1,0 +1,29 @@
+---
+title: "Exercise 1 for Session1 part1: data summary"
+author: "MRC Clinical Sciences Centre (http://mrccsc.github.io/)"
+date: "14/Nov/2016"
+output: html_document
+---
+
+These exercises cover the sections of Statistics in R [Session1: data summary]("../Session1_describe_the_data.html").
+
+**Exercise 1**
+
+- Read in the file Life_expectancy_at_birth.csv.
+- Use the *head()* function to show the first 6 rows of the data. How many variables are there?
+- Use the *str()* function to see the data type of each column.
+- Use the *summary()* function to show the summarized information of the dataset. Which columns contain the discrete (categorical) data and which columns contain the continuous data?
+- How many males and females are in England. (hint: subset the data with Life_exp$area=="England").
+- Which function will you use to see the maximum and minumum of the life.expectancy in England?  
+- What is the median life expenctancies of of Males and Females, respectively, in England?
+- What are quantiles of the life.expectancy in Wales, N.Ireland, and in Scotland, respectively.
+- show the variance and standard deviation of the life.expectancy in England
+
+[self check]
+
+Q: Can't read in the "Life_expectancy_at_birth.csv"?
+
+A: Please check your current directory by using *getwd()* function in the Console. If it is not the correct directory, please use *setwd()* function to switch to the correct one.
+
+
+

@@ -1,7 +1,7 @@
 Session1: Data summary
 ========================================================
 author: MRC Clinical Sciences Centre (http://mrccsc.github.io/)
-date: 12/July/2016
+date: 14/Nov/2016
 width: 1440
 height: 1100
 autosize: true
@@ -31,7 +31,7 @@ Or can be downloaded as a zip archive from here.
 Materials. - Presentations, source code and practicals.
 ========================================================
 
-Once the zip file in unarchived. All presentations as HTML slides and pages, their R code and HTML practical sheets will be available in the directories underneath.
+Once the zip files are unzipped, all presentations are available as HTML slides and pages. Practical sheets will be available in the directories underneath.
 
 * **exercises/**
 Practicals as HTML pages.
@@ -143,7 +143,7 @@ Recap some basic R functions (6/6)
 ftable(Life_exp[,c("area","gender")])
 ```
 
-Spread of data - use "Life_exp$life.expectancy" (1/9)
+Spread of data - use "Life_exp$life.expectancy" (1/10)
 ========================================================
 
 - working with plots
@@ -152,27 +152,27 @@ Spread of data - use "Life_exp$life.expectancy" (1/9)
 --[Plotting in R](http://mrccsc.github.io/Reproducible-R/r_course/presentations/slides/introToR_Session1.html#/plotting)
 
 
-Spread of data - work with plots (2/9)
+Spread of data - work with plots (2/10)
 ========================================================
 
 Scatter plot: plot the life.expectancy against index
 
-```{r,prompt=T}
+```{r,prompt=T,fig.width=3.5,fig.height=3.5,dpi=300,out.width="720px",height="720px"}
 plot(Life_exp$life.expectancy,ylab="Life expectancy (Years)")
 ```
 
-Spread of data - work with plots (3/9)
+Spread of data - work with plots (3/10)
 ========================================================
 sort the data from min to max
 
-```{r,prompt=T,echo=F}
+```{r,prompt=T,echo=F,fig.width=3.5,fig.height=3.5,dpi=300,out.width="720px",height="720px"}
 plot(sort(Life_exp$life.expectancy),ylab="Life expectancy (Years)")
 ```
 ***
 
 start to see something here...
 
-```{r,echo=F}
+```{r,echo=F,fig.width=3.5,fig.height=3.5,dpi=300,out.width="720px",height="720px"}
 quan_1<-quantile(c(1:nrow(Life_exp)))[2]
 quan_3<-quantile(c(1:nrow(Life_exp)))[4]
 plot(sort(Life_exp$life.expectancy),ylab="Life expectancy (Years)",xaxt="n")
@@ -186,7 +186,7 @@ plot(sort(Life_exp$life.expectancy),ylab="Life expectancy (Years)",xaxt="n")
          v=quantile(c(1:nrow(Life_exp)))[c(2,4)],col="pink",lwd=3,lty=2)
 ```
 
-Spread of data - work with plots (4/9)
+Spread of data - work with plots (4/10)
 ========================================================
 
 **min()**, **max()**, **median()**, **range()** and **quantile()** functions
@@ -200,13 +200,13 @@ range(Life_exp$life.expectancy)
 quantile(Life_exp$life.expectancy)
 ```
 
-Spread of data - work with plots (5/9)
+Spread of data - work with plots (5/10)
 ========================================================
 Left: 40%
 
 Boxplot
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,fig.width=3.5,fig.height=3.5,dpi=300,out.width="720px",height="720px"}
 boxplot(Life_exp$life.expectancy,ylab="Life expectancy (Years)")
 abline(h=mean(Life_exp$life.expectancy),col="forestgreen",lwd=3)
 ```
@@ -218,10 +218,10 @@ quantile(Life_exp$life.expectancy)[c(2,4)]
 ```
 
 
-Spread of data - work with plots (6/9)
+Spread of data - work with plots (6/10)
 ========================================================
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,fig.width=6,fig.height=6,dpi=300,out.width="720px",height="720px"}
 par(mfrow=c(1,2))
   boxplot(Life_exp$life.expectancy,ylab="Life expectancy (Years)")
   plot(sort(Life_exp$life.expectancy),ylab="Life expectancy (Years)",xaxt="n")
@@ -236,7 +236,7 @@ par(mfrow=c(1,2))
 par(mfrow=c(1,1))
 ```
 
-Spread of data -  work with plots (7/9)
+Spread of data -  work with plots (7/10)
 ========================================================
 **summary()**
 ```{r,prompt=T}
@@ -251,7 +251,7 @@ range(Life_exp$life.expectancy)
 IQR(Life_exp$life.expectancy)
 ```
 
-Spread of data - Variance and Standard deviation (8/9)
+Spread of data - Variance and Standard deviation (8/10)
 ========================================================
 
 $$
@@ -270,25 +270,31 @@ sd.life.exp<-sqrt(var.life.exp)
 c(var.life.exp, sd.life.exp)
 ```
 
-Spread of data - var() and sd() function (9/9)
+Spread of data - var() and sd() function (9/10)
 ========================================================
 ```{r,prompt=T}
 var(Life_exp$life.expectancy)
 sd(Life_exp$life.expectancy)
 ```
 
+More about SD and Variance (10/10)
+========================================================
+- we use the SD more often because it has the same units as the data BUT, if you know one, then you automatically know the other as well.
+
+- in many analysis, variances are used more often, i.e. F-test
+
 
 Data shape - histogram (1/4)
 ========================================================
 
-```{r,prompt=T}
+```{r,prompt=T,fig.width=4.5,fig.height=3.5,dpi=300,out.width="720px",height="720px"}
 hist(Life_exp$life.expectancy,breaks=10)
 ```
 
 Data shape - histogram (2/4)
 ========================================================
 
-```{r,prompt=T}
+```{r,prompt=T,fig.width=4.5,fig.height=3.5,dpi=300,out.width="720px",height="720px"}
 hist(Life_exp$life.expectancy,breaks=10,freq = F)
 lines(density(Life_exp$life.expectancy),col="red")
 
@@ -297,7 +303,7 @@ lines(density(Life_exp$life.expectancy),col="red")
 Data shape - histogram (3/4)
 ========================================================
 
-```{r,echo=F}
+```{r,echo=F,fig.width=4.5,fig.height=5,dpi=300}
 par(mfrow=c(2,1))
   hist(Life_exp$life.expectancy,breaks=10,freq = F,xlim=range(Life_exp$life.expectancy))
   lines(density(Life_exp$life.expectancy),col="red",lwd=3)
@@ -332,33 +338,28 @@ vioplot(Life_exp$life.expectancy,
 ```
 
 
-Distributions (1/6)
+Time for an exercise!
+========================================================
+
+Exercise on this part can be found [here](./exercises/Session1_exercise1_part1.html)
+
+
+Answers to exercise.
+========================================================
+
+Answers can be found [here](./answers/Session1_answers1_part1.html)
+
+
+
+Distributions (1/10)
 ========================================================
 - Binomial distribution
 - Normal distribution
 
-
-Distributions (2/6)
+Binomial distribution (2/10)
 ========================================================
-R comes with functions for extracting information from most common distibutions types. An example of standard R functions for dealing with distibution can be seen here using the normal distributions.
 
-- pnorm - cumulative distribution for x, aka c.d.f. (cumulative distribution function)
-- qnorm - inverse of pnorm (from probability gives x)
-- dnorm - distribution density, aka p.d.f. (probability density function)
-- rnorm - random number from normal distribution
-
-Distributions (3/6)
-========================================================
-Similar functions are available for other distibution types including:
-
-- pbinom (binomial)
-- pt (T distribution)
-- pnbinom (negative binomial),
-- phyper (hypergeometric)
-
-
-Binomial distribution (4/6)
-========================================================
+Example: flip a fair (50% of head and 50% of tail) coin 10 times
 
 $$X \sim Binom(n,p)$$
 
@@ -375,9 +376,9 @@ Var(X)=\frac{p(1-p)}n
 \\
 $$
 
-For example:
+In this case:
 
-$$X \sim B(100,0.2)$$
+$$X \sim B(10,0.5)$$
 
 ***
 
@@ -389,60 +390,52 @@ plot(x, hx, type="l", lty=2, lwd=2, col="brown4",
 
 ```
 
-
-Normal distribution (5/6)
+Normal distribution (3/10)
 ========================================================
 
-$$X \sim Normal(\mu,\sigma^2)$$
+Example: body temperature of 150 MRC CSC staff
 
-```{r,echo=F}
-x <- seq(-4, 4, length=100)
-hx <- dnorm(x)
-plot(x, hx, type="l", lty=2, lwd=2, col="blue4",
-     xlab="x value",ylab="Density", main="pdf (probability density function) of normal distribution",xaxt='n')
-axis(side=1, at=c(-4,-2,0,2,4),
-     labels=c(expression(paste(-2,sigma)),expression(-sigma),expression(mu),
-              expression(sigma),expression(paste(2,sigma))))
+$$X \sim Normal(\mu,\sigma^2)
+\\
+\mu=mean
+\\
+\sigma=\text{standard deviation}
+$$
 
-```
-
-Standard Normal distribution (6/6)
-========================================================
-
-$$X \sim Normal(\mu,\sigma^2)$$
-
-```{r,echo=F}
-x <- seq(-4, 4, length=100)
-hx <- dnorm(x)
-plot(x, hx, type="l", lty=2, lwd=2, col="blue4",
-     xlab="x value",ylab="Density", main="Normal distribution",xaxt='n')
-axis(side=1, at=c(-4,-2,0,2,4),
-     labels=c(expression(paste(-2,sigma)),expression(-sigma),expression(mu),
-              expression(sigma),expression(paste(2,sigma))))
-
-```
 ***
 
-Z-score transformation
-
-$$
-Z=\frac{X-\mu}\sigma
-\\
-\\
-Z \sim Normal(0,1)
-$$
-
-```{r,echo=F}
-x <- seq(-4, 4, length=200)
+```{r,echo=F,fig.width=3.5,fig.height=3.5,dpi=300,out.width="720px",height="720px"}
+x <- seq(-4, 4, length=100)
 hx <- dnorm(x)
 plot(x, hx, type="l", lty=2, lwd=2, col="blue4",
-     xlab="z score",ylab="Density", main="standardised Normal distribution",xaxt='n')
+     xlab="x value",ylab="Density", main="pdf (probability density function)\n of normal distribution",xaxt='n')
 axis(side=1, at=c(-4,-2,0,2,4),
-     labels=c(-2,-1,0,1,2))
+     labels=c(expression(paste(-2,sigma)),expression(-sigma),expression(mu),
+              expression(sigma),expression(paste(2,sigma))))
 
 ```
 
-Normal distribution example (1/3)
+
+Distributions (4/10)
+========================================================
+R comes with functions for extracting information from most common distibutions types. An example of standard R functions for dealing with distibution can be seen here using the normal distributions.
+
+- pnorm - cumulative distribution for x, aka c.d.f. (cumulative distribution function)
+- qnorm - inverse of pnorm (from probability gives x)
+- dnorm - distribution density
+- rnorm - random number from normal distribution
+
+Distributions (5/10)
+========================================================
+Similar functions are available for other distibution types including:
+
+- pbinom (binomial)
+- pt (T distribution)
+- pnbinom (negative binomial),
+- phyper (hypergeometric)
+
+
+Normal distribution example (6/10)
 ========================================================
 
 We can use **rnorm()** function to generate random values following a normal distribution. Here we produce 10 normally distributed numeric values with mean 8 and standard deviation of 3
@@ -467,11 +460,11 @@ axis(side=1, at=c(2,5,8,11,14),labels=c(2,5,8,11,14))
 ```
 
 
-Normal distribution example (2/3)
+Normal distribution example (7/10)
 ========================================================
 We can also use these functions to interrogate values assuming a normal distribution for the data.
 
-The probablity of a value being exactly 8 for a distribution of mean 8 and standard deviation 3.
+The probablity of a value being VERY close to 8 (or exactly 8 for discrete distributions) for a distribution of mean 8 and standard deviation 3.
 
 ```{r}
 dnorm(8,mean=8,sd=3)
@@ -490,9 +483,9 @@ abline(h=maxdensity,v=8,col="pink",lwd=3,lty=2)
 
 ```
 
-Normal distribution example (3/3)
+Normal distribution example (8/10)
 ========================================================
-The probablity of a value being less than 8 for a distribution of mean 8 and standard deviation 3.
+The probablity (P(X<=x)) of a value being less than 8 for a distribution of mean 8 and standard deviation 3.
 ```{r}
 pnorm(8,mean=8,sd=3)
 ```
@@ -520,6 +513,56 @@ qnorm(0.5,mean=8,sd=3)
 ```
 
 
+Standard Normal distribution (9/10)
+========================================================
+
+$$X \sim Normal(\mu,\sigma^2)$$
+
+```{r,echo=F,fig.width=6,fig.height=5.5,dpi=300}
+x <- seq(-4, 4, length=100)
+hx <- dnorm(x)
+plot(x, hx, type="l", lty=2, lwd=2, col="blue4",
+     xlab="x value",ylab="Density", main="Normal distribution",xaxt='n')
+axis(side=1, at=c(-4,-2,0,2,4),
+     labels=c(expression(paste(-2,sigma)),expression(-sigma),expression(mu),
+              expression(sigma),expression(paste(2,sigma))))
+
+```
+***
+
+Z-score transformation
+
+$$
+Z=\frac{X-\mu}\sigma
+\\
+\\
+Z \sim Normal(0,1)
+$$
+
+```{r,echo=F,fig.width=6,fig.height=5.5,dpi=300}
+x <- seq(-4, 4, length=200)
+hx <- dnorm(x)
+plot(x, hx, type="l", lty=2, lwd=2, col="blue4",
+     xlab="z score",ylab="Density", main="standardised Normal distribution",xaxt='n')
+axis(side=1, at=c(-4,-2,0,2,4),
+     labels=c(-2,-1,0,1,2))
+
+```
+
+Standard Normal distribution (10/10)
+========================================================
+
+```{r,fig.width=5,fig.height=4,dpi=300}
+x<-rnorm(10000,mean=5, sd=2.5)
+hist(x)
+
+```
+***
+```{r,fig.width=5,fig.height=4,dpi=300}
+ztransfer<-scale(x)
+hist(ztransfer)
+```
+
 Time for an exercise!
 ========================================================
 
@@ -531,5 +574,4 @@ Answers to exercise.
 
 Answers can be found [here](./answers/Session1_answers1.html)
 
-R code for solutions can be found here  [here]
 

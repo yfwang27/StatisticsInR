@@ -1,44 +1,53 @@
 ---
-title: "Answer 1 for Session1: data summary"
+title: "Answer for Session1 part2: data summary"
 author: "MRC Clinical Sciences Centre (http://mrccsc.github.io/)"
-date: "12/July/2016"
+date: "14/Nov/2016"
 output: html_document
 ---
 
-These exercises cover the sections of Statistics in R [Session2: data summary]("Session1_describe_the_data.md").
-
-**Exercise 1**
-
-- Read in the file Life_expectancy_at_birth.csv.
-```{r,message=T}
- Life_exp<-read.csv("../data/Life_expectancy_at_birth.csv",header=T)
-```
-- How many males and females in England.
-```{r,message=T}
- Eng.life.exp<-Life_exp[Life_exp$area=="England",]
- summary(Eng.life.exp)
-```
-
-- What is the mean of the life.expectancy in area England? What are the mean of the life.expectancy of Males and Females, respectively, in area England?
-```{r,message=T}
- mean(Eng.life.exp[,"life.expectancy"])
- mean(Eng.life.exp[Eng.life.exp$gender=="Males","life.expectancy"])
- mean(Eng.life.exp[Eng.life.exp$gender=="Females","life.expectancy"])
-```
-
-- What are quantiles of life.expectancy in area Wales, N.Ireland, and in Scotland, respectively.
-```{r,message=T}
- summary(Life_exp[Life_exp$area == "Wales",])
- summary(Life_exp[Life_exp$area == "N.Ireland",])
- summary(Life_exp[Life_exp$area == "Scotland",])
-```
+These exercises cover the sections of Statistics in R [Session1: data summary]("../Session1_describe_the_data.html").
 
 **Exercise 2**
 
-- What is the probablity of a value being less than or equal to 2 for a normal distribution of mean 0 and standard deviation 1
+- Use the **pnorm()** function to see the probablity of a value being less than or equal to 2 for a normal distribution of mean 0 and standard deviation 1
 ```{r,message=T}
  pnorm(2,mean=0,sd=1)
 ```
 
+- What is the probablity of a value being bigger than 2 for a normal distribution of mean 0 and standard deviation 1 (hint: use **?pnorm** in the Console and read the "help" tab in the lower right panel)
+```{r,message=T}
+# option 1
+  pnorm(2,mean=0,sd=1,lower.tail = F)
+# option 2
+  1-pnorm(2,mean=0,sd=1)
+```
 
+**bonus question (optional)**
+
+- load the gene expression matrix that has been created for this exercise from "data/gene_exp_matrix.RData"
+
+```{r}
+load("../data/gene_exp_matrix.RData")
+head(gene_exp_matrix)
+```
+
+- use the gene expression to draw a heatmap
+```{r}
+#install.packages("gplots")
+library("gplots")
+heatmap.2(gene_exp_matrix,symkey=FALSE, trace="none",cexCol=0.75,cexRow=0.35,
+          density.info="none",Colv = F,dendrogram="row")
+
+```
+
+- Use the *scale()* function to perform the Z-score transformation, and use the code above to generate the heatmap again (hint: read the help page of *?scale*, and you might need to use *t()* function as well)
+
+```{r,message=T}
+# option 1
+scaled_gene_exp_matrix<-t(scale(t(gene_exp_matrix)))
+heatmap.2(scaled_gene_exp_matrix,symkey=FALSE, trace="none",cexCol=0.75,cexRow=0.35,
+          density.info="none",Colv = F,dendrogram="row")
+```
+
+However, the *heatmap.2()* function has a argument **scale**, which does the same thing for you....
 
