@@ -58,7 +58,7 @@ Correlation between vectors (2/6)
 ```
 
 ```
-[1] -0.1530407
+[1] -0.02935699
 ```
 ***
 ![plot of chunk unnamed-chunk-2](Session3_linear_regression-figure/unnamed-chunk-2-1.png)
@@ -139,7 +139,7 @@ Sepal.Width    -0.1175698   1.0000000   -0.4284401  -0.3661259
 Petal.Length    0.8717538  -0.4284401    1.0000000   0.9628654
 Petal.Width     0.8179411  -0.3661259    0.9628654   1.0000000
 ```
-![plot of chunk unnamed-chunk-7](Session3_linear_regression-figure/unnamed-chunk-7-1.png)
+<img src="Session3_linear_regression-figure/unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="650px" />
 
 Correlation (6/6)
 ========================================================

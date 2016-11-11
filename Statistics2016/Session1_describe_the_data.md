@@ -36,7 +36,7 @@ Once the zip files are unzipped, all presentations are available as HTML slides 
 * **exercises/**
 Practicals as HTML pages.
 * **answers/**
-Practicals with answers as HTML pages and R code solutions.
+Practicals with answers as HTML pages.
 
 Set the Working directory
 ========================================================
@@ -408,7 +408,7 @@ Data shape - histogram (2/4)
 Data shape - histogram (3/4)
 ========================================================
 
-![plot of chunk unnamed-chunk-23](Session1_describe_the_data-figure/unnamed-chunk-23-1.png)
+<img src="Session1_describe_the_data-figure/unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" width="850px" />
 
 
 Data shape - violin plot (4/4)
