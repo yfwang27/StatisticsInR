@@ -1,7 +1,8 @@
 Statistics in R
 ========================================================
-author:
-date:
+author: MRC CSC bioinformatics team
+
+date: 14/Nov/2016
 
 The Course
 ========================================================
@@ -53,6 +54,9 @@ To install these,
 <pre>
 install.packages("ggplot2",dependencies=TRUE)
 install.packages("rmarkdown",dependencies=TRUE)
+install.packages("vioplot",dependencies=TRUE)
+install.packages("binom",dependencies=TRUE)
+install.packages("UsingR",dependencies=TRUE)
 </pre>
 
 #### Download the material

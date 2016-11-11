@@ -1,7 +1,7 @@
 Session1: Data summary
 ========================================================
 author: MRC Clinical Sciences Centre (http://mrccsc.github.io/)
-date: 12/July/2016
+date: 14/Nov/2016
 width: 1440
 height: 1100
 autosize: true
@@ -31,7 +31,7 @@ Or can be downloaded as a zip archive from here.
 Materials. - Presentations, source code and practicals.
 ========================================================
 
-Once the zip file in unarchived. All presentations as HTML slides and pages, their R code and HTML practical sheets will be available in the directories underneath.
+Once the zip files are unzipped, all presentations are available as HTML slides and pages. Practical sheets will be available in the directories underneath.
 
 * **exercises/**
 Practicals as HTML pages.
@@ -197,7 +197,7 @@ Scotland              20    20
 Wales                 20    20
 ```
 
-Spread of data - use "Life_exp$life.expectancy" (1/9)
+Spread of data - use "Life_exp$life.expectancy" (1/10)
 ========================================================
 
 - working with plots
@@ -206,7 +206,7 @@ Spread of data - use "Life_exp$life.expectancy" (1/9)
 --[Plotting in R](http://mrccsc.github.io/Reproducible-R/r_course/presentations/slides/introToR_Session1.html#/plotting)
 
 
-Spread of data - work with plots (2/9)
+Spread of data - work with plots (2/10)
 ========================================================
 
 Scatter plot: plot the life.expectancy against index
@@ -216,20 +216,20 @@ Scatter plot: plot the life.expectancy against index
 > plot(Life_exp$life.expectancy,ylab="Life expectancy (Years)")
 ```
 
-![plot of chunk unnamed-chunk-9](Session1_describe_the_data-figure/unnamed-chunk-9-1.png)
+<img src="Session1_describe_the_data-figure/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="720px" />
 
-Spread of data - work with plots (3/9)
+Spread of data - work with plots (3/10)
 ========================================================
 sort the data from min to max
 
-![plot of chunk unnamed-chunk-10](Session1_describe_the_data-figure/unnamed-chunk-10-1.png)
+<img src="Session1_describe_the_data-figure/unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="720px" />
 ***
 
 start to see something here...
 
-![plot of chunk unnamed-chunk-11](Session1_describe_the_data-figure/unnamed-chunk-11-1.png)
+<img src="Session1_describe_the_data-figure/unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="720px" />
 
-Spread of data - work with plots (4/9)
+Spread of data - work with plots (4/10)
 ========================================================
 
 **min()**, **max()**, **median()**, **range()** and **quantile()** functions
@@ -263,13 +263,13 @@ Spread of data - work with plots (4/9)
 71.470 75.085 78.005 79.910 83.010 
 ```
 
-Spread of data - work with plots (5/9)
+Spread of data - work with plots (5/10)
 ========================================================
 Left: 40%
 
 Boxplot
 
-![plot of chunk unnamed-chunk-13](Session1_describe_the_data-figure/unnamed-chunk-13-1.png)
+<img src="Session1_describe_the_data-figure/unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="720px" />
 ***
 
 ```r
@@ -298,12 +298,12 @@ Boxplot
 ```
 
 
-Spread of data - work with plots (6/9)
+Spread of data - work with plots (6/10)
 ========================================================
 
-![plot of chunk unnamed-chunk-15](Session1_describe_the_data-figure/unnamed-chunk-15-1.png)
+<img src="Session1_describe_the_data-figure/unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="720px" />
 
-Spread of data -  work with plots (7/9)
+Spread of data -  work with plots (7/10)
 ========================================================
 **summary()**
 
@@ -334,7 +334,7 @@ Spread of data -  work with plots (7/9)
 [1] 4.825
 ```
 
-Spread of data - Variance and Standard deviation (8/9)
+Spread of data - Variance and Standard deviation (8/10)
 ========================================================
 
 $$
@@ -358,7 +358,7 @@ $$
 [1] 8.653772 2.941729
 ```
 
-Spread of data - var() and sd() function (9/9)
+Spread of data - var() and sd() function (9/10)
 ========================================================
 
 ```r
@@ -377,6 +377,12 @@ Spread of data - var() and sd() function (9/9)
 [1] 2.941729
 ```
 
+More about SD and Variance (10/10)
+========================================================
+- we use the SD more often because it has the same units as the data BUT, if you know one, then you automatically know the other as well.
+
+- in many analysis, variances are used more often, i.e. F-test
+
 
 Data shape - histogram (1/4)
 ========================================================
@@ -386,7 +392,7 @@ Data shape - histogram (1/4)
 > hist(Life_exp$life.expectancy,breaks=10)
 ```
 
-![plot of chunk unnamed-chunk-21](Session1_describe_the_data-figure/unnamed-chunk-21-1.png)
+<img src="Session1_describe_the_data-figure/unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="720px" />
 
 Data shape - histogram (2/4)
 ========================================================
@@ -397,7 +403,7 @@ Data shape - histogram (2/4)
 > lines(density(Life_exp$life.expectancy),col="red")
 ```
 
-![plot of chunk unnamed-chunk-22](Session1_describe_the_data-figure/unnamed-chunk-22-1.png)
+<img src="Session1_describe_the_data-figure/unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" width="720px" />
 
 Data shape - histogram (3/4)
 ========================================================
@@ -427,33 +433,28 @@ library("vioplot")
 ![plot of chunk unnamed-chunk-26](Session1_describe_the_data-figure/unnamed-chunk-26-1.png)
 
 
-Distributions (1/6)
+Time for an exercise!
+========================================================
+
+Exercise on this part can be found [here](./exercises/Session1_exercise1_part1.html)
+
+
+Answers to exercise.
+========================================================
+
+Answers can be found [here](./answers/Session1_answers1_part1.html)
+
+
+
+Distributions (1/10)
 ========================================================
 - Binomial distribution
 - Normal distribution
 
-
-Distributions (2/6)
+Binomial distribution (2/10)
 ========================================================
-R comes with functions for extracting information from most common distibutions types. An example of standard R functions for dealing with distibution can be seen here using the normal distributions.
 
-- pnorm - cumulative distribution for x, aka c.d.f. (cumulative distribution function)
-- qnorm - inverse of pnorm (from probability gives x)
-- dnorm - distribution density, aka p.d.f. (probability density function)
-- rnorm - random number from normal distribution
-
-Distributions (3/6)
-========================================================
-Similar functions are available for other distibution types including:
-
-- pbinom (binomial)
-- pt (T distribution)
-- pnbinom (negative binomial),
-- phyper (hypergeometric)
-
-
-Binomial distribution (4/6)
-========================================================
+Example: flip a fair (50% of head and 50% of tail) coin 10 times
 
 $$X \sim Binom(n,p)$$
 
@@ -470,42 +471,51 @@ Var(X)=\frac{p(1-p)}n
 \\
 $$
 
-For example:
+In this case:
 
-$$X \sim B(100,0.2)$$
+$$X \sim B(10,0.5)$$
 
 ***
 
 ![plot of chunk unnamed-chunk-27](Session1_describe_the_data-figure/unnamed-chunk-27-1.png)
 
-
-Normal distribution (5/6)
+Normal distribution (3/10)
 ========================================================
 
-$$X \sim Normal(\mu,\sigma^2)$$
+Example: body temperature of 150 MRC CSC staff
 
-![plot of chunk unnamed-chunk-28](Session1_describe_the_data-figure/unnamed-chunk-28-1.png)
+$$X \sim Normal(\mu,\sigma^2)
+\\
+\mu=mean
+\\
+\sigma=\text{standard deviation}
+$$
 
-Standard Normal distribution (6/6)
-========================================================
-
-$$X \sim Normal(\mu,\sigma^2)$$
-
-![plot of chunk unnamed-chunk-29](Session1_describe_the_data-figure/unnamed-chunk-29-1.png)
 ***
 
-Z-score transformation
+<img src="Session1_describe_the_data-figure/unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="720px" />
 
-$$
-Z=\frac{X-\mu}\sigma
-\\
-\\
-Z \sim Normal(0,1)
-$$
 
-![plot of chunk unnamed-chunk-30](Session1_describe_the_data-figure/unnamed-chunk-30-1.png)
+Distributions (4/10)
+========================================================
+R comes with functions for extracting information from most common distibutions types. An example of standard R functions for dealing with distibution can be seen here using the normal distributions.
 
-Normal distribution example (1/3)
+- pnorm - cumulative distribution for x, aka c.d.f. (cumulative distribution function)
+- qnorm - inverse of pnorm (from probability gives x)
+- dnorm - distribution density
+- rnorm - random number from normal distribution
+
+Distributions (5/10)
+========================================================
+Similar functions are available for other distibution types including:
+
+- pbinom (binomial)
+- pt (T distribution)
+- pnbinom (negative binomial),
+- phyper (hypergeometric)
+
+
+Normal distribution example (6/10)
 ========================================================
 
 We can use **rnorm()** function to generate random values following a normal distribution. Here we produce 10 normally distributed numeric values with mean 8 and standard deviation of 3
@@ -523,14 +533,14 @@ rnorm(10,mean=8,sd=3)
 
 If you want to regenerate the exact random numbers, use the **set.seed()** function before generating any random numbers.
 
-![plot of chunk unnamed-chunk-32](Session1_describe_the_data-figure/unnamed-chunk-32-1.png)
+![plot of chunk unnamed-chunk-30](Session1_describe_the_data-figure/unnamed-chunk-30-1.png)
 
 
-Normal distribution example (2/3)
+Normal distribution example (7/10)
 ========================================================
 We can also use these functions to interrogate values assuming a normal distribution for the data.
 
-The probablity of a value being exactly 8 for a distribution of mean 8 and standard deviation 3.
+The probablity of a value being VERY close to 8 (or exactly 8 for discrete distributions) for a distribution of mean 8 and standard deviation 3.
 
 
 ```r
@@ -541,11 +551,11 @@ dnorm(8,mean=8,sd=3)
 [1] 0.1329808
 ```
 
-![plot of chunk unnamed-chunk-34](Session1_describe_the_data-figure/unnamed-chunk-34-1.png)
+![plot of chunk unnamed-chunk-32](Session1_describe_the_data-figure/unnamed-chunk-32-1.png)
 
-Normal distribution example (3/3)
+Normal distribution example (8/10)
 ========================================================
-The probablity of a value being less than 8 for a distribution of mean 8 and standard deviation 3.
+The probablity (P(X<=x)) of a value being less than 8 for a distribution of mean 8 and standard deviation 3.
 
 ```r
 pnorm(8,mean=8,sd=3)
@@ -555,7 +565,7 @@ pnorm(8,mean=8,sd=3)
 [1] 0.5
 ```
 
-![plot of chunk unnamed-chunk-36](Session1_describe_the_data-figure/unnamed-chunk-36-1.png)
+![plot of chunk unnamed-chunk-34](Session1_describe_the_data-figure/unnamed-chunk-34-1.png)
 
 ***
 
@@ -571,6 +581,44 @@ qnorm(0.5,mean=8,sd=3)
 ```
 
 
+Standard Normal distribution (9/10)
+========================================================
+
+$$X \sim Normal(\mu,\sigma^2)$$
+
+![plot of chunk unnamed-chunk-36](Session1_describe_the_data-figure/unnamed-chunk-36-1.png)
+***
+
+Z-score transformation
+
+$$
+Z=\frac{X-\mu}\sigma
+\\
+\\
+Z \sim Normal(0,1)
+$$
+
+![plot of chunk unnamed-chunk-37](Session1_describe_the_data-figure/unnamed-chunk-37-1.png)
+
+Standard Normal distribution (10/10)
+========================================================
+
+
+```r
+x<-rnorm(10000,mean=5, sd=2.5)
+hist(x)
+```
+
+![plot of chunk unnamed-chunk-38](Session1_describe_the_data-figure/unnamed-chunk-38-1.png)
+***
+
+```r
+ztransfer<-scale(x)
+hist(ztransfer)
+```
+
+![plot of chunk unnamed-chunk-39](Session1_describe_the_data-figure/unnamed-chunk-39-1.png)
+
 Time for an exercise!
 ========================================================
 
@@ -582,5 +630,4 @@ Answers to exercise.
 
 Answers can be found [here](./answers/Session1_answers1.html)
 
-R code for solutions can be found here  [here]
 

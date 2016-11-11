@@ -1,7 +1,7 @@
 ---
 title: "Answer for Session2: Hypothesis Testing and ANOVA"
 author: "MRC Clinical Sciences Centre (http://mrccsc.github.io/)"
-date: "12/July/2016"
+date: "14/Nov/2016"
 output: html_document
 ---
 
@@ -15,18 +15,38 @@ These exercises cover the sections of Statistics in R [Session2: Hypothesis Test
 ```
 - How many genes are ofInterest and how many in pathways.
 ```{r,message=T}
+ # option 1
+ # use summary() function
  summary(catAndExpr)
+ 
+ # option 2
+ # use head() function to see the first 6 rows of the data
+ head(catAndExpr)
+ # use table() fucntion
+ table(catAndExpr$ofInterest)
 ```
 - What are quantiles of expression overall, in Glycolysis genes and in TGFb genes.
 ```{r,message=T}
+ # option 1
+ # use summary() function
  summary(catAndExpr)
  summary(catAndExpr[catAndExpr$pathway == "Glycolysis",])
  summary(catAndExpr[catAndExpr$pathway == "TGFb",])
+ 
+ # option 2
+ # use quantile() function
+ quantile(catAndExpr[,"Expression"])
+ quantile(catAndExpr[catAndExpr$pathway == "Glycolysis","Expression"])
+ quantile(catAndExpr[catAndExpr$pathway == "TGFb","Expression"])
 ```
 - How many genes were selected and in Glycolysis pathway.
 ```{r,message=T}
 contingency <- ftable(catAndExpr[,c("ofInterest","pathway")])
 contingency
+# You might have noticed that the "contingency" above has row names c("NotSelected","Selected"")
+# If you run levels() function, you will see 
+levels(catAndExpr$ofInterest)
+# You can change the levels of catAndExpr$ofInterest by using relevel() function
 catAndExpr$ofInterest<-relevel(catAndExpr$ofInterest,ref="Selected")
 contingency <- ftable(catAndExpr[,c("ofInterest","pathway")])
 contingency

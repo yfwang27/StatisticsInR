@@ -1,7 +1,7 @@
 Session3: Correlation and Linear Regression
 ========================================================
 author: MRC Clinical Sciences Centre (http://mrccsc.github.io/)
-date: 12/July/2016
+date: 14/Nov/2016
 width: 1440
 height: 1100
 autosize: true
@@ -16,38 +16,10 @@ Outline
 - linear regression
 
 
-Dataset - use the "iris" data (1/2)
-========================================================
-
-```{r,prompt=T}
-data(iris)
-```
-Some basic checks
-```{r,prompt=T}
-class(iris)
-str(iris)
-```
-***
-```{r,prompt=T}
-head(iris)
-```
-
-Dataset - use the "iris" data (2/2)
-========================================================
-[Use the dplyr package to make data tidy](http://bioinformatics-core-shared-training.github.io/r-intermediate/)
-```{r, warning=FALSE, eval=T,prompt=T}
-#install.packages("dplyr")
-library("dplyr")
-```
-
-```{r,prompt=T}
-# tbl_df()
-```
-
-Correlation (1/5)
+Correlation (1/6)
 =========================================================
 
-A common task in statistical analysis is to investigate the relationship between pairs of numeric vectors.
+A common task in statistical analysis is to investigate the linear relationship between pairs of numeric vectors.
 
 This can be done by identifying the correlation between numeric vectors using the **cor()** function in R.
 
@@ -55,10 +27,10 @@ In this example we use **cor()** to identify the Pearson correlation between two
 
 - Perfectly posively correlated vectors will return 1
 - Perfectly negatively correlated vectors will return -1
-- Vectors showing no or little correlation will be close to 0.
+- Vectors showing no or little linear correlation will be close to 0.
 
 
-Correlation between vectors (2/5)
+Correlation between vectors (2/6)
 =========================================================
 
 ```{r,prompt=T}
@@ -79,199 +51,113 @@ plot(x,z)
 par(mfrow=c(1,1))
 ```
 
+Correlation example (3/6)
+=========================================================
 
-Correlation over a matrix (3/5)
+Example of blood pressure of 15 males taken by machine and expert. We would like to see whether there is a relationship between machine and expert measured blood pressure.
+
+```{r,prompt=T}
+#install.packages("UsingR")
+library("UsingR")
+data(blood)
+head(blood)
+cor(blood$Machine,blood$Expert)
+```
+***
+```{r,echo=F,prompt=T,fig.width=6,fig.height=5.5,dpi=300}
+library("ggplot2")
+p <- ggplot(blood, aes(Expert, Machine))
+p + geom_point()+
+  theme(axis.text=element_text(size=12),
+        axis.title=element_text(size=14,face="bold"))
+
+```
+
+Correlation over a matrix (4/6)
 =========================================================
 left: 70%
 Often we wish to apply correlation analysis to all columns or rows in a matrix in a pair-wise manner. To do this in R, we can simply pass the **cor()** function a single argument of the numeric matrix of interest. The **cor()** function will then perform all pair-wise correlations between columns.
 
-- subset data.frame
+- subset iris dataset
 ```{r,prompt=T}
-iris4cor<-iris[,1:4]
-```
-- change colnames
-```{r,prompt=T}
-colnames(iris4cor)<-gsub("(.+)(\\.)(\\w{3})(.+)","\\1\\2\\3",colnames(iris4cor))
-head(iris4cor)
-
+data(iris)
+head(iris)
+iris4cor<-iris[,c(1:4)]; 
+# or
+# iris4cor<-iris[,-5]
 ```
 
-Correlation over a matrix (4/5)
+
+Correlation over a matrix (5/6)
 =========================================================
 ```{r,prompt=T}
 cor(iris4cor)
 ```
-```{r,eval=T,echo=F,fig.width=4,fig.height=4,dpi=300,out.width="820px",height="820px"}
+```{r,eval=T,echo=F,fig.width=4,fig.height=3.5,dpi=300}
 image(cor(iris4cor),axes=F)
-mtext(colnames(iris4cor),side=2,at=seq(0,1,length.out=4),las=1,cex=0.8)
-mtext(colnames(iris4cor),side=1,at=seq(0,1,length.out=4),las=2,cex=0.8)
+mtext(colnames(iris4cor),side=2,at=seq(0,1,length.out=4),las=1,cex=0.6)
+mtext(colnames(iris4cor),side=1,at=seq(0,1,length.out=4),las=2,cex=0.6)
 
 ```
 
-Correlation (5/6)
+Correlation (6/6)
 ========================================================
-```{r,prompt=T}
+```{r,prompt=T,fig.width=5,fig.height=5,dpi=300,out.width="650px",height="650px"}
 pairs(iris4cor)
 ```
 
 
-Regression and linear models (1/14)
+Linear regression (1/23)
 =========================================================
 
-We have seen how we can find the correlation between two sets of variables using **cor()** function.
+We have seen how we can find the linear correlation between two sets of variables using **cor()** function.
 
 R also provides a comprehensive set of tools for regression analysis including the well used linear modeling function **lm()**
 
-To fit a linear regression we use a similar set of arguments as passed to the t-test fuction in the previous slide.
+- least square method
 
-Regression and linear models (2/14)
+*minimize the vertical distance between the fitted line and data points* 
+
+```{r,echo=F,prompt=T,fig.width=3,fig.height=3,dpi=300,out.width="650px",height="650px"}
+library("ggplot2")
+data(kid.weights)
+pwh <-  ggplot(kid.weights, aes(height, weight))
+pwh + geom_point() + labs(x = "kids height (inches)",y="kids weight (pounds)") + 
+   stat_smooth(method="lm",se=F)
+```
+
+
+Linear regression (2/23)
 =========================================================
-Use the *Petal.Width* to predict the *Petal.Length* from the iris data as example
-
-We will focus on *Iris.versicolor* as example
-![alt text](imgs/Iris_versicolor.jpg)
-***
-- subset data *iris*
+left: 70%
+We use *kid.weights* dataset as example and see whether we can use kids height to predict kids weight
 ```{r,prompt=T}
-iris_versi<-iris[iris$Species=="versicolor", c("Petal.Length","Petal.Width")]
-dim(iris_versi)
-head(iris_versi)
-```
-
-
-Regression and linear models (3/14)
-=========================================================
-
-If we only know the Petal.Length, and would like to use this information to predict the Petal.Length
-
-```{r,prompt=T}
-head(iris_versi[,"Petal.Length"])
-PetalLen.mean<-mean(iris_versi$Petal.Length)
-PetalLen.mean
+#install.packages("UsingR")
+#library("UsingR")
+data(kid.weights)
+str(kid.weights)
+# or using head() function
+head(kid.weights)
 ```
 ***
-```{r,prompt=T}
-plot(iris_versi$Petal.Length,ylab="Petal Length of Iris.versicolor")
-abline(h=PetalLen.mean, col="forestgreen",lwd=3)
+```{r,echo=F,prompt=T,fig.width=4,fig.height=4,dpi=300,out.width="820px",height="820px"}
+pwh <-  ggplot(kid.weights, aes(height, weight))
+pwh + geom_point() + labs(x = "height (inches)",y="weight (pounds)")
 ```
 
 
-Regression and linear models (4/14)
-=========================================================
-
-If we only know the *Petal.Length*, and would like to use this information to predict the *Petal.Length*
-
-```{r,echo=F}
-plot(iris_versi$Petal.Length,
-     ylab="Petal Length of Iris.versicolor")
-abline(h=PetalLen.mean,col="forestgreen",lwd=3)
-segments(x0=c(1:nrow(iris_versi)),y0=iris_versi$Petal.Length,
-         x1=c(1:nrow(iris_versi)),y1=mean(iris_versi$Petal.Length),col="brown")
-```
-***
-
-$$\text{In this case, the expected value is mean } = \overline y $$
-
-- residuals (Error)
-
-$$
-  \begin{aligned}
-
-  Error_i & = y_i - \overline y
-  \\ \\
-  \end{aligned}
-$$
-
-Regression and linear models (5/14)
-=========================================================
-
-Zoom in [just see first 4 data points]
-
-```{r,echo=F}
-diff_df<-iris_versi$Petal.Length-PetalLen.mean
-plot(iris_versi$Petal.Length[c(1:4)],xlim=c(0,5.5), ylim=c(2,6.5),
-     ylab="Petal Length of first 4 data points (y)", xlab="x")
-abline(h=mean(iris_versi$Petal.Length),
-       col="forestgreen",lwd=3)
-
-rect(xleft=c(1:4),ybottom=mean(iris_versi$Petal.Length),
-     xright=c(1:4)+abs(diff_df[c(1:4)]),
-     ytop=mean(iris_versi$Petal.Length)+diff_df[c(1:4)],
-     density=30,col = "blue")
-
-segments(x0=c(1:4),y0=iris_versi$Petal.Length[c(1:4)],
-         x1=c(1:4),y1=mean(iris_versi$Petal.Length),col="brown",lwd=3)
-```
-***
-
-$$\text{In this case, the expected values is mean } = \overline y $$
-
-- residuals (Error)
-
-$$
-  \begin{aligned}
-  \\
-  Error_i & = y_i - \overline y
-  \end{aligned}
-$$
-- square of the residuals
-
-$$
-  \begin{aligned}
-  Error_i^2  = (y_i - \overline y)^2
-  \end{aligned}
-$$
-
-- sum of the square of the residuals (SSE)
-
-$$
-  \begin{aligned}
-  SSE  = \sum_{i=1}^{n}(y_i-\overline y)^2
-  \end{aligned}
-$$
-
-Regression and linear models (6/14)
-=========================================================
-
-Now we use the "iris_versi" *Petal.Width* to predict *Petal.Length*
-
-We can plot *Petal.Width* as X and *Petal.Length* as Y
-
-```{r,echo=F}
-plot(iris_versi$Petal.Width,iris_versi$Petal.Length,
-     xlab="Petal Width of Iris.versicolor (x)",
-     ylab="Petal Length of Iris.versicolor (y)")
-abline(lm(iris_versi$Petal.Length~iris_versi$Petal.Width,data=iris_versi),
-       col="blueviolet",lwd=3, lty=3)
-title("Scatter plot of Iris.versicolor Petal.Width vs Petal.Length")
-
-```
-***
-$$
-  x = \text{independent or explanatory variable}
-\\
-  y = \text{dependent variable or }f(x)
-
-$$
-
-**$$f(x)  = b_0 + b_1x$$**
-
-$$b_0\text{(intercept): the value of f(x) when x =0}$$
-
-$$b_1\text{(slope): the amount of f(x) will change when x changes 1 unit}$$
-
-
-Regression and linear models (7/14)
+Linear regression (3/23)
 =========================================================
 The **lm()** function fits a linear regression to your data and provides useful information on the generated fit.
 
-In the example below we fit a linear model using  **lm()** on the *iris_versi* dataset with *Petal.Length* (Y) as the dependent variable and *Petal.Width* (X) as the explanatory variable.
+In the example below we fit a linear model using  **lm()** on the *kid.weights* dataset with *weight* (Y) as the dependent variable and *height* (X) as the explanatory variable.
 ```{r,prompt=T}
-lmResult<-lm(formula = Petal.Length ~ Petal.Width, data = iris_versi)
+lmResult<-lm(formula = weight ~ height, data = kid.weights)
 lmResult
 ```
 
-Interpreting output of lm() (8/14)
+
+Interpret output of lm() (4/23)
 =========================================================
 
 As we have seen, printing the model result provides the intercept and slope of line.
@@ -280,36 +166,67 @@ To get some more information on the model we can use the **summary()** function
 summary(lmResult)
 ```
 
-Regression and linear models - coefficients (9/14)
+Interpret output of lm() - coefficients (5/23)
 =========================================================
+left: 70%
 ```{r,prompt=T}
 lmResult$coefficients
 ```
-From the $coefficients of object lmResult, we know the equation for the best fit is
+From the **$coefficients** of object *lmResult*, we know the equation for the best fit is
 
-**$$Y = 1.781275 + 1.869325 *X$$**
+**$$Y = -31.342 + 1.909044 *X$$**
 
 **$$f(x)  = b_0 + b_1x$$**
 
-We can add the line of best fit using **abline()**
-
 $$b_0\text{: the value of f(x) when x =0}$$
+
+```{r}
+# the Intercept -31.341912 is the expected weight of a 0 inch height
+# not interesting to any biological questions
+```
 
 $$b_1\text{: the amount of f(x) will change when x changes 1 unit}$$
 
+```{r}
+# For every inch increased in the kids height, we expect 1.9 pounds increased in the kids weight
+
+```
 ***
-```{r,echo=F}
-plot(iris_versi$Petal.Width,iris_versi$Petal.Length,xlim=c(0,1.8),ylim=c(0,5),
-     xlab="Petal Width of Iris.versicolor (x)",
-     ylab="Petal Length of Iris.versicolor (y)")
-abline(lm(iris_versi$Petal.Length~iris_versi$Petal.Width,data=iris_versi),
-       col="blueviolet",lwd=3, lty=3)
-abline(v=0,h=1.781275,col="brown4",lwd=2, lty=3)
-points(x=0,y=1.781275,pch=23,cor="pink")
-title("Scatter plot of Iris.versicolor Petal.Width vs Petal.Length")
+```{r,echo=F,prompt=T,fig.width=3.5,fig.height=3.5,dpi=300,out.width="720px",height="720px"}
+pwh <-  ggplot(kid.weights, aes(height, weight))
+pwh + geom_point() + stat_smooth(method = "lm",se=F) +
+  labs(x = "height (inches)",y="weight (pounds)")
 ```
 
-Regression and linear models - residuals (10/14)
+
+More about coefficients (6/23)
+=========================================================
+
+Predict the kid weight with the height information.
+
+If we have 3 kids with height = 23, 40 and 66 inches, how do we predict their weights?
+
+
+Use the information from the *$coefficients*
+```{r,prompt=T}
+new_kid_height<-c(23,40,66)
+beta0<-lmResult$coefficients[1]
+beta1<-lmResult$coefficients[2]
+
+predicted_new_kid_weight<-beta0+beta1*new_kid_height
+predicted_new_kid_weight
+```
+
+Or use the *predict()*
+```{r}
+new_kid_height_df <- data.frame(height=c(23,40,66))
+cleaver_predicted_kid_weight<-predict(lmResult,new_kid_height_df)
+cleaver_predicted_kid_weight
+```
+
+
+
+Interpret output of lm() - residuals (7/23)
 =========================================================
 
 The **residuals** are the difference between the predicted and actual values.
@@ -321,104 +238,217 @@ summary(lmResult$residual)
 ```
 Ideally you would want your residuals to be normally distributed around 0.
 
-
-Regression and linear models - residuals (11/14)
-=========================================================
-
-```{r,prompt=T,echo=T}
-IrisLm.res<-lmResult$residual
-head(IrisLm.res)
-
-```
-
-***
-
-Plot the residuals against the independent variable (X)
-
-```{r,echo=F}
-plot(iris_versi$Petal.Width,IrisLm.res,ylim=c(-2.5,2.5),
-     ylab="residuals",xlab="Petal Width of Iris.versicolor (x)")
-abline(h=0,col="blueviolet",lwd=3, lty=3)
-
-```
-
-
-Regression and linear models - residuals (12/14)
-=========================================================
-
-```{r,prompt=T,echo=T}
-IrisLm.res<-lmResult$residual
-head(IrisLm.res)
-
-```
 $$
-Error_i = y_i - \hat{y}
-\\
+E[e_{i}]=0
+$$
 
-Error_i^2  = (y_i - \hat{y})^2
+More about residuals (8/23)
+=========================================================
+
+Plot the residuals
+
+```{r,echo=T,fig.width=9,fig.height=7,dpi=300,out.width="1000",height="750"}
+plot(kid.weights$height,kid.weights$weight,ylim=c(-30,150),
+     ylab="weigth (pounds)",xlab="height (inches)")
+abline(lmResult,col="blueviolet",lwd=3, lty=1)
+
+```
+
+More about residuals (9/23)
+=========================================================
+
+Residual is the vertical distance between the observed data and the regression line. It has the same unit as the dependent variable.
+
+```{r,echo=F,fig.width=9,fig.height=7,dpi=300,out.width="1020",height="800"}
+plot(kid.weights$height,kid.weights$weight,ylim=c(-30,150),
+     ylab="weigth (pounds)",xlab="height (inches)")
+abline(lmResult,col="blueviolet",lwd=3, lty=1)
+y<-kid.weights$weight;x<-kid.weights$height
+yhat<-predict(lmResult)
+for (i in 1:nrow(kid.weights)){
+  lines(c(x[i],x[i]),
+        c(y[i],yhat[i]),
+        col="red",lwd=2)
+}
+```
+
+More about residuals (10/23)
+=========================================================
+
+SSE shows the residual variability
+
+It shows the variability that cannot be explained by the regression model
+
+```{r,echo=F,fig.width=9,fig.height=7,dpi=300,out.width="1020",height="800"}
+plot(kid.weights$height,kid.weights$weight,ylim=c(-30,150),
+     ylab="weigth (pounds)",xlab="height (inches)")
+abline(lmResult,col="blueviolet",lwd=3, lty=1)
+y<-kid.weights$weight;x<-kid.weights$height
+yhat<-predict(lmResult)
+for (i in 1:nrow(kid.weights)){
+  lines(c(x[i],x[i]),
+        c(y[i],yhat[i]),
+        col="red",lwd=2)
+}
+```
+***
+$$
+Error_i = y_i - \hat{y_i}
+\\
+y_i\text{: the observed weight of ith kid}
+\\
+\hat{y_i}\text{: the predicted weight of ith kid}
+\\
+Error_i^2  = (y_i - \hat{y_i})^2
 \\
 \text{- sum of the square of the residuals (SSE)}
 \\
-SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
+SSE  = \sum_{i=1}^{n}(y_i-\hat{y_i})^2
 $$
 
-***
+
+
+More about residuals (11/23)
+=========================================================
+
+Plot the residuals against the independent variable (X), i.e. the height. It makes the residual accessment easiler by eyes.
+
+```{r,echo=T,fig.width=9,fig.height=7,dpi=300,out.width="1000px",height="750px"}
+plot(kid.weights$height,lmResult$residual,ylim=c(-30,150),
+     ylab="residuals (weight pounds)",xlab="height (inches)")
+abline(h=0,col="blueviolet",lwd=3, lty=1)
+
+```
+
+More about residuals (12/23)
+=========================================================
+
+Plot the residuals against the independent variable (X), i.e. the height. 
+
+```{r,echo=F,fig.width=9,fig.height=7,dpi=300,out.width="1020",height="800px"}
+plot(kid.weights$height,lmResult$residual,ylim=c(-30,150),
+     ylab="residuals (weight pounds)",xlab="height (inches)")
+abline(h=0,col="blueviolet",lwd=3, lty=1)
+x<-kid.weights$height
+resid<-lmResult$residuals
+for (i in 1:nrow(kid.weights)){
+  lines(c(x[i],x[i]),c(0,resid[i]), col="red",lwd=2)
+}
+```
+
+More about residuals (13/23)
+=========================================================
 
 Plot the residuals against the independent variable (X)
 
-```{r,echo=F}
-plot(iris_versi$Petal.Width,IrisLm.res,ylim=c(-2.5,2.5),
-     ylab="residuals",xlab="Petal Width of Iris.versicolor (x)")
-abline(h=0,col="blueviolet",lwd=3, lty=3)
-segments(x0=iris_versi$Petal.Width,y0=0,
-         x1=iris_versi$Petal.Width,y1=lmResult$residual,col="brown",lwd=3)
+```{r,echo=F,fig.width=5,fig.height=5,dpi=300,out.width="720px",height="720px"}
+plot(kid.weights$height,lmResult$residual,ylim=c(-30,150),
+     ylab="residuals (weight pounds)",xlab="height (inches)")
+abline(h=0,col="blueviolet",lwd=3, lty=1)
+x<-kid.weights$height
+resid<-lmResult$residuals
+for (i in 1:nrow(kid.weights)){
+  lines(c(x[i],x[i]),c(0,resid[i]), col="red",lwd=2)
+}
+
 ```
-
-
-
-Regression and linear models - residuals (13/14)
-=========================================================
-
-Residuals from the model
-
-```{r,echo=F}
-plot(iris_versi$Petal.Width,IrisLm.res,ylim=c(-2.5,2.5),
-     ylab="residuals",xlab="Petal Width of Iris.versicolor (x)")
-abline(h=0,col="blueviolet",lwd=3, lty=3)
-
-#rect(xleft=iris_versi$Petal.Width,ybottom=0,
-#     xright=iris_versi$Petal.Width+abs(lmResult$residual),
-#     ytop=0+lmResult$residual,
-#     density=30,col = "darkgreen")
-
-
-segments(x0=iris_versi$Petal.Width,y0=0,
-         x1=iris_versi$Petal.Width,y1=lmResult$residual,col="brown",lwd=3)
-```
-
-- Sum of the square of the residuals (SSE)
-$$
-SSE  = \sum_{i=1}^{n}(y_i-\hat{y})^2
-$$
 
 ***
+$$
+Error_i = y_i - \hat{y_i}
+\\
 
-Residuals from the mean
+Error_i^2  = (y_i - \hat{y_i})^2
+\\
+\text{- sum of the square of the residuals (SSE)}
+\\
+SSE  = \sum_{i=1}^{n}(y_i-\hat{y_i})^2
+$$
+
+
+Interpret output of lm() - R-squared (14/23)
+=========================================================
+
+- The **R-squared** value represents the proportion of variability in the response variable that is explained by the explanatory variable.
+
+- A high **R-squared** here indicates that the line fits closely to the data.
+
+```{r,prompt=T,echo=T}
+summary(lmResult)$r.squared
+```
+
+
+More about R-squared (15/23)
+=========================================================
+
+- Question: How would you describe (or summarize) kid's weight when the **height information is absence**? Which information you would use to predict a new child's weight?
+
+```{r,prompt=T,echo=T}
+kid.weights$weight
+```
+
+More about R-squared (16/23)
+=========================================================
+
+- Question: How would you describe (or summarize) kid's weight when the **height information is absence**? Which information you would use to predict a new child's weight?
+
+- mean might be a good choice
+
+```{r,prompt=T,echo=T}
+mean(kid.weights$weight)
+```
+
+- If we have a new child, we could assume that the kid's weight is around 38.384 pounds.
+
+More about R-squared (17/23)
+=========================================================
+
+- Question: How would you describe (or summarize) kid's weight when the **height information is absence**? Which information you would use to predict a new child's weight?
+
+- mean might be a good choice
+
+```{r,echo=F,fig.width=5,fig.height=5,dpi=300,out.width="720px",height="720px"}
+diff_df<-kid.weights$weight-mean(kid.weights$weight)
+plot(kid.weights$weight, ylim=c(-30,150),
+     ylab="weight (pounds)", xlab="x")
+abline(h=mean(kid.weights$weight),
+       col="forestgreen",lwd=3,lty=1)
+```
+
+More about R-squared - TSS (18/23)
+=========================================================
+
+```{r,echo=F,fig.width=5,fig.height=5,dpi=300,out.width="720px",height="720px"}
+diff_df<-kid.weights$weight-mean(kid.weights$weight)
+plot(kid.weights$weight, ylim=c(-30,150),
+     ylab="weight (pounds)", xlab="x")
+abline(h=mean(kid.weights$weight),
+       col="forestgreen",lwd=3,lty=1)
+segments(x0=c(1:nrow(kid.weights)),y0=kid.weights$weight,
+         x1=c(1:nrow(kid.weights)),y1=mean(kid.weights$weight),col="red",lwd=2)
+```
+***
+Residuals from the mean: assuming the independent variable (X), i.e. height in our case, does not exist
+
+$$
+TSS=\text{Total Sum of Squares}=\sum_{i=1}^n(y_i-\overline y)^2
+$$
+
+
+More about  about R-squared (19/23)
+=========================================================
+
+Residuals from the mean: assuming the independent variable (X), i.e. height in our case, does not exist
 
 ```{r,echo=F}
-diff_df<-iris_versi$Petal.Length-PetalLen.mean
-plot(iris_versi$Petal.Length, ylim=c(2,6.5),
-     ylab="Petal Length of first 4 data points (y)", xlab="x")
-abline(h=mean(iris_versi$Petal.Length),
-       col="forestgreen",lwd=3)
+diff_df<-kid.weights$weight-mean(kid.weights$weight)
+plot(kid.weights$weight, ylim=c(-30,150),
+     ylab="rediduals (weight pounds)", xlab="x")
+abline(h=mean(kid.weights$weight),
+       col="forestgreen",lwd=3,lty=1)
 
-#rect(xleft=c(1:4),ybottom=mean(iris_versi$Petal.Length),
-#     xright=c(1:4)+abs(diff_df[c(1:4)]),
-#     ytop=mean(iris_versi$Petal.Length)+diff_df[c(1:4)],
-#     density=30,col = "blue")
-
-segments(x0=c(1:50),y0=iris_versi$Petal.Length,
-         x1=c(1:50),y1=mean(iris_versi$Petal.Length),col="brown",lwd=3)
+segments(x0=c(1:nrow(kid.weights)),y0=kid.weights$weight,
+         x1=c(1:nrow(kid.weights)),y1=mean(kid.weights$weight),col="red",lwd=2)
 ```
 
 - Total Sum of Squares (TSS)
@@ -429,44 +459,43 @@ $$
   \end{aligned}
 $$
 
-
-
-
-
-Regression and linear models - R-squared (14/14)
-=========================================================
-Left: 70%
-```{r,prompt=T,echo=F}
-summary(lmResult)
-```
 ***
-- The **R-squared** value represents the proportion of variability in the response variable that is explained by the explanatory variable.
 
-- A high **R-squared** here indicates that the line fits closely to the data.
+Residuals from the model
 
-Regression and linear models - F-statistics.
-=========================================================
-Left: 70%
-```{r,prompt=T,echo=F}
-summary(lmResult)
+```{r,echo=F}
+plot(kid.weights$height,lmResult$residual,ylim=c(-30,150),
+     ylab="residuals (weight pounds)",xlab="height (inches)")
+abline(h=0,col="blueviolet",lwd=3, lty=1)
+x<-kid.weights$height
+resid<-lmResult$residuals
+for (i in 1:nrow(kid.weights)){
+  lines(c(x[i],x[i]),c(0,resid[i]), col="red",lwd=2)
+}
 ```
-***
-The results from linear models also provides a measure of significance for a variable not being relevant.
+- Sum of the square of the residuals (SSE)
+$$
+SSE  = \sum_{i=1}^{n}(y_i-\hat{y_i})^2
+$$
 
-Statistics (Extra) - A fit line
+More about R-squared (20/23)
 =========================================================
 
-![alt text](imgs/fittedline.png)
+```{r,warning=F,echo=F,fig.width=6,fig.height=6,dpi=300,out.width="720px",height="720px"}
+data(kid.weights)
+library(ggplot2,quietly=T)
+e<-c(resid(lm(weight~1,data=kid.weights)),resid(lm(weight~height,data=kid.weights)))
+fit4figure<-factor(c(rep("Fit2mean",nrow(kid.weights)),
+                   rep("Fit2height",nrow(kid.weights))), levels=c("Fit2mean","Fit2height"))
+ggplot(data.frame(e=e,fit=fit4figure),aes(y=e,x=fit,fill=fit)) + 
+  geom_dotplot(binaxis="y", stackdir="center",binwidth = 1) + xlab("Model fit") +
+  ylab("residuals (pounds)")
+```
 
-Statistics (Extra) - Calculating R-squared
+More about R-squared - Calculating R-squared (21/23)
 =========================================================
 
-![alt text](imgs/rsquared.png)
-
-Statistics (Extra) - Calculating R-squared
-=========================================================
-
-The fraction of variability in the independent variable (Y; or the *Petal.Length* in this example) that can be explained by the explanatory variable (X; or the *Petal.Width* in this example).
+The fraction of variability in the independent variable (Y; or the *weight* in this example) that can be explained by the explanatory variable (X; or the *height* in this example).
 
 $$
 TSS=\text{Total Sum of Squares}=\sum_{i=1}^n(y_i-\overline y)^2
@@ -475,18 +504,26 @@ SSE=\text{Sum of the Square of the residuals}=\sum_{i=1}^n(y_i-\hat{y})^2
 $$
 
 ```{r,prompt=T}
-SSE <- sum(resid(lmResult)^2)
-TSS <- sum((iris_versi$Petal.Length - mean(iris_versi$Petal.Length))^2)
-1- SSE/TSS
+SSE<-sum(resid(lm(weight~height,data=kid.weights))^2)
+TSS<-sum(resid(lm(weight~1,data=kid.weights))^2)
+R_square<-1-(SSE/TSS)
+R_square
 summary(lmResult)$r.squared
 ```
 
-Statistics (Extra) - Calculating R-squared
+
+Interpret output of lm() - F-statistics (22/23)
 =========================================================
 
-![alt text](imgs/fstatistic.png)
+The R-squared shows the fraction of the total variability that is explained by the linear relationship with the explanatory variable. However, it does not provide a formal hypothesis test for this relationship. 
 
-Statistics (Extra) - Calculating F-stat
+The F-test results from linear models also provides a measure of significance for a variable not being relevant
+
+```{r,prompt=T,echo=T}
+summary(lmResult)$fstatistic
+```
+
+More about F-statistics - Calculating F-stat (23/23)
 =========================================================
 
 $$
@@ -495,16 +532,29 @@ $$
 
 ```{r,prompt=T}
 
-n=nrow(iris_versi)
+n=nrow(kid.weights)
+SSM <- sum((predict(lmResult) - mean(kid.weights$weight))^2)
 MSE <-sum(lmResult$residuals^2)/(n-2)
-RSS <- sum((predict(lmResult) - mean(iris_versi$Petal.Length))^2)
-MSM <-RSS/1
+
+MSM <-SSM/1
 
 MSM/MSE
 
 summary(lmResult)$fstatistic
-
 ```
+
+
+Statistics (Extra) - A fit line
+=========================================================
+
+![alt text](imgs/fittedline.png)
+
+
+Statistics (Extra) - Calculating R-squared
+=========================================================
+
+![alt text](imgs/rsquared.png)
+
 
 Time for an exercise!
 ========================================================
@@ -518,5 +568,4 @@ Answers to exercise.
 
 Answers can be found [here](answers/Session3_answers3.html)
 
-R code for solutions can be found here  [here]
 
