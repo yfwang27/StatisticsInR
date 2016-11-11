@@ -36,7 +36,7 @@ Once the zip files are unzipped, all presentations are available as HTML slides 
 * **exercises/**
 Practicals as HTML pages.
 * **answers/**
-Practicals with answers as HTML pages and R code solutions.
+Practicals with answers as HTML pages.
 
 Set the Working directory
 ========================================================
