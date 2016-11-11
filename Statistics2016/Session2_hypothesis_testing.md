@@ -701,16 +701,28 @@ df_Ration1<-13-1
 df_Ration2<-13-1
 ```
 
-Calculate the F critical value
-
-F distribution, ⍺=0.05, df1=5, and df2=5
+Calculate the F critical values for F distribution with *⍺=0.05*, *df1=df_Ration1*, and *df2=df_Ration2*
 
 ```r
-qf(c(0.025,0.975),df1=df_Ration1, df2=df_Ration2)
+critical_values<-qf(c(0.025,0.975),df1=df_Ration1, df2=df_Ration2)
+critical_values
 ```
 
 ```
 [1] 0.3051314 3.2772771
+```
+
+Calculate the Confidence interval
+
+
+```r
+conf.level<-0.95
+BETA<- (1-conf.level)/2
+c(Fratio/qf(1 - BETA, df1=df_Ration1, df2=df_Ration2), Fratio/qf(BETA, df1=df_Ration1, df2=df_Ration2))
+```
+
+```
+[1] 0.5599663 6.0143437
 ```
 
 
@@ -725,7 +737,7 @@ H_a:\sigma_{Ration1}^{2}\neq \sigma_{Ration2}^{2}$$
 
 
 ```r
-var.test(chicken$Ration1,chicken$Ration2)
+var.test(chicken$Ration1,chicken$Ration2,conf.level = 0.95)
 ```
 
 ```
@@ -924,7 +936,7 @@ summary(PlantGrowth)
  Max.   :6.310            
 ```
 ***
-![plot of chunk unnamed-chunk-38](Session2_hypothesis_testing-figure/unnamed-chunk-38-1.png)
+![plot of chunk unnamed-chunk-39](Session2_hypothesis_testing-figure/unnamed-chunk-39-1.png)
 
 ANOVA (3/5)
 ========================================================
