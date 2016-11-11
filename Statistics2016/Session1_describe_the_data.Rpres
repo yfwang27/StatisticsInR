@@ -303,11 +303,12 @@ lines(density(Life_exp$life.expectancy),col="red")
 Data shape - histogram (3/4)
 ========================================================
 
-```{r,echo=F,fig.width=4.5,fig.height=5,dpi=300}
+```{r,echo=F,out.width="850px",height="850px"}
 par(mfrow=c(2,1))
-  hist(Life_exp$life.expectancy,breaks=10,freq = F,xlim=range(Life_exp$life.expectancy))
+  hist(Life_exp$life.expectancy,breaks=10,freq = F,
+       xlim=range(Life_exp$life.expectancy),xlab="Life expectancy (Years)")
   lines(density(Life_exp$life.expectancy),col="red",lwd=3)
-  boxplot(Life_exp$life.expectancy,ylab="Life expectancy (Years)",horizontal=T, ylim=range(Life_exp$life.expectancy))
+  boxplot(Life_exp$life.expectancy,xlab="Life expectancy (Years)",horizontal=T, ylim=range(Life_exp$life.expectancy))
   abline(v=mean(Life_exp$life.expectancy),col="forestgreen",lwd=3)
 par(mfrow=c(1,1))
 ```
@@ -319,9 +320,10 @@ Left: 40%
 
 ```{r,echo=F}
 par(mfrow=c(2,1))
-  hist(Life_exp$life.expectancy,breaks=10,freq = F,xlim=range(Life_exp$life.expectancy))
+  hist(Life_exp$life.expectancy,breaks=10,freq = F,xlab="Life expectancy (Years)",
+       xlim=range(Life_exp$life.expectancy))
   lines(density(Life_exp$life.expectancy),col="red",lwd=3)
-  boxplot(Life_exp$life.expectancy,ylab="Life expectancy (Years)",horizontal=T, ylim=range(Life_exp$life.expectancy))
+  boxplot(Life_exp$life.expectancy,xlab="Life expectancy (Years)",horizontal=T, ylim=range(Life_exp$life.expectancy))
   abline(v=mean(Life_exp$life.expectancy),col="forestgreen",lwd=3)
 par(mfrow=c(1,1))
 ```
