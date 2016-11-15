@@ -1088,14 +1088,14 @@ Assuming there are 20,000 genes in the mouse genome, we have gene list A (300 ge
 
 
 ```r
-fmatrix<-matrix(c(5,40,295,19960),byrow=T,ncol=2,dimnames=list(c("In.B","Not.In.B"),c("In.A","Not.In.A")))
+fmatrix<-matrix(c(5,45,295,19655),byrow=T,ncol=2,dimnames=list(c("In.B","Not.In.B"),c("In.A","Not.In.A")))
 fmatrix
 ```
 
 ```
          In.A Not.In.A
-In.B        5       40
-Not.In.B  295    19960
+In.B        5       45
+Not.In.B  295    19655
 ```
 
 ```r
@@ -1107,13 +1107,13 @@ fisher.test(fmatrix)
 	Fisher's Exact Test for Count Data
 
 data:  fmatrix
-p-value = 0.0005133
+p-value = 0.0008958
 alternative hypothesis: true odds ratio is not equal to 1
 95 percent confidence interval:
-  2.585939 21.637276
+  2.276483 18.782110
 sample estimates:
 odds ratio 
-  8.454877 
+   7.40199 
 ```
 
 

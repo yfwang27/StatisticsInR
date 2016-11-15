@@ -2059,13 +2059,13 @@ H_a:\text{ the odds ratio is larger than 1 } \]</p>
 
 <p>Assuming there are 20,000 genes in the mouse genome, we have gene list A (300 genes) and B (50 genes). The number of overlap genes between list A and B is 5. Is the overlap between the two list significant?</p>
 
-<pre><code class="r">fmatrix&lt;-matrix(c(5,40,295,19960),byrow=T,ncol=2,dimnames=list(c(&quot;In.B&quot;,&quot;Not.In.B&quot;),c(&quot;In.A&quot;,&quot;Not.In.A&quot;)))
+<pre><code class="r">fmatrix&lt;-matrix(c(5,45,295,19655),byrow=T,ncol=2,dimnames=list(c(&quot;In.B&quot;,&quot;Not.In.B&quot;),c(&quot;In.A&quot;,&quot;Not.In.A&quot;)))
 fmatrix
 </code></pre>
 
 <pre><code>         In.A Not.In.A
-In.B        5       40
-Not.In.B  295    19960
+In.B        5       45
+Not.In.B  295    19655
 </code></pre>
 
 <pre><code class="r">fisher.test(fmatrix)
@@ -2075,13 +2075,13 @@ Not.In.B  295    19960
     Fisher&#39;s Exact Test for Count Data
 
 data:  fmatrix
-p-value = 0.0005133
+p-value = 0.0008958
 alternative hypothesis: true odds ratio is not equal to 1
 95 percent confidence interval:
-  2.585939 21.637276
+  2.276483 18.782110
 sample estimates:
 odds ratio 
-  8.454877 
+   7.40199 
 </code></pre>
 
 </div>

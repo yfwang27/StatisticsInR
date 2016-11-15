@@ -900,7 +900,7 @@ H_a:\text{ the odds ratio is larger than 1 }$$
 Assuming there are 20,000 genes in the mouse genome, we have gene list A (300 genes) and B (50 genes). The number of overlap genes between list A and B is 5. Is the overlap between the two list significant?
 
 ```{r}
-fmatrix<-matrix(c(5,40,295,19960),byrow=T,ncol=2,dimnames=list(c("In.B","Not.In.B"),c("In.A","Not.In.A")))
+fmatrix<-matrix(c(5,45,295,19655),byrow=T,ncol=2,dimnames=list(c("In.B","Not.In.B"),c("In.A","Not.In.A")))
 fmatrix
 fisher.test(fmatrix)
 ```
