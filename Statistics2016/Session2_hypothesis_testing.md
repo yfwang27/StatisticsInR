@@ -374,7 +374,7 @@ $$
 *for example*
 
 $$
-\text{95% CI for }\overline X\text{ is the probabily that the confidence interval contains the population mean}
+\text{95% CI for }\overline X\text{ is the probability that the confidence interval contains the population mean}
 
 $$
 

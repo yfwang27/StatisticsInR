@@ -130,8 +130,7 @@ $(document).ready(function () {
 </ul>
 <pre class="r"><code>data(iris)</code></pre>
 <ul>
-<li><p>What is the formula for the best fit lines for X vs Y</p></li>
-<li><p>What is the formula for the best fit lines for X vs Y and X vs Z</p></li>
+<li>What is the formula for the best fit lines for X vs Y</li>
 </ul>
 <pre class="r"><code> lmXY &lt;- lm(Petal.Length~Petal.Width,iris)
 lmXY</code></pre>
@@ -173,14 +172,14 @@ lmXY</code></pre>
 <li>Predict the <em>Petal.Length</em> when <em>Petal.Width=c(0.6,0.7,1.8)</em></li>
 </ul>
 <pre class="r"><code>new_width&lt;-c(0.6,0.7,1.8)
-# option 1
+# option 1: use the $coefficients
 lmXY$coefficients</code></pre>
 <pre><code>## (Intercept) Petal.Width 
 ##    1.083558    2.229940</code></pre>
 <pre class="r"><code>predictedLength &lt;- unname(lmXY$coefficients[1] + lmXY$coefficients[2]*new_width)
 predictedLength</code></pre>
 <pre><code>## [1] 2.421522 2.644516 5.097451</code></pre>
-<pre class="r"><code># option 2
+<pre class="r"><code># option 2: use the predict() function
 dfnew_width&lt;-data.frame(Petal.Width=c(0.6,0.7,1.8))
 predict(lmXY,dfnew_width)</code></pre>
 <pre><code>##        1        2        3 

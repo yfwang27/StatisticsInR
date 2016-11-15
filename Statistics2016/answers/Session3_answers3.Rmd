@@ -17,7 +17,6 @@ data(iris)
 ```
 - What is the formula for the best fit lines for X vs Y
 
-- What is the formula for the best fit lines for X vs Y and X vs Z
 ```{r,message=T}
  lmXY <- lm(Petal.Length~Petal.Width,iris)
 lmXY
@@ -35,11 +34,11 @@ summary(lmXY)$r.squared
 - Predict the *Petal.Length* when *Petal.Width=c(0.6,0.7,1.8)*
 ```{r,message=T}
 new_width<-c(0.6,0.7,1.8)
-# option 1
+# option 1: use the $coefficients
 lmXY$coefficients
 predictedLength <- unname(lmXY$coefficients[1] + lmXY$coefficients[2]*new_width)
 predictedLength
-# option 2
+# option 2: use the predict() function
 dfnew_width<-data.frame(Petal.Width=c(0.6,0.7,1.8))
 predict(lmXY,dfnew_width)
 ```
